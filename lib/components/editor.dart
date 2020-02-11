@@ -1,10 +1,13 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class Editor extends StatelessWidget {
   final TextEditingController controlador;
   final String label;
+  final double fontSize;
 
-  Editor({this.controlador, this.label});
+  Editor({this.controlador, this.label, this.fontSize});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +16,7 @@ class Editor extends StatelessWidget {
       child: TextField(
         controller: controlador,
         style: TextStyle(
-          fontSize: 24.0,
+          fontSize: this.fontSize == null ? 24.0 : this.fontSize,
         ),
         decoration: InputDecoration(
           labelText: label,
