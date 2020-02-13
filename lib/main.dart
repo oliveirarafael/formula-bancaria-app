@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:formula_bancaria_app/screens/login/acesso.dart';
-import 'package:formula_bancaria_app/screens/simulado/lista.dart';
+import 'package:formula_bancaria_app/screens/usuario/formulario_login.dart';
 
 void main() => runApp(FormulaBancariaAPP());
 
@@ -16,7 +15,7 @@ class FormulaBancariaAPP extends StatelessWidget {
           textTheme: ButtonTextTheme.primary,
         ),
       ),
-      home: Acesso(),
+      home: FormularioLogin(),
     );
   }
 }
