@@ -7,15 +7,14 @@ import 'package:formula_bancaria_app/screens/simulado/lista.dart';
 import 'package:formula_bancaria_app/services/api.dart';
 
 class FormularioLogin extends StatefulWidget {
-  final TextEditingController _email = TextEditingController();
-  final TextEditingController _senha = TextEditingController();
-
   @override
   _FormularioLoginState createState() => _FormularioLoginState();
 }
 
 class _FormularioLoginState extends State<FormularioLogin> {
   BuildContext _context;
+  final _loginFormKey = GlobalKey<FormState>();
+  String _email, _senha;
 
   @override
   Widget build(BuildContext context) {
@@ -25,38 +24,54 @@ class _FormularioLoginState extends State<FormularioLogin> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(
           top: 60,
-          left: 40,
+          left: 15,
           right: 40,
         ),
-        child: Column(
-          children: <Widget>[
-            Logo(
-              width: 220,
-            ),
-            _espacamento(20),
-            _email(),
-            _espacamento(10),
-            _senha(),
-            _espacamento(10),
-            Row(
-              children: <Widget>[
-                _botaoLogin(),
-                //_linkEsqueceuSenha(),
-              ],
-            ),
-          ],
+        child: Form(
+          key: _loginFormKey,
+          child: Column(
+            children: <Widget>[
+              Logo(
+                width: 220,
+              ),
+              _espacamento(20),
+              _emailFormField(),
+              _espacamento(10),
+              _senhaFormField(),
+              _espacamento(10),
+              Row(
+                children: <Widget>[
+                  _botaoLogin(),
+                  //_linkEsqueceuSenha(),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _email() {
+  Widget _emailFormField() {
     return TextFormField(
-      controller: widget._email,
-      autofocus: true,
+      //autofocus: true,
+      onSaved: (email) {
+        this._email = email;
+      },
+      validator: (email) {
+        if(email.isEmpty){
+          return 'Campo Obrigatório';
+        }
+
+        if(emailInvalido(email)){
+          return 'E-mail inválido';
+        }
+
+      },
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
           labelText: "E-mail",
+          icon: Icon(Icons.email),
           labelStyle: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w400,
@@ -68,14 +83,30 @@ class _FormularioLoginState extends State<FormularioLogin> {
     );
   }
 
-  Widget _senha() {
+  bool emailInvalido(String email){
+    return !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
+  } 
+
+  Widget _senhaFormField() {
     return TextFormField(
-      controller: widget._senha,
-      autofocus: true,
+      //autofocus: true,
+      onSaved: (senha){
+         this._senha = senha;
+      },
+      validator: (senha) {
+          if(senha.isEmpty){
+            return 'Campo Obrigatório';
+          }
+
+          if(senha.length < 6){
+            return 'Deve ter mais que 5 caracteres';
+          }
+      },
       keyboardType: TextInputType.text,
       obscureText: true,
       decoration: InputDecoration(
           labelText: "Senha",
+          icon: Icon(Icons.lock),
           labelStyle: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w400,
@@ -97,25 +128,32 @@ class _FormularioLoginState extends State<FormularioLogin> {
     return RaisedButton(
       child: Text("Login"),
       onPressed: () {
-        post(
-          resource: 'auth',
-          body: jsonEncode(Usuario('user@email.com.br', '123456')),
-        ).then((response) {
-          if (response.statusCode == 200) {
-            Navigator.push(
-              this._context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return ListaSimulados();
-                },
-              ),
-            );
-          } else {}
-        }).catchError((erro) {
-          debugPrint('Erro: $erro');
-        });
+        if (this._loginFormKey.currentState.validate()) {
+          this._loginFormKey.currentState.save();
+          _login();
+        }
       },
     );
+  }
+
+  void _login() {
+    post(
+      resource: 'auth',
+      body: jsonEncode(Usuario('user@email.com.br', '123456')),
+    ).then((response) {
+      if (response.statusCode == 200) {
+        Navigator.push(
+          this._context,
+          MaterialPageRoute(
+            builder: (context) {
+              return ListaSimulados();
+            },
+          ),
+        );
+      } else {}
+    }).catchError((erro) {
+      debugPrint('Erro: $erro');
+    });
   }
 
   Widget _linkEsqueceuSenha() {
