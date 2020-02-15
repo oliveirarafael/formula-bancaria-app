@@ -2,15 +2,29 @@ import 'package:formula_bancaria_app/interceptors/auth_interceptor.dart';
 import 'package:http/http.dart';
 import 'package:http_interceptor/http_interceptor.dart';
 
-Future<Response> post({String resource, dynamic body}) async {
-  Client client = HttpClientWithInterceptor.build(
+final int STATUS_CREATED = 201;
+final int STATUS_OK = 200;
+final int STATUS_NOT_FOUND = 404;
+
+Client _client = HttpClientWithInterceptor.build(
     interceptors: [
       AuthInterceptor(),
     ],
-  );
-  return await client.post(
-    'http://10.0.1.13:8080/api/v1/${resource}',
+    requestTimeout: Duration(seconds: 15),
+);
+
+const String _baseUrl = 'http://10.0.1.13:8080/api/v1';
+
+Future<Response> post({String resource, dynamic body}) async {
+  return await _client.post(
+    '$_baseUrl/${resource}',
     body: body,
-    headers: {'Content-Type':'application/json'}
+    headers: {
+      'Content-Type': 'application/json',
+    },
   );
+}
+
+Future<Response> get(String resource) async {
+  return await _client.get('$_baseUrl/${resource}');
 }

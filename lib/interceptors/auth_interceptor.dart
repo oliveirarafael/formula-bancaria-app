@@ -7,22 +7,23 @@ import 'package:http_interceptor/http_interceptor.dart';
 class AuthInterceptor implements InterceptorContract {
   @override
   Future<RequestData> interceptRequest({RequestData data}) async {
-    debugPrint('****** Resquest ********');
-    debugPrint('url: ${data.url}');
-    //debugPrint('body: ${data.body}');
+    print(data.url);
+    print(data.method);
+    if (!data.url.contains('auth')) {
+      data.headers['Authorization'] = 'Bearer ${Auth.token()}';
+    }
+    print(data.headers);
     return data;
   }
 
   @override
   Future<ResponseData> interceptResponse({ResponseData data}) async {
-      //debugPrint('****** Response ********');
-      //debugPrint('body: ${data.headers}');
-      //debugPrint('body: ${data.body}');
-      if(data.statusCode == 200 && data.body.contains('token')){
-        debugPrint('Token Armazenado');
-        dynamic jsonResponse = jsonDecode(data.body);
-        Auth.save(jsonResponse['token']);
-      }
-      return data;
+    if (data.statusCode == 200 && data.body.contains('token')) {
+      debugPrint('Token Armazenado');
+      dynamic jsonResponse = jsonDecode(data.body);
+      Auth.saveToken(jsonResponse['token']);
+    }
+    //print(data.body);
+    return data;
   }
 }

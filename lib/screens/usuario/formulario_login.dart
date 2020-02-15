@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:formula_bancaria_app/components/logo.dart';
-import 'package:formula_bancaria_app/models/auth.dart';
 import 'package:formula_bancaria_app/models/usuario.dart';
 import 'package:formula_bancaria_app/screens/simulado/lista.dart';
 import 'package:formula_bancaria_app/services/api.dart';
@@ -130,8 +129,9 @@ class _FormularioLoginState extends State<FormularioLogin> {
     return RaisedButton(
       child: Text("Login"),
       onPressed: () {
-        if (this._loginFormKey.currentState.validate()) {
-          this._loginFormKey.currentState.save();
+        var currentState = this._loginFormKey.currentState;
+        if (currentState.validate()) {
+          currentState.save();
           _login();
         }
       },
@@ -141,7 +141,12 @@ class _FormularioLoginState extends State<FormularioLogin> {
   void _login() {
     post(
       resource: 'auth',
-      body: jsonEncode(Usuario(this._email, this._senha)),
+      body: jsonEncode(
+        Usuario(
+          this._email,
+          this._senha,
+        ),
+      ),
     ).then((response) {
       if (response.statusCode == 200) {
         Navigator.push(
@@ -162,7 +167,7 @@ class _FormularioLoginState extends State<FormularioLogin> {
               actions: <Widget>[
                 FlatButton(
                   child: Text('OK'),
-                  onPressed: (){
+                  onPressed: () {
                     Navigator.pop(context);
                   },
                 ),

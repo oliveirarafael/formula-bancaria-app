@@ -1,32 +1,54 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:formula_bancaria_app/models/simulado.dart';
 import 'package:formula_bancaria_app/screens/simulado/formulario.dart';
+import 'package:formula_bancaria_app/services/api.dart';
 
 class ListaSimulados extends StatefulWidget {
-  final List<Simulado> _simulados = List();
-
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return ListaSimuladoState();
+    return _ListaSimuladoState();
   }
 }
 
-class ListaSimuladoState extends State<ListaSimulados> {
+class _ListaSimuladoState extends State<ListaSimulados> {
   BuildContext _context;
+  Future<List<Simulado>> _futureSimulados;
+
+  @override
+  void initState() {
+    this._futureSimulados = _carregaSimulados();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     this._context = context;
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Simulados'),
       ),
-      body: ListView.builder(
-        itemCount: widget._simulados.length,
-        itemBuilder: (context, posicao) {
-          return ItemSimulado(widget._simulados[posicao]);
+      body: FutureBuilder(
+        future: this._futureSimulados,
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+            case ConnectionState.waiting:
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            case ConnectionState.done:
+            default:
+              if (snapshot.hasData) {
+                return _simuladosList(snapshot.data);
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+          }
         },
       ),
       floatingActionButton: FloatingActionButton(
@@ -36,30 +58,46 @@ class ListaSimuladoState extends State<ListaSimulados> {
     );
   }
 
+  Widget _simuladosList(List<Simulado> simulados) {
+    return ListView.builder(
+      itemCount: simulados.length,
+      itemBuilder: (context, posicao) {
+        return _ItemSimulado(simulados[posicao]);
+      },
+    );
+  }
+
   Function _formulario() {
     Navigator.push(
       this._context,
       MaterialPageRoute(builder: (context) {
         return FormularioSimulado();
       }),
-    ).then(
-      (simulado) => _atualiza(simulado),
-    );
+    ).then((simulado) {
+    });
   }
 
-  void _atualiza(simulado) {
-    if (simulado != null) {
-      setState(() {
-        widget._simulados.add(simulado);
-      });
-    }
+  Future<List<Simulado>> _carregaSimulados() async {
+    List<Simulado> simulados = [];
+    get('simulados').then((response) {
+      if (response.statusCode == STATUS_OK) {
+        List content = jsonDecode(response.body)['content'];
+        content.forEach((mapSimulado) {
+          simulados.add(Simulado(mapSimulado['titulo'], mapSimulado['descricao']));
+        });
+      }
+    }).catchError((erro) {
+      debugPrint('$erro');
+    });
+
+    return await Future.value(simulados);
   }
 }
 
-class ItemSimulado extends StatelessWidget {
+class _ItemSimulado extends StatelessWidget {
   final Simulado _simulado;
 
-  ItemSimulado(this._simulado);
+  _ItemSimulado(this._simulado);
 
   @override
   Widget build(BuildContext context) {
