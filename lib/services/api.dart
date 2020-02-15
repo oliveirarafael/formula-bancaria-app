@@ -1,11 +1,11 @@
-import 'package:formula_bancaria_app/interceptors/loggin_interceptor.dart';
+import 'package:formula_bancaria_app/interceptors/auth_interceptor.dart';
 import 'package:http/http.dart';
 import 'package:http_interceptor/http_interceptor.dart';
 
 Future<Response> post({String resource, dynamic body}) async {
   Client client = HttpClientWithInterceptor.build(
     interceptors: [
-      LoggingInterceptor(),
+      AuthInterceptor(),
     ],
   );
   return await client.post(

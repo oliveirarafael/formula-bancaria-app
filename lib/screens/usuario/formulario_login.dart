@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:formula_bancaria_app/components/logo.dart';
+import 'package:formula_bancaria_app/models/auth.dart';
 import 'package:formula_bancaria_app/models/usuario.dart';
 import 'package:formula_bancaria_app/screens/simulado/lista.dart';
 import 'package:formula_bancaria_app/services/api.dart';
@@ -59,14 +60,13 @@ class _FormularioLoginState extends State<FormularioLogin> {
         this._email = email;
       },
       validator: (email) {
-        if(email.isEmpty){
+        if (email.isEmpty) {
           return 'Campo Obrigatório';
         }
 
-        if(emailInvalido(email)){
+        if (emailInvalido(email)) {
           return 'E-mail inválido';
         }
-
       },
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
@@ -83,24 +83,26 @@ class _FormularioLoginState extends State<FormularioLogin> {
     );
   }
 
-  bool emailInvalido(String email){
-    return !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
-  } 
+  bool emailInvalido(String email) {
+    return !RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(email);
+  }
 
   Widget _senhaFormField() {
     return TextFormField(
       //autofocus: true,
-      onSaved: (senha){
-         this._senha = senha;
+      onSaved: (senha) {
+        this._senha = senha;
       },
       validator: (senha) {
-          if(senha.isEmpty){
-            return 'Campo Obrigatório';
-          }
+        if (senha.isEmpty) {
+          return 'Campo Obrigatório';
+        }
 
-          if(senha.length < 6){
-            return 'Deve ter mais que 5 caracteres';
-          }
+        if (senha.length < 6) {
+          return 'Deve ter mais que 5 caracteres';
+        }
       },
       keyboardType: TextInputType.text,
       obscureText: true,
@@ -139,7 +141,7 @@ class _FormularioLoginState extends State<FormularioLogin> {
   void _login() {
     post(
       resource: 'auth',
-      body: jsonEncode(Usuario('user@email.com.br', '123456')),
+      body: jsonEncode(Usuario(this._email, this._senha)),
     ).then((response) {
       if (response.statusCode == 200) {
         Navigator.push(
@@ -150,7 +152,25 @@ class _FormularioLoginState extends State<FormularioLogin> {
             },
           ),
         );
-      } else {}
+      } else {
+        showDialog(
+          context: this._context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Usuário'),
+              content: Text('Usuário inválido'),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('OK'),
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
     }).catchError((erro) {
       debugPrint('Erro: $erro');
     });

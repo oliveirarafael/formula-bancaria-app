@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:formula_bancaria_app/components/editor.dart';
+import 'package:formula_bancaria_app/models/auth.dart';
 import 'package:formula_bancaria_app/models/simulado.dart';
 
 const _tituloAppBar = 'Novo Simulado';
