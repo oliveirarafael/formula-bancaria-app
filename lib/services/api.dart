@@ -10,10 +10,10 @@ Client _client = HttpClientWithInterceptor.build(
     interceptors: [
       AuthInterceptor(),
     ],
-    requestTimeout: Duration(seconds: 15),
+    requestTimeout: Duration(seconds: 20),
 );
 
-const String _baseUrl = 'http://10.0.1.13:8080/api/v1';
+const String _baseUrl = 'http://192.168.0.23:8080/api/v1';
 
 Future<Response> post({String resource, dynamic body}) async {
   return await _client.post(
@@ -26,5 +26,5 @@ Future<Response> post({String resource, dynamic body}) async {
 }
 
 Future<Response> get(String resource) async {
-  return await _client.get('$_baseUrl/${resource}');
+  return await _client.get('$_baseUrl/${resource}');;
 }

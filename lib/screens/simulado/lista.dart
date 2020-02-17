@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:formula_bancaria_app/models/simulado.dart';
 import 'package:formula_bancaria_app/screens/simulado/formulario.dart';
-import 'package:formula_bancaria_app/services/api.dart';
+import 'package:formula_bancaria_app/services/api.dart' as api;
+import 'package:http/http.dart';
 
 class ListaSimulados extends StatefulWidget {
   @override
@@ -15,24 +16,26 @@ class ListaSimulados extends StatefulWidget {
 
 class _ListaSimuladoState extends State<ListaSimulados> {
   BuildContext _context;
-  Future<List<Simulado>> _futureSimulados;
+  Future<Response> _future;
 
   @override
   void initState() {
-    this._futureSimulados = _carregaSimulados();
     super.initState();
+    this._future = api.get('simulados');
   }
 
   @override
   Widget build(BuildContext context) {
     this._context = context;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Simulados'),
       ),
       body: FutureBuilder(
-        future: this._futureSimulados,
+        future: this._future,
         builder: (context, snapshot) {
+
           switch (snapshot.connectionState) {
             case ConnectionState.none:
             case ConnectionState.waiting:
@@ -40,14 +43,16 @@ class _ListaSimuladoState extends State<ListaSimulados> {
                 child: CircularProgressIndicator(),
               );
             case ConnectionState.done:
-            default:
               if (snapshot.hasData) {
-                return _simuladosList(snapshot.data);
-              } else {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
+                return _carrega(snapshot.data); //_simuladosList(snapshot.data);
               }
+              return Center(
+                child: Text('Não tem dados...'),
+              );
+            default:
+              return Center(
+                child: CircularProgressIndicator(),
+              );
           }
         },
       ),
@@ -55,6 +60,24 @@ class _ListaSimuladoState extends State<ListaSimulados> {
         child: Icon(Icons.add),
         onPressed: () => _formulario(),
       ),
+    );
+  }
+
+  Widget _carrega(Response response) {
+    List<Simulado> simulados = [];
+    if (response.statusCode == api.STATUS_OK) {
+      List content = jsonDecode(response.body)['content'];
+
+      content.forEach((mapSimulado) {
+        simulados.add(Simulado(
+          mapSimulado['titulo'],
+          mapSimulado['descricao'],
+        ));
+      });
+      return _simuladosList(simulados);
+    }
+    return Center(
+      child: Text('Não tem dados...'),
     );
   }
 
@@ -74,23 +97,11 @@ class _ListaSimuladoState extends State<ListaSimulados> {
         return FormularioSimulado();
       }),
     ).then((simulado) {
+      setState(() {
+        this._future = api.get('simulados');
+      });
+      //this._futureSimulados = _carregaSimulados();
     });
-  }
-
-  Future<List<Simulado>> _carregaSimulados() async {
-    List<Simulado> simulados = [];
-    get('simulados').then((response) {
-      if (response.statusCode == STATUS_OK) {
-        List content = jsonDecode(response.body)['content'];
-        content.forEach((mapSimulado) {
-          simulados.add(Simulado(mapSimulado['titulo'], mapSimulado['descricao']));
-        });
-      }
-    }).catchError((erro) {
-      debugPrint('$erro');
-    });
-
-    return await Future.value(simulados);
   }
 }
 
