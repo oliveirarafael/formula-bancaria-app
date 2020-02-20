@@ -23,7 +23,7 @@ class AuthInterceptor implements InterceptorContract {
       dynamic jsonResponse = jsonDecode(data.body);
       Auth.saveToken(jsonResponse['token']);
     }
-    //print(data.body);
+    print(data.body);
     return data;
   }
 }

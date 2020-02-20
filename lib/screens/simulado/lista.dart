@@ -70,8 +70,8 @@ class _ListaSimuladoState extends State<ListaSimulados> {
 
       content.forEach((mapSimulado) {
         simulados.add(Simulado(
-          mapSimulado['titulo'],
-          mapSimulado['descricao'],
+          titulo: mapSimulado['titulo'],
+          descricao: mapSimulado['descricao'],
         ));
       });
       return _simuladosList(simulados);

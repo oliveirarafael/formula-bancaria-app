@@ -1,26 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'simulado.dart';
+part of 'modulo.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Simulado _$SimuladoFromJson(Map<String, dynamic> json) {
-  return Simulado(
+Modulo _$ModuloFromJson(Map<String, dynamic> json) {
+  return Modulo(
     uuid: json['uuid'] as String,
     titulo: json['titulo'] as String,
     descricao: json['descricao'] as String,
-    modulos: (json['modulos'] as List)
-        ?.map((e) =>
-            e == null ? null : Modulo.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    percentual: json['percentual'] as String,
+    simulado: json['simulado'] == null
+        ? null
+        : Simulado.fromJson(json['simulado'] as Map<String, dynamic>),
   );
 }
 
-Map<String, dynamic> _$SimuladoToJson(Simulado instance) => <String, dynamic>{
+Map<String, dynamic> _$ModuloToJson(Modulo instance) => <String, dynamic>{
       'uuid': instance.uuid,
       'titulo': instance.titulo,
       'descricao': instance.descricao,
-      'modulos': instance.modulos,
+      'percentual': instance.percentual,
+      'simulado': instance.simulado,
     };
