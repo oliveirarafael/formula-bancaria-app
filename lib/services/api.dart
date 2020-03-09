@@ -25,6 +25,6 @@ Future<Response> post({String resource, dynamic body}) async {
   );
 }
 
-Future<Response> get(String resource) {
-  return _client.get('$_baseUrl/${resource}');;
+Future<Response> get(String resource) async{
+  return await _client.get('$_baseUrl/${resource}');;
 }

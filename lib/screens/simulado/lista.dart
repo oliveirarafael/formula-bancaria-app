@@ -20,6 +20,11 @@ class _ListaSimuladoState extends State<ListaSimulados> {
   SimuladoBloc simuladoBloc = SimuladoBloc();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     this._context = context;
 
@@ -29,13 +34,13 @@ class _ListaSimuladoState extends State<ListaSimulados> {
       ),
       body: StreamBuilder<List<Simulado>>(
         stream: this.simuladoBloc.stream,
-        initialData: [],
+        initialData: List(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
             case ConnectionState.waiting:
               return Center(
-                child: CircularProgressIndicator(),
+                child: Text('Carregando dados...'),
               );
             case ConnectionState.done:
               if (snapshot.hasData) {
@@ -50,7 +55,7 @@ class _ListaSimuladoState extends State<ListaSimulados> {
                   child: Text('Ocorreu um erro...'),
                 );
               }
-             return Center(
+              return Center(
                 child: Text('Não tem dados...'),
               );
           }

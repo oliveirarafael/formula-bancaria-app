@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:formula_bancaria_app/components/editor.dart';
-import 'package:formula_bancaria_app/models/auth.dart';
 import 'package:formula_bancaria_app/models/simulado.dart';
 import 'package:formula_bancaria_app/screens/modulo/formulario.dart';
 import 'package:formula_bancaria_app/services/api.dart';
