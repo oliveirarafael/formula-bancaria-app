@@ -125,19 +125,13 @@ class FormularioSimuladoState extends State<FormularioSimulado> {
         (response) {
           if (response.statusCode == STATUS_CREATED) {
             Map simuladoJson = jsonDecode(response.body);
-            Navigator.push(
+            Navigator.pushNamed(
               this._context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return FormularioModulo(
-                    simulado: Simulado(
-                      uuid: simuladoJson['uuid'],
-                    ),
-                  );
-                },
+              '/novo-modulo',
+              arguments: Simulado(
+                uuid: simuladoJson['uuid'],
               ),
             );
-            //Navigator.pop(this._context, Simulado(uuid: simuladoJson['uuid']));
           }
         },
       ).catchError((erro) {

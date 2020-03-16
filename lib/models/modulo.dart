@@ -8,9 +8,10 @@ class Modulo {
   final String titulo;
   final String descricao;
   final String percentual;
+  final String simuladoUUID;
   final Simulado simulado;
 
-  Modulo({this.uuid, this.titulo, this.descricao, this.percentual, this.simulado});
+  Modulo({this.uuid, this.titulo, this.descricao, this.percentual, this.simuladoUUID, this.simulado});
 
   factory Modulo.fromJson(Map<String, dynamic> json) => _$ModuloFromJson(json);
   Map<String, dynamic> toJson() => _$ModuloToJson(this);

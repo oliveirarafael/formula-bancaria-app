@@ -12,6 +12,7 @@ class AuthInterceptor implements InterceptorContract {
     if (!data.url.contains('auth')) {
       data.headers['Authorization'] = 'Bearer ${Auth.token()}';
     }
+    print(data.body);
     print(data.headers);
     return data;
   }
@@ -23,6 +24,7 @@ class AuthInterceptor implements InterceptorContract {
       dynamic jsonResponse = jsonDecode(data.body);
       Auth.saveToken(jsonResponse['token']);
     }
+    print(data.headers);
     print(data.body);
     return data;
   }

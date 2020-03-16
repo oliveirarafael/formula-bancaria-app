@@ -149,14 +149,7 @@ class _FormularioLoginState extends State<FormularioLogin> {
       ),
     ).then((response) {
       if (response.statusCode == 200) {
-        Navigator.push(
-          this._context,
-          MaterialPageRoute(
-            builder: (context) {
-              return ListaSimulados();
-            },
-          ),
-        );
+        Navigator.pushNamed(this._context, '/simulados');
       } else {
         showDialog(
           context: this._context,

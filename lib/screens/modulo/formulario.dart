@@ -11,10 +11,6 @@ const _labelCampoDescricao = 'Descrição';
 const _textoBotaoContinuar = 'Continuar';
 
 class FormularioModulo extends StatefulWidget {
-  final Simulado simulado;
-
-  FormularioModulo({this.simulado});
-
   @override
   State<StatefulWidget> createState() {
     return FormularioModuloState();
@@ -24,12 +20,14 @@ class FormularioModulo extends StatefulWidget {
 class FormularioModuloState extends State<FormularioModulo> {
   String _titulo, _descricao;
   String _percentual;
+  Simulado _simulado;
   BuildContext _context;
   final _moduloFormKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     this._context = context;
+    this._simulado = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
         title: Text(_tituloAppBar),
@@ -151,11 +149,12 @@ class FormularioModuloState extends State<FormularioModulo> {
             titulo: this._titulo,
             descricao: this._descricao,
             percentual: this._percentual,
+            simuladoUUID: this._simulado.uuid,
           ),
         ),
       ).then((response) {
          if(response.statusCode == STATUS_CREATED){
-           
+            Navigator.pushNamed(this._context, '/simulados');
          }
       },).catchError((erro) {
           debugPrint('Erro: $erro');

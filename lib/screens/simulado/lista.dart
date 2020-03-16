@@ -1,11 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:formula_bancaria_app/blocs/simulado_bloc.dart';
 import 'package:formula_bancaria_app/models/simulado.dart';
+import 'package:formula_bancaria_app/repository/simulado/simulado_repository.dart';
 import 'package:formula_bancaria_app/screens/simulado/formulario.dart';
-import 'package:formula_bancaria_app/services/api.dart' as api;
-import 'package:http/http.dart';
+
 
 class ListaSimulados extends StatefulWidget {
   @override
@@ -17,12 +16,7 @@ class ListaSimulados extends StatefulWidget {
 
 class _ListaSimuladoState extends State<ListaSimulados> {
   BuildContext _context;
-  SimuladoBloc simuladoBloc = SimuladoBloc();
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  SimuladoRepository repository = SimuladoRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +26,8 @@ class _ListaSimuladoState extends State<ListaSimulados> {
       appBar: AppBar(
         title: Text('Simulados'),
       ),
-      body: StreamBuilder<List<Simulado>>(
-        stream: this.simuladoBloc.stream,
-        initialData: List(),
+      body: FutureBuilder(
+        future: this.repository.todos(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
@@ -78,17 +71,7 @@ class _ListaSimuladoState extends State<ListaSimulados> {
   }
 
   Function _formulario() {
-    Navigator.push(
-      this._context,
-      MaterialPageRoute(builder: (context) {
-        return FormularioSimulado();
-      }),
-    ).then((simulado) {
-      /*setState(() {
-        this._future = api.get('simulados');
-      });*/
-      //this._futureSimulados = _carregaSimulados();
-    });
+    Navigator.pushNamed(this._context, '/novo-simulado');
   }
 }
 

@@ -12,6 +12,7 @@ Modulo _$ModuloFromJson(Map<String, dynamic> json) {
     titulo: json['titulo'] as String,
     descricao: json['descricao'] as String,
     percentual: json['percentual'] as String,
+    simuladoUUID: json['simuladoUUID'] as String,
     simulado: json['simulado'] == null
         ? null
         : Simulado.fromJson(json['simulado'] as Map<String, dynamic>),
@@ -23,5 +24,6 @@ Map<String, dynamic> _$ModuloToJson(Modulo instance) => <String, dynamic>{
       'titulo': instance.titulo,
       'descricao': instance.descricao,
       'percentual': instance.percentual,
+      'simuladoUUID': instance.simuladoUUID,
       'simulado': instance.simulado,
     };
