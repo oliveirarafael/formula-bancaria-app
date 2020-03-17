@@ -8,12 +8,19 @@ part of 'simulado.dart';
 
 Simulado _$SimuladoFromJson(Map<String, dynamic> json) {
   return Simulado(
-    json['titulo'] as String,
-    json['descricao'] as String,
+    uuid: json['uuid'] as String,
+    titulo: json['titulo'] as String,
+    descricao: json['descricao'] as String,
+    modulos: (json['modulos'] as List)
+        ?.map((e) =>
+            e == null ? null : Modulo.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
   );
 }
 
 Map<String, dynamic> _$SimuladoToJson(Simulado instance) => <String, dynamic>{
+      'uuid': instance.uuid,
       'titulo': instance.titulo,
       'descricao': instance.descricao,
+      'modulos': instance.modulos,
     };

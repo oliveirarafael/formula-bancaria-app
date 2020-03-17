@@ -1,30 +1,33 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:formula_bancaria_app/models/modulo.dart';
 import 'package:formula_bancaria_app/models/simulado.dart';
-import 'package:formula_bancaria_app/screens/modulo/formulario.dart';
 import 'package:formula_bancaria_app/services/api.dart';
 
-const _tituloAppBar = 'Novo Simulado';
+const _tituloAppBar = 'Novo Modulo';
 const _labelCampoTitulo = 'Título';
 const _labelCampoDescricao = 'Descrição';
 const _textoBotaoContinuar = 'Continuar';
 
-class FormularioSimulado extends StatefulWidget {
+class FormularioModulo extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return FormularioSimuladoState();
+    return FormularioModuloState();
   }
 }
 
-class FormularioSimuladoState extends State<FormularioSimulado> {
+class FormularioModuloState extends State<FormularioModulo> {
   String _titulo, _descricao;
+  String _percentual;
+  Simulado _simulado;
   BuildContext _context;
-  final _simuladoFormKey = GlobalKey<FormState>();
+  final _moduloFormKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     this._context = context;
+    this._simulado = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
         title: Text(_tituloAppBar),
@@ -36,15 +39,17 @@ class FormularioSimuladoState extends State<FormularioSimulado> {
           right: 40,
         ),
         child: Form(
-          key: this._simuladoFormKey,
+          key: this._moduloFormKey,
           child: Column(children: <Widget>[
             _tituloFormField(),
             _espacamento(20),
             _descricaoFormField(),
+            _espacamento(20),
+            _percentualFormField(),
             RaisedButton(
               child: Text(_textoBotaoContinuar),
               onPressed: () {
-                _criaSimulado();
+                _criaModulo();
               },
             ),
           ]),
@@ -93,7 +98,7 @@ class FormularioSimuladoState extends State<FormularioSimulado> {
           return 'Campo Obrigatório';
         }
       },
-      keyboardType: TextInputType.text,
+      keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
           labelText: "Descrição",
           labelStyle: TextStyle(
@@ -107,35 +112,52 @@ class FormularioSimuladoState extends State<FormularioSimulado> {
     );
   }
 
-  void _criaSimulado() {
-    var currentState = this._simuladoFormKey.currentState;
+  Widget _percentualFormField() {
+    return TextFormField(
+      onSaved: (percentual) {
+        this._percentual = percentual;
+      },
+      validator: (percentual) {
+        if (percentual.isEmpty) {
+          return 'Campo Obrigatório';
+        }
+      },
+      keyboardType: TextInputType.numberWithOptions(decimal: false, signed: false),
+      decoration: InputDecoration(
+          labelText: "Percentual",
+          labelStyle: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w400,
+            color: Colors.black38,
+          )),
+      style: TextStyle(
+        fontSize: 20,
+      ),
+    );
+  }
 
-    if (currentState.validate()) {
-      currentState.save();
+  void _criaModulo() {
+    var currentState = this._moduloFormKey.currentState;
+
+    if(currentState.validate()) {
+       currentState.save();
 
       post(
-        resource: 'simulados',
+        resource: 'modulos',
         body: jsonEncode(
-          Simulado(
+          Modulo(
             titulo: this._titulo,
             descricao: this._descricao,
+            percentual: this._percentual,
+            simuladoUUID: this._simulado.uuid,
           ),
         ),
-      ).then(
-        (response) {
-          if (response.statusCode == STATUS_CREATED) {
-            Map simuladoJson = jsonDecode(response.body);
-            Navigator.pushNamed(
-              this._context,
-              '/novo-modulo',
-              arguments: Simulado(
-                uuid: simuladoJson['uuid'],
-              ),
-            );
-          }
-        },
-      ).catchError((erro) {
-        debugPrint('Erro: $erro');
+      ).then((response) {
+         if(response.statusCode == STATUS_CREATED){
+            Navigator.pushNamed(this._context, '/simulados');
+         }
+      },).catchError((erro) {
+          debugPrint('Erro: $erro');
       });
     }
   }
