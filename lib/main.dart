@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:formula_bancaria_app/screens/modulo/formulario.dart';
+import 'package:formula_bancaria_app/screens/questao/formulario.dart';
 import 'package:formula_bancaria_app/screens/simulado/formulario.dart';
 import 'package:formula_bancaria_app/screens/simulado/lista.dart';
 import 'package:formula_bancaria_app/screens/usuario/formulario_login.dart';
@@ -16,6 +17,7 @@ class FormulaBancariaAPP extends StatelessWidget {
         '/simulados': (context) => ListaSimulados(),
         '/novo-simulado': (context) => FormularioSimulado(),
         '/novo-modulo': (context) => FormularioModulo(),
+        '/novo-questao': (context) => FormularioQuestao(),
       },
       theme: ThemeData(
         primaryColor: Color(0xFF4b6798),
