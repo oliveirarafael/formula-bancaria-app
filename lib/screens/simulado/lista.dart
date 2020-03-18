@@ -33,7 +33,7 @@ class _ListaSimuladoState extends State<ListaSimulados> {
             case ConnectionState.none:
             case ConnectionState.waiting:
               return Center(
-                child: Text('Carregando dados...'),
+                child: CircularProgressIndicator(),
               );
             case ConnectionState.done:
               if (snapshot.hasData) {

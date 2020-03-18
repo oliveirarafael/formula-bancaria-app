@@ -154,7 +154,7 @@ class FormularioModuloState extends State<FormularioModulo> {
         ),
       ).then((response) {
          if(response.statusCode == STATUS_CREATED){
-            Navigator.pushNamed(this._context, '/simulados');
+            Navigator.pushNamed(this._context, '/novo-questao');
          }
       },).catchError((erro) {
           debugPrint('Erro: $erro');

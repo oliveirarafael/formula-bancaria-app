@@ -42,7 +42,6 @@ class QuestaoState extends State<FormularioQuestao> {
               this._espacamento(20),
               this._respostaFormField(),
               this._espacamento(20),
-              ListView.builder(itemBuilder: null),
             ],
           ),
         ),
