@@ -23,4 +23,24 @@ class SimuladoRepository {
     }
     return simulados;
   }
+
+  Future<Simulado> modulos(String simuladoUUID) async {
+    Simulado simulado = null;
+    Response response = await api.get('simulados/$simuladoUUID/modulos');
+
+    if (response.statusCode == api.STATUS_OK) {
+      List json = jsonDecode(response.body)['content'];
+      json.forEach((mapSimulado) {
+        print(mapSimulado);
+        
+        simulado = Simulado(
+          titulo: mapSimulado['titulo'],
+          modulos: mapSimulado['modulos'],
+        );
+      });
+    }
+
+    print(simulado);
+    return simulado;
+  }
 }

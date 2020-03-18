@@ -28,6 +28,7 @@ class FormularioModuloState extends State<FormularioModulo> {
   Widget build(BuildContext context) {
     this._context = context;
     this._simulado = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(_tituloAppBar),
@@ -122,7 +123,8 @@ class FormularioModuloState extends State<FormularioModulo> {
           return 'Campo Obrigatório';
         }
       },
-      keyboardType: TextInputType.numberWithOptions(decimal: false, signed: false),
+      keyboardType:
+          TextInputType.numberWithOptions(decimal: false, signed: false),
       decoration: InputDecoration(
           labelText: "Percentual",
           labelStyle: TextStyle(
@@ -139,8 +141,8 @@ class FormularioModuloState extends State<FormularioModulo> {
   void _criaModulo() {
     var currentState = this._moduloFormKey.currentState;
 
-    if(currentState.validate()) {
-       currentState.save();
+    if (currentState.validate()) {
+      currentState.save();
 
       post(
         resource: 'modulos',
@@ -152,12 +154,20 @@ class FormularioModuloState extends State<FormularioModulo> {
             simuladoUUID: this._simulado.uuid,
           ),
         ),
-      ).then((response) {
-         if(response.statusCode == STATUS_CREATED){
-            Navigator.pushNamed(this._context, '/novo-questao');
-         }
-      },).catchError((erro) {
-          debugPrint('Erro: $erro');
+      ).then(
+        (response) {
+          if (response.statusCode == STATUS_CREATED) {
+            print('============ Simulado ============');
+            print(this._simulado);
+            Navigator.pushNamed(
+              this._context,
+              '/simulado/modulos',
+              arguments: this._simulado,
+            );
+          }
+        },
+      ).catchError((erro) {
+        debugPrint('Erro: $erro');
       });
     }
   }

@@ -16,7 +16,7 @@ class Simulado {
 
   @override
   String toString() {
-    return '{titulo: $titulo, descricao: $descricao}';
+    return '{uuid: $uuid, titulo: $titulo, descricao: $descricao}';
   }
 
 }

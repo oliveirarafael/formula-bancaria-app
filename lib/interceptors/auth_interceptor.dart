@@ -7,6 +7,7 @@ import 'package:http_interceptor/http_interceptor.dart';
 class AuthInterceptor implements InterceptorContract {
   @override
   Future<RequestData> interceptRequest({RequestData data}) async {
+    print('========================== Request ====================================');
     print(data.url);
     print(data.method);
     if (!data.url.contains('auth')) {
@@ -14,11 +15,13 @@ class AuthInterceptor implements InterceptorContract {
     }
     print(data.body);
     print(data.headers);
+    print('========================== Request ====================================');
     return data;
   }
 
   @override
   Future<ResponseData> interceptResponse({ResponseData data}) async {
+    print('========================== Response ====================================');
     if(data.statusCode == 200 && data.body.contains('token')) {
       debugPrint('Token Armazenado');
       dynamic jsonResponse = jsonDecode(data.body);
@@ -26,6 +29,7 @@ class AuthInterceptor implements InterceptorContract {
     }
     print(data.headers);
     print(data.body);
+    print('========================== Response ====================================');
     return data;
   }
 }

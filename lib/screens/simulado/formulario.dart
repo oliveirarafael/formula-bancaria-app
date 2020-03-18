@@ -127,8 +127,9 @@ class FormularioSimuladoState extends State<FormularioSimulado> {
             Map simuladoJson = jsonDecode(response.body);
             Navigator.pushNamed(
               this._context,
-              '/novo-modulo',
+              '/simulado/modulos',
               arguments: Simulado(
+                titulo: simuladoJson['titulo'],
                 uuid: simuladoJson['uuid'],
               ),
             );
