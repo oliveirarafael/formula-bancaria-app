@@ -131,10 +131,14 @@ class FormularioModuloState extends State<FormularioModulo> {
       ).then(
         (response) {
           if (response.statusCode == STATUS_CREATED) {
+            Map moduloJson = jsonDecode(response.body);
             Navigator.pushNamed(
               this._context,
-              '/simulado/modulos',
-              arguments: this._simulado,
+              '/simulado/modulos/questoes',
+              arguments: Modulo(
+                titulo: moduloJson['titulo'],
+                uuid: moduloJson['uuid'],
+              ),
             );
           }
         },
