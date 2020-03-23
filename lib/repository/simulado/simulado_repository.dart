@@ -1,11 +1,11 @@
 import 'dart:convert';
 
+import 'package:formula_bancaria_app/models/modulo.dart';
 import 'package:formula_bancaria_app/models/simulado.dart';
 import 'package:formula_bancaria_app/services/api.dart' as api;
 import 'package:http/http.dart';
 
 class SimuladoRepository {
-  
   Future<List<Simulado>> todos() async {
     List<Simulado> simulados = [];
     Response response = await api.get('simulados');
@@ -21,6 +21,7 @@ class SimuladoRepository {
         simulados.add(simulado);
       });
     }
+
     return simulados;
   }
 
@@ -29,18 +30,21 @@ class SimuladoRepository {
     Response response = await api.get('simulados/$simuladoUUID/modulos');
 
     if (response.statusCode == api.STATUS_OK) {
-      List json = jsonDecode(response.body)['content'];
-      json.forEach((mapSimulado) {
-        print(mapSimulado);
-        
-        simulado = Simulado(
-          titulo: mapSimulado['titulo'],
-          modulos: mapSimulado['modulos'],
-        );
-      });
+      Map json = jsonDecode(response.body);
+      List<Modulo> modulos = [];
+
+      json['modulos'].forEach((mapModulos) => {
+            modulos.add(
+              Modulo(
+                uuid: mapModulos['uuid'],
+                titulo: mapModulos['titulo'],
+                percentual: mapModulos['percentual'].toString(),
+              ),
+            )
+          });
+      simulado = Simulado(titulo: json['titulo'], modulos: modulos);
     }
 
-    print(simulado);
     return simulado;
   }
 }

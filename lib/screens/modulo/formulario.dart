@@ -44,7 +44,6 @@ class FormularioModuloState extends State<FormularioModulo> {
           child: Column(children: <Widget>[
             _tituloFormField(),
             _espacamento(20),
-            _descricaoFormField(),
             _espacamento(20),
             _percentualFormField(),
             RaisedButton(
@@ -78,30 +77,6 @@ class FormularioModuloState extends State<FormularioModulo> {
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
           labelText: "Título",
-          labelStyle: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w400,
-            color: Colors.black38,
-          )),
-      style: TextStyle(
-        fontSize: 20,
-      ),
-    );
-  }
-
-  Widget _descricaoFormField() {
-    return TextFormField(
-      onSaved: (descricao) {
-        this._descricao = descricao;
-      },
-      validator: (descricao) {
-        if (descricao.isEmpty) {
-          return 'Campo Obrigatório';
-        }
-      },
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-          labelText: "Descrição",
           labelStyle: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w400,
@@ -149,7 +124,6 @@ class FormularioModuloState extends State<FormularioModulo> {
         body: jsonEncode(
           Modulo(
             titulo: this._titulo,
-            descricao: this._descricao,
             percentual: this._percentual,
             simuladoUUID: this._simulado.uuid,
           ),
@@ -157,8 +131,6 @@ class FormularioModuloState extends State<FormularioModulo> {
       ).then(
         (response) {
           if (response.statusCode == STATUS_CREATED) {
-            print('============ Simulado ============');
-            print(this._simulado);
             Navigator.pushNamed(
               this._context,
               '/simulado/modulos',

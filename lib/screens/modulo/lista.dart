@@ -91,7 +91,6 @@ class _ItemModulo extends StatelessWidget {
       child: ListTile(
         leading: Icon(Icons.archive),
         title: Text(this._modulo.titulo),
-        subtitle: Text(this._modulo.descricao),
       ),
     );
   }

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:formula_bancaria_app/models/modulo.dart';
-import 'package:formula_bancaria_app/models/simulado.dart';
 import 'package:formula_bancaria_app/services/api.dart' as api;
 import 'package:http/http.dart';
 
@@ -16,7 +15,6 @@ class ModuloRepository {
       json.forEach((mapSimulado) {
         Modulo modulo = Modulo(
           titulo: mapSimulado['titulo'],
-          descricao: mapSimulado['descricao'],
         );
 
         modulos.add(modulo);
