@@ -11,12 +11,29 @@ class FormularioQuestao extends StatefulWidget {
 }
 
 class QuestaoState extends State<FormularioQuestao> {
-  String _descricao, _comentario, _resposta;
-  List<Resposta> _respostas = [];
+  String _descricao, _comentario;
   Modulo _modulo;
+  
+  int _quantidadeResposta = 0;
+  final int _limiteResposta = 4;
+  List<Resposta> _respostas = [];
+  var _respostaSelecionada = [false, false, false, false];
+  var _iconeRespostaSelecionada = [Icons.check_box_outline_blank, 
+                                   Icons.check_box_outline_blank, 
+                                   Icons.check_box_outline_blank, 
+                                   Icons.check_box_outline_blank];
 
   final _questaoKey = GlobalKey<FormState>();
+  TextEditingController _resposta;
+  
   BuildContext _context;
+  bool _campoRespostaHabilidatado = true;
+
+  @override
+  void initState() {
+    super.initState();
+    this._resposta = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +59,28 @@ class QuestaoState extends State<FormularioQuestao> {
               this._espacamento(20),
               this._respostaFormField(),
               this._espacamento(20),
+              RaisedButton(
+                child: Text("Adicionar resposta"),
+                onPressed: () {
+                  this.setState(() {
+                        this._respostas.add(Resposta(descricao: this._resposta.text));
+                        this._resposta.text = '';
+                        this._quantidadeResposta++;
+
+                        if(this._quantidadeResposta == this._limiteResposta){
+                          this._campoRespostaHabilidatado = false;
+                        }else{
+                          this._campoRespostaHabilidatado = true;
+                        }
+
+                      });
+                },
+              ),
+              this._respostasList(),
+              RaisedButton(
+                child: Text("Salvar"),
+                onPressed: () {},
+              ),
             ],
           ),
         ),
@@ -103,17 +142,12 @@ class QuestaoState extends State<FormularioQuestao> {
     );
   }
 
-   Widget _respostaFormField() {
-    return TextFormField(
-      onSaved: (resposta) {
-        this._resposta = resposta;
-      },
-      validator: (resposta) {
-        if (resposta.isEmpty) {
-          return 'Campo Obrigatório';
-        }
-      },
+  Widget _respostaFormField() {
+    return TextField(
+      controller: this._resposta,
       keyboardType: TextInputType.text,
+      enabled: this._campoRespostaHabilidatado,
+      
       decoration: InputDecoration(
           labelText: "Resposta",
           labelStyle: TextStyle(
@@ -124,6 +158,42 @@ class QuestaoState extends State<FormularioQuestao> {
       style: TextStyle(
         fontSize: 20,
       ),
+    );
+  }
+
+  Widget _respostasList() {
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: this._respostas.length,
+      itemBuilder: (context, posicao) {
+        return Card(
+          child: ListTile(
+            leading: Icon(this._iconeRespostaSelecionada[posicao]),
+            selected: this._respostaSelecionada[posicao],
+            title: Text(this._respostas[posicao].descricao.toString()),
+            trailing: IconButton(
+                icon: Icon(Icons.delete),
+                onPressed: () {
+                  print(posicao);
+                },
+              ),
+            onTap: (){
+               print(posicao);
+               this.setState((){
+                 for(int posicaoAtual = 0; posicaoAtual < this._respostaSelecionada.length; posicaoAtual++){
+                   if(posicaoAtual == posicao){
+                    this._respostaSelecionada[posicao] = true;
+                    this._iconeRespostaSelecionada[posicao] = Icons.check_box;
+                   }else{
+                    this._respostaSelecionada[posicaoAtual] = false;
+                    this._iconeRespostaSelecionada[posicaoAtual] = Icons.check_box_outline_blank;
+                   }
+                 }
+               });
+            },
+          ),
+        );
+      },
     );
   }
 }
