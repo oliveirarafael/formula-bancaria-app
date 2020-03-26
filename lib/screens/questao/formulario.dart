@@ -13,19 +13,21 @@ class FormularioQuestao extends StatefulWidget {
 class QuestaoState extends State<FormularioQuestao> {
   String _descricao, _comentario;
   Modulo _modulo;
-  
+
   int _quantidadeResposta = 0;
   final int _limiteResposta = 4;
   List<Resposta> _respostas = [];
   var _respostaSelecionada = [false, false, false, false];
-  var _iconeRespostaSelecionada = [Icons.check_box_outline_blank, 
-                                   Icons.check_box_outline_blank, 
-                                   Icons.check_box_outline_blank, 
-                                   Icons.check_box_outline_blank];
+  var _iconeRespostaSelecionada = [
+    Icons.check_box_outline_blank,
+    Icons.check_box_outline_blank,
+    Icons.check_box_outline_blank,
+    Icons.check_box_outline_blank
+  ];
 
   final _questaoKey = GlobalKey<FormState>();
   TextEditingController _resposta;
-  
+
   BuildContext _context;
   bool _campoRespostaHabilidatado = true;
 
@@ -61,25 +63,96 @@ class QuestaoState extends State<FormularioQuestao> {
               this._espacamento(20),
               RaisedButton(
                 child: Text("Adicionar resposta"),
-                onPressed: () {
-                  this.setState(() {
-                        this._respostas.add(Resposta(descricao: this._resposta.text));
-                        this._resposta.text = '';
-                        this._quantidadeResposta++;
+                onPressed: this._quantidadeResposta == this._limiteResposta
+                    ? null
+                    : () {
+                        this.setState(() {
+                          if (this._resposta.text.isNotEmpty) {
+                            this._respostas.add(Resposta(descricao: this._resposta.text, correta: false));
+                            this._resposta.text = '';
+                            this._quantidadeResposta++;
 
-                        if(this._quantidadeResposta == this._limiteResposta){
-                          this._campoRespostaHabilidatado = false;
-                        }else{
-                          this._campoRespostaHabilidatado = true;
-                        }
-
-                      });
-                },
+                            if (this._quantidadeResposta == this._limiteResposta) {
+                              this._campoRespostaHabilidatado = false;
+                            } else {
+                              this._campoRespostaHabilidatado = true;
+                            }
+                          } else {
+                            showDialog(
+                              context: this._context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text('Resposta'),
+                                  content: Text('Preencha o campo Resposta'),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      child: Text('OK'),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
+                        });
+                      },
               ),
               this._respostasList(),
               RaisedButton(
                 child: Text("Salvar"),
-                onPressed: () {},
+                onPressed: () {
+                  var currentState = this._questaoKey.currentState;
+                  if (currentState.validate()) {
+                    if (this._respostas.length < 2) {
+                      showDialog(
+                        context: this._context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text('Resposta'),
+                            content: Text('Adicione ao menos duas resposta'),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: Text('OK'),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                      return;
+                    }
+
+                    bool teveRespostaCorretaSelecionada = this._respostas.any((resposta) => resposta.correta == true );
+
+                    if (!teveRespostaCorretaSelecionada) {
+                      showDialog(
+                        context: this._context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text('Resposta'),
+                            content: Text('Selecione pelo uma resposta correta'),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: Text('OK'),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+
+                      return;
+                    }
+
+                    currentState.save();
+                  }
+                },
               ),
             ],
           ),
@@ -147,7 +220,6 @@ class QuestaoState extends State<FormularioQuestao> {
       controller: this._resposta,
       keyboardType: TextInputType.text,
       enabled: this._campoRespostaHabilidatado,
-      
       decoration: InputDecoration(
           labelText: "Resposta",
           labelStyle: TextStyle(
@@ -172,24 +244,36 @@ class QuestaoState extends State<FormularioQuestao> {
             selected: this._respostaSelecionada[posicao],
             title: Text(this._respostas[posicao].descricao.toString()),
             trailing: IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: () {
-                  print(posicao);
-                },
-              ),
-            onTap: (){
-               print(posicao);
-               this.setState((){
-                 for(int posicaoAtual = 0; posicaoAtual < this._respostaSelecionada.length; posicaoAtual++){
-                   if(posicaoAtual == posicao){
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                print(posicao);
+                this.setState(() {
+                  this._respostas.removeAt(posicao);
+                  this._respostaSelecionada[posicao] = false;
+                  this._iconeRespostaSelecionada[posicao] =
+                      Icons.check_box_outline_blank;
+                  this._quantidadeResposta--;
+                });
+              },
+            ),
+            onTap: () {
+              print(posicao);
+              this.setState(() {
+                for (int posicaoAtual = 0; posicaoAtual < this._respostaSelecionada.length; posicaoAtual++) {
+                  if (posicaoAtual == posicao) {
                     this._respostaSelecionada[posicao] = true;
                     this._iconeRespostaSelecionada[posicao] = Icons.check_box;
-                   }else{
+                    this._respostas[posicao] = Resposta(
+                      descricao: this._respostas[posicao].descricao,
+                      correta: true,
+                    );
+                  } else {
                     this._respostaSelecionada[posicaoAtual] = false;
-                    this._iconeRespostaSelecionada[posicaoAtual] = Icons.check_box_outline_blank;
-                   }
-                 }
-               });
+                    this._iconeRespostaSelecionada[posicaoAtual] =
+                        Icons.check_box_outline_blank;
+                  }
+                }
+              });
             },
           ),
         );
