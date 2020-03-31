@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:formula_bancaria_app/components/alerts_fb.dart';
+import 'package:formula_bancaria_app/components/button_fb.dart';
+import 'package:formula_bancaria_app/components/spacing_fb.dart';
+import 'package:formula_bancaria_app/components/text_field_fb.dart';
+import 'package:formula_bancaria_app/components/text_form_field_fb.dart';
 import 'package:formula_bancaria_app/models/modulo.dart';
 import 'package:formula_bancaria_app/models/resposta.dart';
 
@@ -55,12 +60,28 @@ class QuestaoState extends State<FormularioQuestao> {
           key: this._questaoKey,
           child: Column(
             children: <Widget>[
-              this._descricaoFormField(),
-              this._espacamento(20),
-              this._comentarioFormField(),
-              this._espacamento(20),
-              this._respostaFormField(),
-              this._espacamento(20),
+              TextFormFieldFB(
+                value: this._descricao,
+                label: "Descrição",
+              ),
+              SpacingFB(
+                height: 20,
+              ),
+              TextFormFieldFB(
+                value: this._descricao,
+                label: "Comentário",
+              ),
+              Spacer(
+                flex: 2,
+              ),
+              TextFieldFB(
+                controller: this._resposta,
+                enabled: this._campoRespostaHabilidatado,
+                label: "Resposta",
+              ),
+              SpacingFB(
+                height: 20,
+              ),
               RaisedButton(
                 child: Text("Adicionar resposta"),
                 onPressed: this._quantidadeResposta == this._limiteResposta
@@ -68,167 +89,61 @@ class QuestaoState extends State<FormularioQuestao> {
                     : () {
                         this.setState(() {
                           if (this._resposta.text.isNotEmpty) {
-                            this._respostas.add(Resposta(descricao: this._resposta.text, correta: false));
+                            this._respostas.add(Resposta(
+                                descricao: this._resposta.text,
+                                correta: false));
                             this._resposta.text = '';
                             this._quantidadeResposta++;
 
-                            if (this._quantidadeResposta == this._limiteResposta) {
+                            if (this._quantidadeResposta ==
+                                this._limiteResposta) {
                               this._campoRespostaHabilidatado = false;
                             } else {
                               this._campoRespostaHabilidatado = true;
                             }
                           } else {
-                            showDialog(
-                              context: this._context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: Text('Resposta'),
-                                  content: Text('Preencha o campo Resposta'),
-                                  actions: <Widget>[
-                                    FlatButton(
-                                      child: Text('OK'),
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
+                            Alerts.information(
+                              title: "Resposta",
+                              content: "Preencha o campo Resposta",
+                              context: context,
                             );
                           }
                         });
                       },
               ),
               this._respostasList(),
-              RaisedButton(
-                child: Text("Salvar"),
-                onPressed: () {
-                  var currentState = this._questaoKey.currentState;
-                  if (currentState.validate()) {
-                    if (this._respostas.length < 2) {
-                      showDialog(
-                        context: this._context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: Text('Resposta'),
-                            content: Text('Adicione ao menos duas resposta'),
-                            actions: <Widget>[
-                              FlatButton(
-                                child: Text('OK'),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                      return;
+              ButtonFB(
+                  text: "Salvar",
+                  onPressed: () {
+                    var currentState = this._questaoKey.currentState;
+
+                    if (currentState.validate()) {
+                      if (this._respostas.length < 2) {
+                        Alerts.information(
+                          title: "Resposta",
+                          content: "Adicionane ao menos duas resposta",
+                          context: context,
+                        );
+                        return;
+                      }
+
+                      bool teveRespostaCorretaSelecionada = this._respostas.any((resposta) => resposta.correta == true);
+
+                      if (!teveRespostaCorretaSelecionada) {
+                        Alerts.information(
+                          title: 'Resposta',
+                          content: 'Selecione pelo uma resposta correta',
+                          context: context,
+                        );
+                        return;
+                      }
+
+                      currentState.save();
                     }
-
-                    bool teveRespostaCorretaSelecionada = this._respostas.any((resposta) => resposta.correta == true );
-
-                    if (!teveRespostaCorretaSelecionada) {
-                      showDialog(
-                        context: this._context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: Text('Resposta'),
-                            content: Text('Selecione pelo uma resposta correta'),
-                            actions: <Widget>[
-                              FlatButton(
-                                child: Text('OK'),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-
-                      return;
-                    }
-
-                    currentState.save();
-                  }
-                },
-              ),
+                  }),
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _espacamento(double tamanho) {
-    return SizedBox(
-      height: tamanho,
-    );
-  }
-
-  Widget _descricaoFormField() {
-    return TextFormField(
-      onSaved: (descricao) {
-        this._descricao = descricao;
-      },
-      validator: (descricao) {
-        if (descricao.isEmpty) {
-          return 'Campo Obrigatório';
-        }
-      },
-      keyboardType: TextInputType.text,
-      decoration: InputDecoration(
-          labelText: "Descrição",
-          labelStyle: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w400,
-            color: Colors.black38,
-          )),
-      style: TextStyle(
-        fontSize: 20,
-      ),
-    );
-  }
-
-  Widget _comentarioFormField() {
-    return TextFormField(
-      onSaved: (comentario) {
-        this._comentario = comentario;
-      },
-      validator: (comentario) {
-        if (comentario.isEmpty) {
-          return 'Campo Obrigatório';
-        }
-      },
-      keyboardType: TextInputType.text,
-      decoration: InputDecoration(
-          labelText: "Comentário",
-          labelStyle: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w400,
-            color: Colors.black38,
-          )),
-      style: TextStyle(
-        fontSize: 20,
-      ),
-    );
-  }
-
-  Widget _respostaFormField() {
-    return TextField(
-      controller: this._resposta,
-      keyboardType: TextInputType.text,
-      enabled: this._campoRespostaHabilidatado,
-      decoration: InputDecoration(
-          labelText: "Resposta",
-          labelStyle: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w400,
-            color: Colors.black38,
-          )),
-      style: TextStyle(
-        fontSize: 20,
       ),
     );
   }
@@ -259,7 +174,9 @@ class QuestaoState extends State<FormularioQuestao> {
             onTap: () {
               print(posicao);
               this.setState(() {
-                for (int posicaoAtual = 0; posicaoAtual < this._respostaSelecionada.length; posicaoAtual++) {
+                for (int posicaoAtual = 0;
+                    posicaoAtual < this._respostaSelecionada.length;
+                    posicaoAtual++) {
                   if (posicaoAtual == posicao) {
                     this._respostaSelecionada[posicao] = true;
                     this._iconeRespostaSelecionada[posicao] = Icons.check_box;
