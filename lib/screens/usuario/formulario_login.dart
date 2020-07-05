@@ -1,9 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:formula_bancaria_app/components/logo.dart';
-import 'package:formula_bancaria_app/models/usuario.dart';
-import 'package:formula_bancaria_app/screens/simulado/lista.dart';
+import 'package:formula_bancaria_app/models/usuario_logado.dart';
+import 'package:formula_bancaria_app/models/usuario_login.dart';
 import 'package:formula_bancaria_app/services/api.dart';
 
 class FormularioLogin extends StatefulWidget {
@@ -20,44 +21,51 @@ class _FormularioLoginState extends State<FormularioLogin> {
   Widget build(BuildContext context) {
     this._context = context;
 
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+    
     return Scaffold(
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.only(
-          top: 60,
-          left: 15,
-          right: 40,
-        ),
-        child: Form(
-          key: _loginFormKey,
-          child: Column(
-            children: <Widget>[
-              Logo(
-                width: 220,
-              ),
-              _espacamento(20),
-              _emailFormField(),
-              _espacamento(10),
-              _senhaFormField(),
-              _espacamento(10),
-              Row(
-                children: <Widget>[
+      body: SafeArea(child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 40.0),
+          child: SingleChildScrollView(
+          child: Form(
+            key: _loginFormKey,
+            child: Column(
+              children: <Widget>[
+                  _espacamento(50),
+                  Logo(
+                  height: 80.0
+                  ),
+                  _espacamento(40),
+                  _emailFormField(),
+                  _espacamento(20),
+                  _senhaFormField(),
+                  _espacamento(10),
+                  _linkEsqueceuSenha(),
+                  _espacamento(30),
                   _botaoLogin(),
-                  //_linkEsqueceuSenha(),
+                  _espacamento(20),
+                  _botaoLoginGoogle(),
+                  _espacamento(25),
+                  _linkCadastrar(),
+                  _espacamento(25),
+                  _marcaPatrocinador(),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        )
+      )
     );
   }
 
   Widget _emailFormField() {
     return TextFormField(
-      //autofocus: true,
       onSaved: (email) {
         this._email = email;
       },
+      initialValue: "user@email.com.br",
       validator: (email) {
         if (email.isEmpty) {
           return 'Campo Obrigatório';
@@ -66,18 +74,29 @@ class _FormularioLoginState extends State<FormularioLogin> {
         if (emailInvalido(email)) {
           return 'E-mail inválido';
         }
+
+        return null;
       },
       keyboardType: TextInputType.emailAddress,
+      obscureText: false,
       decoration: InputDecoration(
-          labelText: "E-mail",
-          icon: Icon(Icons.email),
-          labelStyle: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w400,
-            color: Colors.black38,
-          )),
+          border: InputBorder.none,
+          hintText: "Email",
+          filled: true,                 // Novo
+          fillColor: Color(0xFFDBEDFF), // Novo
+          prefixIcon: Icon(Icons.email, color: Theme.of(context).scaffoldBackgroundColor),
+          enabledBorder: OutlineInputBorder( // Novo
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            borderSide: BorderSide(color: Colors.grey),
+          ),
+          focusedBorder: OutlineInputBorder( // Novo
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            borderSide: BorderSide(color: Colors.grey),
+          ),
+        ),
       style: TextStyle(
-        fontSize: 20,
+        fontSize: 16,
+        color: Theme.of(context).scaffoldBackgroundColor
       ),
     );
   }
@@ -90,10 +109,10 @@ class _FormularioLoginState extends State<FormularioLogin> {
 
   Widget _senhaFormField() {
     return TextFormField(
-      //autofocus: true,
       onSaved: (senha) {
         this._senha = senha;
       },
+      initialValue: '123456',
       validator: (senha) {
         if (senha.isEmpty) {
           return 'Campo Obrigatório';
@@ -102,19 +121,29 @@ class _FormularioLoginState extends State<FormularioLogin> {
         if (senha.length < 6) {
           return 'Deve ter mais que 5 caracteres';
         }
+
+        return null;
       },
       keyboardType: TextInputType.text,
       obscureText: true,
       decoration: InputDecoration(
-          labelText: "Senha",
-          icon: Icon(Icons.lock),
-          labelStyle: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w400,
-            color: Colors.black38,
-          )),
+          border: InputBorder.none,
+          hintText: "Senha",
+          filled: true,                 // Novo
+          fillColor: Color(0xFFDBEDFF), // Novo
+          prefixIcon: Icon(Icons.lock, color: Theme.of(context).scaffoldBackgroundColor),
+          enabledBorder: OutlineInputBorder( // Novo
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            borderSide: BorderSide(color: Colors.transparent),
+          ),
+          focusedBorder: OutlineInputBorder( // Novo
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            borderSide: BorderSide(color: Colors.transparent),
+          ),
+        ),
       style: TextStyle(
-        fontSize: 20,
+        fontSize: 16,
+        color: Theme.of(context).scaffoldBackgroundColor
       ),
     );
   }
@@ -126,15 +155,75 @@ class _FormularioLoginState extends State<FormularioLogin> {
   }
 
   Widget _botaoLogin() {
-    return RaisedButton(
-      child: Text("Login"),
-      onPressed: () {
-        var currentState = this._loginFormKey.currentState;
-        if (currentState.validate()) {
-          currentState.save();
-          _login();
-        }
-      },
+    return Container(
+      height: 60.0,
+      width: 250.0,
+      child: RaisedButton(
+        onPressed: () {
+            var currentState = this._loginFormKey.currentState;
+            if (currentState.validate()) {
+              currentState.save();
+              _login();
+            }
+          },
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
+        padding: EdgeInsets.all(0.0),
+        child: Ink(
+          decoration: BoxDecoration(
+            color: Color(0xff0075ff),
+            borderRadius: BorderRadius.circular(30.0)
+          ),
+          child: Container(
+            constraints: BoxConstraints(maxWidth: 300.0, minHeight: 60.0),
+            alignment: Alignment.center,
+            child: Text(
+              "Login",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _botaoLoginGoogle() {
+    return Container(
+      height: 60.0,
+      width: 250.0,
+      child: RaisedButton(
+        onPressed: () {
+            var currentState = this._loginFormKey.currentState;
+            if (currentState.validate()) {
+              currentState.save();
+              _login();
+            }
+          },
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
+        padding: EdgeInsets.all(0.0),
+        child: Ink(
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30.0),
+          ),
+          child: Container(
+            constraints: BoxConstraints(maxWidth: 300.0, minHeight: 60.0),
+            alignment: Alignment.center,
+            child: 
+              Text(
+              "Login com o Google",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Colors.black87,
+                  fontSize: 18,
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -142,14 +231,20 @@ class _FormularioLoginState extends State<FormularioLogin> {
     post(
       resource: 'auth',
       body: jsonEncode(
-        Usuario(
+        UsuarioLogin(
           this._email,
           this._senha,
         ),
       ),
     ).then((response) {
       if (response.statusCode == 200) {
-        Navigator.pushNamed(this._context, '/simulados');
+        if(UsuarioLogado.getUser().ehAluno && UsuarioLogado.getUser().assinante)
+        {
+          Navigator.pushNamed(this._context, '/aluno/menu');
+        }
+        // Navigator.pushNamed(this._context, '/simulados');
+        
+        // Navigator.pushNamed(this._context, '/aluno/questaoativa');
       } else {
         showDialog(
           context: this._context,
@@ -177,12 +272,71 @@ class _FormularioLoginState extends State<FormularioLogin> {
   Widget _linkEsqueceuSenha() {
     return Container(
       height: 20,
-      child: FlatButton(
+      alignment: Alignment.centerRight,
+      child: InkWell(
         child: Text(
           'Esqueceu sua senha?',
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 15,
+          ),
+          textAlign: TextAlign.right,
         ),
-        onPressed: () {},
+        onTap: () {},
       ),
     );
   }
+
+  Widget _linkCadastrar() {
+    return Container(
+      height: 20,
+      alignment: Alignment.center,
+      child: InkWell(
+        child: Text(
+          'Ainda não tem acesso? Cadastre-se',
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 15,
+          ),
+        ),
+        onTap: () {},
+      ),
+    );
+  }
+
+  Widget _marcaPatrocinador() {
+    return Container(
+      height: 70,
+      alignment: Alignment.center,
+       child: Row(children: <Widget>[
+        Text(
+          'Apoio',
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 25,
+          ),
+        ),
+        Image.asset('assets/icons/play.png', height: 70),
+       ],
+       mainAxisAlignment: MainAxisAlignment.center) ,
+      // ),
+    );
+  }
+  // Widget _marcaPatrocinador() {
+  //   return Container(
+  //     height: 50,
+  //     alignment: Alignment.center,
+  //     child: Row(children: <Widget>[
+  //       Text(
+  //         'Apoio',
+  //         style: TextStyle(
+  //             color: Colors.white,
+  //             fontSize: 30,
+  //         ),
+  //         textAlign: TextAlign.center,
+  //       ),
+  //       // Image.asset('assets/icons/user.png', )
+  //     ],) 
+  //   );
+  // }
 }
