@@ -6,11 +6,23 @@ class Usuario {
   final String uuid;
   final String nome;
   final String email;
-  bool assinante = false;
-  bool ehAluno = false;
-  bool ehProfessor = false;
+  final bool assinante;
+  final bool ehAluno;
+  final bool ehProfessor;
 
   Usuario({this.id, this.uuid, this.nome, this.email, this.assinante, this.ehAluno, this.ehProfessor});
+
+  factory Usuario.fromJson(Map<String, dynamic> json) {
+    return Usuario(
+      id: json['id'],
+      uuid: json['uuid'],
+      nome: json['nome'],
+      email: json['email'],
+      assinante: json['assinante'],
+      ehAluno: json['ehAluno'],
+      ehProfessor: json['ehProfessor']
+    );
+  }
 
   bool getEhAluno() {
     if(ehAluno == null) return false;
@@ -28,17 +40,5 @@ class Usuario {
     if(assinante == null) return false;
 
     return assinante;
-  }
-
-  factory Usuario.fromJson(Map<String, dynamic> json) {
-    return Usuario(
-      id: json['id'],
-      uuid: json['uuid'],
-      nome: json['nome'],
-      email: json['email'],
-      assinante: json['assinante'],
-      ehAluno: json['ehAluno'],
-      ehProfessor: json['ehProfessor']
-    );
   }
 }

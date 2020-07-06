@@ -27,7 +27,7 @@ class CenteredCircularProgress extends StatelessWidget {
             padding: const EdgeInsets.only(top: 24.0),
             child: Text(
               message,
-              style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.w300),
+              style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.w300, color: Colors.blue),
             ),
           )
         ],

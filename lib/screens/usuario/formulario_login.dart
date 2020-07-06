@@ -65,7 +65,7 @@ class _FormularioLoginState extends State<FormularioLogin> {
       onSaved: (email) {
         this._email = email;
       },
-      initialValue: "user@email.com.br",
+      initialValue: "aluno@formulabancaria.com.br",
       validator: (email) {
         if (email.isEmpty) {
           return 'Campo Obrigatório';
@@ -238,7 +238,7 @@ class _FormularioLoginState extends State<FormularioLogin> {
       ),
     ).then((response) {
       if (response.statusCode == 200) {
-        if(UsuarioLogado.getUser().ehAluno && UsuarioLogado.getUser().assinante)
+        if(UsuarioLogado.getUser().getEhAluno() && UsuarioLogado.getUser().getAssinante())
         {
           Navigator.pushNamed(this._context, '/aluno/menu');
         }

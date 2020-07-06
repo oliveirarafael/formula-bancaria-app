@@ -41,11 +41,11 @@ class SimuladoAtivoController {
   }
 
   void nextQuestion() {
-    _questaoIndex = ++_questaoIndex;
+    _questaoIndex++;
   }
 
   void previousQuestion() {
-    _questaoIndex = --_questaoIndex;
+    _questaoIndex--;
   }
 
   bool primeiraQuestao() {
@@ -102,6 +102,11 @@ class SimuladoAtivoController {
     }
     else {
       _simuladoRespondido.questoes.add(new QuestaoRespondida(questaoRespondida, respostaEscolhida));
+
+      if(_questoesPlanilha[_questaoIndex].respostas[indexRespostaEscolhida].correta)
+      {
+        hitNumber++;
+      }
     }
   }
 
@@ -146,5 +151,15 @@ class SimuladoAtivoController {
   SimuladoRespondido getSimuladoRespondido()
   {
     return _simuladoRespondido;
+  }
+
+  int getNumeroQuestao()
+  {
+    return _questaoIndex + 1;
+  }
+
+  bool verificarRespostaCerta(int indexResposta)
+  {
+    return _questoesPlanilha[_questaoIndex].respostas[indexResposta].correta;
   }
 }

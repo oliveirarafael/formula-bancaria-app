@@ -7,6 +7,7 @@ class FinishDialog {
   static Future show(
     BuildContext context, {
     int hitNumber,
+    int numeroQuestoes
   }) {
     return showDialog<void>(
       context: context,
@@ -32,7 +33,7 @@ class FinishDialog {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Parabéns',
+                'Pontuação',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -41,41 +42,41 @@ class FinishDialog {
               ),
               const SizedBox(height: 8),
               Text(
-                'Você acertou $hitNumber de 10!',
+                'Você acertou $hitNumber de $numeroQuestoes!',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
               ),
-              Text(
-                'Que tal tentar mais uma vez? Quem sabe você consegue acertar todas na próxima!',
-                style: TextStyle(
-                  color: Colors.white70,
-                ),
-              ),
+              // Text(
+              //   'Que tal tentar mais uma vez? Quem sabe você consegue acertar todas na próxima!',
+              //   style: TextStyle(
+              //     color: Colors.white70,
+              //   ),
+              // ),
             ],
           ),
           actions: [
+            // FlatButton(
+            //   child: const Text('COMPARTILHAR'),
+            //   onPressed: () {
+            //     Share.share('Fórmula Bancária. Você acertou $hitNumber de 10!');
+            //   },
+            // ),
+            // FlatButton(
+            //   child: const Text('JOGAR NOVAMENTE'),
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => SimuladoAtivoPage()),
+            //     );
+            //   },
+            // ),
             FlatButton(
-              child: const Text('COMPARTILHAR'),
+              child: const Text('Ok'),
               onPressed: () {
-                Share.share('Quiz COVID-29. Você acertou $hitNumber de 10!');
-              },
-            ),
-            FlatButton(
-              child: const Text('JOGAR NOVAMENTE'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SimuladoAtivoPage()),
-                );
-              },
-            ),
-            FlatButton(
-              child: const Text('SAIR'),
-              onPressed: () {
-                SystemNavigator.pop();
+                Navigator.pop(context, '/aluno/menu');
               },
             )
           ],

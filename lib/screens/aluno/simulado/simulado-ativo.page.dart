@@ -24,6 +24,7 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
   bool _loading = true;
   bool _primeiraQuestao = true; // Primeira questão
   bool _ultimaQuestao = false;
+  bool _corrigir = false;
   // bool _resposta1Selecionada = false;
   // bool _resposta2Selecionada = false;
   // bool _resposta3Selecionada = false;
@@ -92,7 +93,7 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
             ),
             Padding(
               padding: EdgeInsets.only(left: 30.0),
-              child: Text('${_scoreKeeper.length}/${_controller.questionsNumber} questões', style: TextStyle(color: Colors.white, fontSize: 16)),
+              child: Text('${_controller.getNumeroQuestao()}/${_controller.questionsNumber} questões', style: TextStyle(color: Colors.white, fontSize: 16)),
             ),
           ])
         ]),
@@ -144,12 +145,13 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
             tooltip: 'Questão anterior',
             onPressed: (() {
               setState(() {
-                  if (_scoreKeeper.length < _controller.questionsNumber) {
+                  // if (_controller.getNumeroQuestao() < _controller.questionsNumber) {
                     _respostaSelecionada = -1;
                     _controller.previousQuestion();
                     _primeiraQuestao = _controller.primeiraQuestao();
                     _ultimaQuestao = _controller.ultimaQuestao();
-                  }
+                    _corrigir = false;
+                  // }
                 });
             }),
           )) : Container(),
@@ -181,7 +183,11 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
             ),
           ),
           OutlineButton(
-            onPressed: () {},
+            onPressed:  (() {
+              setState(() {
+                _corrigir = true;
+              });
+            }),
             padding: EdgeInsets.only(bottom: 0.0),
             borderSide: BorderSide(
                 color: Colors.white,
@@ -197,32 +203,32 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
               tooltip: 'Próxima questão', 
               onPressed: (() {
                 setState(() {
-                    if (_scoreKeeper.length < _controller.questionsNumber) {
+                    // if (_controller.getNumeroQuestao() < _controller.questionsNumber) {
                       _respostaSelecionada = -1;
                       _controller.nextQuestion();
                       _primeiraQuestao = _controller.primeiraQuestao();
                       _ultimaQuestao = _controller.ultimaQuestao();
-                    }
+                      _corrigir = false;
+                    // }
                   });
               }),
             )
-          ) : Container(),
-          _ultimaQuestao ? 
-            Center(child: IconButton(
+          ) : Center(child: IconButton(
               iconSize: 50.0,
               padding: EdgeInsets.only(bottom: 0.0),
-              icon: Icon(Icons.check_circle),//, size: 60.0), 
+              icon: Icon(Icons.check_circle, color: Colors.green),//, size: 60.0), 
               color: Colors.green, 
               tooltip: 'Concluir', 
-              onPressed: _concluirSimulado(),
+              onPressed: (() {_concluirSimulado(); }),
             )
-          ) : Container(),
+          ),
         ],
       )
     );
   }
 
   _concluirSimulado() {
+   
     BaseService service = new BaseService();
     
     post(
@@ -237,6 +243,7 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
         FinishDialog.show(
           context,
           hitNumber: _controller.hitNumber,
+          numeroQuestoes: _controller.questionsNumber
         );
       } else {
         throw Exception('Erro ao salvar simulado');
@@ -254,6 +261,7 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
         ],
       );
     });
+    _loading = true;
   }
 
   _buildAnswerButton(String answer, int indexRespostaCorreta) {
@@ -321,19 +329,25 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
     // Busco a resposta selecionada pelo id da questão
     var textoRespostaSelecionada = _controller.getRespostaSelecionada(idQuestao);
 
-    // Caso não tenha resposta selecionada, a questão não foi respondida
-    if(textoRespostaSelecionada == null) 
+    // // Caso não tenha resposta selecionada, a questão não foi respondida
+    // if(textoRespostaSelecionada == null) 
+    //   return _corRespostaNaoSelecionada;
+
+    // Verificamos se é correção
+    if(!_corrigir)
+    {
+      // Caso tenha resposta, verificamos se a resposta é a que estamos no momento
+      if(textoResposta == textoRespostaSelecionada)
+        return _corRespostaSelecionada;
+      
       return _corRespostaNaoSelecionada;
+    }
+    else {
+      if(_controller.verificarRespostaCerta(indexRespostaCorreta))
+        return _corRespostaCerta;
 
-    // Caso tenha resposta, verificamos se a resposta é a que estamos no momento
-    if(textoResposta == textoRespostaSelecionada)
-      return _corRespostaSelecionada;
-
-     return _corRespostaNaoSelecionada;
-
-    // _respostaSelecionada != null && _respostaSelecionada == indexRespostaCorreta
-    //               ? _corRespostaSelecionada
-    //               : _corRespostaNaoSelecionada
+      return _corRespostaErrada;
+    }
   }
 
   _buildScoreKeeper() {

@@ -23,7 +23,7 @@ class CustomTextField extends StatelessWidget {
       onSaved: (value) {
         this.value = value;
       },
-      initialValue: (placeholder == 'Senha') ? "123456" : 'user@email.com.br',
+      initialValue: (placeholder == 'Senha') ? "123456" : 'aluno@formulabancaria.com.br',
       validator: validationFunction,
       keyboardType: inputType,
       obscureText: (placeholder == 'Senha'),
