@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
 import 'package:formula_bancaria_app/models/auth.dart';
+import 'package:formula_bancaria_app/models/usuario.dart';
+import 'package:formula_bancaria_app/models/usuario_logado.dart';
 import 'package:http_interceptor/http_interceptor.dart';
 
 class AuthInterceptor implements InterceptorContract {
@@ -26,6 +28,7 @@ class AuthInterceptor implements InterceptorContract {
       debugPrint('Token Armazenado');
       dynamic jsonResponse = jsonDecode(data.body);
       Auth.saveToken(jsonResponse['token']);
+      UsuarioLogado.saveUser(Usuario.fromJson(jsonResponse['usuario']));
     }
    /* print(data.headers);*/
     //print(data.body);

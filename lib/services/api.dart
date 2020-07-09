@@ -17,7 +17,7 @@ const String _baseUrl = 'https://formula-bancaria-api.herokuapp.com/api/v1';
 
 Future<Response> post({String resource, dynamic body}) async {
   return await _client.post(
-    '$_baseUrl/${resource}',
+    '$_baseUrl/$resource',
     body: body,
     headers: {
       'Content-Type': 'application/json',
@@ -26,5 +26,5 @@ Future<Response> post({String resource, dynamic body}) async {
 }
 
 Future<Response> get(String resource) async{
-  return await _client.get('$_baseUrl/${resource}');
+  return await _client.get('$_baseUrl/$resource');
 }
