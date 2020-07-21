@@ -1,17 +1,7 @@
-import 'dart:convert';
-import 'dart:math';
-
-// import 'package:formula_bancaria_app/models/questao_ativa.dart';
-// import 'package:formula_bancaria_app/models/question.dart';
-import 'package:formula_bancaria_app/models/auth.dart';
 import 'package:formula_bancaria_app/models/simulado-gerado.dart';
 import 'package:formula_bancaria_app/models/simulado_respondido.dart';
 import 'package:formula_bancaria_app/models/usuario_logado.dart';
-import 'package:formula_bancaria_app/services/base_service.dart';
-import 'package:formula_bancaria_app/services/simulado_respondido_service.dart';
-// import 'package:formula_bancaria_app/services/quiz_api.dart';
 import 'package:formula_bancaria_app/services/simulado_service.dart';
-import 'package:http/http.dart';
 
 class SimuladoAtivoController {
   SimuladoGerado _simuladoGerado;
@@ -36,8 +26,6 @@ class SimuladoAtivoController {
     _questoesPlanilha = _simuladoGerado.questoes;
   
     print('Número de questões: ${_simuladoGerado.questoes.length}');
-    // _questoesPlanilha.shuffle();
-    // _shiftAnswe
   }
 
   void nextQuestion() {
@@ -134,19 +122,6 @@ class SimuladoAtivoController {
   Future<SimuladoGerado> gerarSimuladoParaResponder(int id) async {
     return SimuladoService().gerarSimulado(id);
   }
-
-  // Future<bool> concluirSimulado() async {
-  //   // return SimuladoRespondidoService().concluirSimulado(_simuladoRespondido);
-
-  //   // return response;
-  //   BaseService service = new BaseService();
-
-  //   final token = Auth.token();
-  //   bool _boolResponse;
-  //   String resource = "simuladosRespondidos";
-
-    
-  // }
 
   SimuladoRespondido getSimuladoRespondido()
   {

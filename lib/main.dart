@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:formula_bancaria_app/screens/aluno/aulas_particulares.dart';
+import 'package:formula_bancaria_app/screens/aluno/dicas_fundador.dart';
+import 'package:formula_bancaria_app/screens/aluno/ebooks_apostilas.dart';
+import 'package:formula_bancaria_app/screens/aluno/estatisticas.dart';
+import 'package:formula_bancaria_app/screens/aluno/formula_expert.dart';
+import 'package:formula_bancaria_app/screens/aluno/loja_virtual.dart';
 import 'package:formula_bancaria_app/screens/aluno/menu.dart';
-import 'package:formula_bancaria_app/screens/aluno/simulado/simulado-ativo.page.dart';
+import 'package:formula_bancaria_app/screens/aluno/mude_vida.dart';
+import 'package:formula_bancaria_app/screens/aluno/simulado/simulado_ativo.page.dart';
 import 'package:formula_bancaria_app/screens/modulo/formulario.dart';
 import 'package:formula_bancaria_app/screens/modulo/lista.dart';
 import 'package:formula_bancaria_app/screens/questao/formulario.dart';
 import 'package:formula_bancaria_app/screens/simulado/formulario.dart';
 import 'package:formula_bancaria_app/screens/simulado/lista.dart';
 import 'package:formula_bancaria_app/screens/usuario/formulario_login.dart';
+import 'package:formula_bancaria_app/screens/usuario/lembrar_senha.dart';
+import 'package:formula_bancaria_app/screens/usuario/usuario_cadastro.dart';
 
 void main() => runApp(FormulaBancariaAPP());
 
@@ -85,7 +94,16 @@ class FormulaBancariaAPP extends StatelessWidget {
         '/novo-modulo': (context) => FormularioModulo(),
         '/novo-questao': (context) => FormularioQuestao(),
         '/aluno/menu': (context) => MenuAluno(),
-        '/aluno/simulado/simulado-ativo': (context) => SimuladoAtivoPage(),
+        '/aluno/simulado/simulado_ativo': (context) => SimuladoAtivoPage(),
+        '/aluno/dicas_fundador': (context) => DicasFundador(),
+        '/aluno/ebooks_apostilas': (context) => EbooksApostilas(),
+        '/aluno/aulas_particulares': (context) => AulasParticulares(),
+        '/aluno/mude_vida': (context) => MudeVida(),
+        '/aluno/loja_virtual': (context) => LojaVirtual(),
+        '/aluno/formula_expert': (context) => FormulaExpert(),
+        '/aluno/cadastro': (context) => UsuarioCadastro(),
+        '/aluno/lembrar_senha': (context) => LembrarSenha(),
+        '/aluno/estatisticas': (context) => Estatistica()
       },
       theme: basicTheme,
       debugShowCheckedModeBanner: false

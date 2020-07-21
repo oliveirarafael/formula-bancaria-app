@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class FinishDialog {
-  static Future show(
+class MensagemDialog {
+   static Future show(
     BuildContext context, {
-    int hitNumber,
-    int numeroQuestoes
+    String mensagem,
+    Function funcao
   }) {
     return showDialog<void>(
       context: context,
@@ -18,10 +18,10 @@ class FinishDialog {
             ),
           ),
           title: CircleAvatar(
-            backgroundColor: Colors.green,
+            backgroundColor: Colors.blue,
             maxRadius: 35.0,
             child: Icon(
-              hitNumber < 6 ? Icons.warning : Icons.favorite,
+              Icons.favorite,
               color: Colors.grey.shade900,
             ),
           ),
@@ -30,7 +30,7 @@ class FinishDialog {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Pontuação',
+                'Alerta',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -39,7 +39,7 @@ class FinishDialog {
               ),
               const SizedBox(height: 8),
               Text(
-                'Você acertou $hitNumber de $numeroQuestoes!',
+                mensagem,
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -51,9 +51,7 @@ class FinishDialog {
           actions: [
             FlatButton(
               child: const Text('Ok'),
-              onPressed: () {
-                Navigator.pop(context, '/aluno/menu');
-              },
+              onPressed: funcao,
             )
           ],
         );

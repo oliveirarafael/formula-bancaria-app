@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'menu-item-bottom.widget.dart';
 import 'menu-item-image.widget.dart';
-import 'menu-item.widget.dart';
 
 class MenuImagem extends StatelessWidget {
  @override

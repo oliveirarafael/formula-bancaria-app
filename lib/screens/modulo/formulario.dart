@@ -6,8 +6,8 @@ import 'package:formula_bancaria_app/models/simulado.dart';
 import 'package:formula_bancaria_app/services/api.dart';
 
 const _tituloAppBar = 'Novo Modulo';
-const _labelCampoTitulo = 'Título';
-const _labelCampoDescricao = 'Descrição';
+// const _labelCampoTitulo = 'Título';
+// const _labelCampoDescricao = 'Descrição';
 const _textoBotaoContinuar = 'Continuar';
 
 class FormularioModulo extends StatefulWidget {

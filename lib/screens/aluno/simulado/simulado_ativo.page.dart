@@ -6,7 +6,6 @@ import 'package:formula_bancaria_app/components/centered_circular_progress.dart'
 import 'package:formula_bancaria_app/components/centered_message.dart';
 import 'package:formula_bancaria_app/components/modal/exibir_comentario.dart';
 import 'package:formula_bancaria_app/components/modal/finish_dialog.dart';
-import 'package:formula_bancaria_app/components/modal/result_dialog.dart';
 import 'package:formula_bancaria_app/controllers/simulado_ativo_controller.dart';
 import 'package:formula_bancaria_app/models/auth.dart';
 import 'package:formula_bancaria_app/services/base_service.dart';
@@ -25,10 +24,7 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
   bool _primeiraQuestao = true; // Primeira questão
   bool _ultimaQuestao = false;
   bool _corrigir = false;
-  // bool _resposta1Selecionada = false;
-  // bool _resposta2Selecionada = false;
-  // bool _resposta3Selecionada = false;
-  // bool _resposta4Selecionada = false;
+  bool _podeResponder = true;
 
   int _respostaSelecionada = -1;
 
@@ -65,12 +61,14 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
       // ),
       backgroundColor: Colors.grey.shade900,
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.0),
-          child: _buildSimulado()
-        ),
-      ),
-    );
+            //  child: SingleChildScrollView(
+              // child: Padding(
+              //   padding: EdgeInsets.symmetric(horizontal: 0.0),
+                child: _buildSimulado()
+              // ),
+            //  ),
+          )
+      );
   }
 
   _buildSimulado() {
@@ -83,6 +81,7 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
       );
 
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Row(children: <Widget>[
           Image.asset('assets/images/logo/logo-vertical-branca.png', height: 60.0),
@@ -98,11 +97,18 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
           ])
         ]),
 
-        _buildQuestao(_controller.getQuestion()),
-        _buildAnswerButton(_controller.getAnswer1(), 0),
-        _buildAnswerButton(_controller.getAnswer2(), 1),
-        _buildAnswerButton(_controller.getAnswer3(), 2),
-        _buildAnswerButton(_controller.getAnswer4(), 3),
+        // SingleChildScrollView(child: Padding(padding: EdgeInsets.symmetric(horizontal: 0.0),
+        //   child:  Column(children: <Widget>[
+            _buildQuestao(_controller.getQuestion()),
+            _buildAnswerButton(_controller.getAnswer1(), 0),
+            _buildAnswerButton(_controller.getAnswer2(), 1),
+            _buildAnswerButton(_controller.getAnswer3(), 2),
+            _buildAnswerButton(_controller.getAnswer4(), 3),
+        //   ]),
+        // ),
+        // ),
+         
+
         _buildScoreKeeper(),
 
         _buildAcoes(_controller.getQuestion()),
@@ -137,24 +143,24 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-         !_primeiraQuestao ? Center(child: IconButton(
-            iconSize: 50.0,
-            padding: EdgeInsets.only(bottom: 0.0),
-            icon: Icon(Icons.arrow_left),//, size: 60.0), 
-            color: Colors.white, 
-            tooltip: 'Questão anterior',
-            onPressed: (() {
-              setState(() {
-                  // if (_controller.getNumeroQuestao() < _controller.questionsNumber) {
-                    _respostaSelecionada = -1;
-                    _controller.previousQuestion();
-                    _primeiraQuestao = _controller.primeiraQuestao();
-                    _ultimaQuestao = _controller.ultimaQuestao();
-                    _corrigir = false;
-                  // }
-                });
-            }),
-          )) : Container(),
+        //  !_primeiraQuestao ? Center(child: IconButton(
+        //     iconSize: 50.0,
+        //     padding: EdgeInsets.only(bottom: 0.0),
+        //     icon: Icon(Icons.arrow_left),//, size: 60.0), 
+        //     color: Colors.white, 
+        //     tooltip: 'Questão anterior',
+        //     onPressed: (() {
+        //       setState(() {
+        //           // if (_controller.getNumeroQuestao() < _controller.questionsNumber) {
+        //             _respostaSelecionada = -1;
+        //             _controller.previousQuestion();
+        //             _primeiraQuestao = _controller.primeiraQuestao();
+        //             _ultimaQuestao = _controller.ultimaQuestao();
+        //             _corrigir = false;
+        //           // }
+        //         });
+        //     }),
+        //   )) : Container(),
           OutlineButton(
             onPressed: () {
               // bool correct = _controller.correctAnswer(indexRespostaCorreta);
@@ -204,6 +210,7 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
               onPressed: (() {
                 setState(() {
                     // if (_controller.getNumeroQuestao() < _controller.questionsNumber) {
+                      _podeResponder = true;
                       _respostaSelecionada = -1;
                       _controller.nextQuestion();
                       _primeiraQuestao = _controller.primeiraQuestao();
@@ -266,56 +273,34 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
 
   _buildAnswerButton(String answer, int indexRespostaCorreta) {
     return Expanded(
+      // flex: 4,
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 8.0),
+        padding: EdgeInsets.symmetric(vertical: 4.0),
         child: GestureDetector(
           child: Container(
-            padding: EdgeInsets.all(4.0),
+            padding: EdgeInsets.all(6.0),
             color: _selectColorResponse(answer, indexRespostaCorreta),
             child: Center(
               child: AutoSizeText(
                 answer,
-                maxLines: 3,
-                minFontSize: 10.0,
-                maxFontSize: 32.0,
+                maxLines: 5,
+                minFontSize: 12.0,
+                maxFontSize: 24.0,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color:  Colors.white,
                   fontSize: 20.0,
                 ),
-                overflow: TextOverflow.ellipsis,
+                overflow: TextOverflow.fade,
               ),
             ),
           ),
           onTap: () {
-            setState(() => _respostaSelecionada = indexRespostaCorreta);
+            if(_podeResponder)
+            {
+              setState(() => _respostaSelecionada = indexRespostaCorreta);
              _controller.armazenarQuestaoRespondida(indexRespostaCorreta);
-            // bool correct = _controller.correctAnswer(indexRespostaCorreta);
-            // ResultDialog.show(
-            //   context,
-            //   question: _controller.question,
-            //   correct: correct,
-            //   indexRespostaCorreta: indexRespostaCorreta,
-            //   onNext: () {
-            //     setState(() {
-            //       _scoreKeeper.add(
-            //         Icon(
-            //           correct ? Icons.check : Icons.close,
-            //           color: correct ? Colors.green : Colors.red,
-            //         ),
-            //       );
-
-            //       if (_scoreKeeper.length < 10) {
-            //         _controller.nextQuestion();
-            //       } else {
-            //         FinishDialog.show(
-            //           context,
-            //           hitNumber: _controller.hitNumber,
-            //         );
-            //       }
-            //     });
-            //   },
-            // );
+            }
           },
         ),
       ),
@@ -343,10 +328,16 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
       return _corRespostaNaoSelecionada;
     }
     else {
-      if(_controller.verificarRespostaCerta(indexRespostaCorreta))
-        return _corRespostaCerta;
-
-      return _corRespostaErrada;
+      if(textoResposta == textoRespostaSelecionada)
+      {
+        _podeResponder = false;
+        if(_controller.verificarRespostaCerta(indexRespostaCorreta))
+          return _corRespostaCerta;
+        else
+          return _corRespostaErrada;
+      }
+      
+      return _corRespostaNaoSelecionada;
     }
   }
 

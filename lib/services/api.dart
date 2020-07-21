@@ -14,6 +14,7 @@ Client _client = HttpClientWithInterceptor.build(
 );
 
 const String _baseUrl = 'https://formula-bancaria-api.herokuapp.com/api/v1';
+// const String _baseUrl = 'http://localhost:8080/api/v1';
 
 Future<Response> post({String resource, dynamic body}) async {
   return await _client.post(

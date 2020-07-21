@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:formula_bancaria_app/models/simulado.dart';
-import 'package:formula_bancaria_app/screens/modulo/formulario.dart';
 import 'package:formula_bancaria_app/services/api.dart';
 
 const _tituloAppBar = 'Novo Simulado';

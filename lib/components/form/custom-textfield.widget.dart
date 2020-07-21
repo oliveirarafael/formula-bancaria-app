@@ -19,11 +19,9 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      //autofocus: true,
       onSaved: (value) {
         this.value = value;
       },
-      initialValue: (placeholder == 'Senha') ? "123456" : 'aluno@formulabancaria.com.br',
       validator: validationFunction,
       keyboardType: inputType,
       obscureText: (placeholder == 'Senha'),

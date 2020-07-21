@@ -29,6 +29,14 @@ dependencies:
   cupertino_icons: ^0.1.2
   auto_size_text: ^2.1.0
   share: ^0.6.3+6
+  url_launcher: ^5.4.1
+  charts_flutter: ^0.9.0
+  # bezier_chart: ^1.0.16
+  bezier_chart: 1.0.17+1
+  # modern_charts: ^0.1.19
+  syncfusion_flutter_charts: ^17.3.26
+  flutter_charts: ^0.1.10
+  fl_chart: ^0.10.1
 
 dev_dependencies:
   flutter_test:
@@ -56,6 +64,7 @@ flutter:
      - assets/images/logo/logo-vertical-branca.png
      - assets/images/logo/logo-vertical-colorida.png
      - assets/images/logo/logo-vertical-preta.png
+     - assets/images/logo/logo-branca.png
      
      - assets/images/certificacao/aai.png
      - assets/images/certificacao/cea.png
@@ -70,6 +79,12 @@ flutter:
 
      - assets/fonts/CenturyGothic.ttf
      - assets/fonts/FranklinGothicBook.ttf
+
+     - assets/images/circulo-azul.png
+     - assets/images/ebook.png
+     - assets/images/fundador.png
+     - assets/images/pessoa.png
+     - assets/images/capelo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -6,9 +6,9 @@ class Usuario {
   final String uuid;
   final String nome;
   final String email;
-  final bool assinante;
-  final bool ehAluno;
-  final bool ehProfessor;
+  bool assinante;
+  bool ehAluno;
+  bool ehProfessor;
 
   Usuario({this.id, this.uuid, this.nome, this.email, this.assinante, this.ehAluno, this.ehProfessor});
 

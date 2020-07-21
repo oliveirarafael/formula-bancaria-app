@@ -27,7 +27,7 @@ class MenuItem extends StatelessWidget {
         ),
         color: Theme.of(context).scaffoldBackgroundColor,
         //color: Colors.blue,
-        onPressed: () => { Navigator.pushNamed(this._context, '/aluno/simulado/simulado-ativo') },
+        onPressed: () => { Navigator.pushNamed(this._context, '/aluno/simulado/simulado_ativo') },
         padding: EdgeInsets.all(10.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

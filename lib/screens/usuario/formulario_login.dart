@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:formula_bancaria_app/components/logo.dart';
-import 'package:formula_bancaria_app/models/usuario_logado.dart';
 import 'package:formula_bancaria_app/models/usuario_login.dart';
 import 'package:formula_bancaria_app/services/api.dart';
 
@@ -65,7 +64,7 @@ class _FormularioLoginState extends State<FormularioLogin> {
       onSaved: (email) {
         this._email = email;
       },
-      initialValue: "aluno@formulabancaria.com.br",
+      // initialValue: "aluno@formulabancaria.com.br",
       validator: (email) {
         if (email.isEmpty) {
           return 'Campo Obrigatório';
@@ -112,7 +111,7 @@ class _FormularioLoginState extends State<FormularioLogin> {
       onSaved: (senha) {
         this._senha = senha;
       },
-      initialValue: '123456',
+      // initialValue: '123456',
       validator: (senha) {
         if (senha.isEmpty) {
           return 'Campo Obrigatório';
@@ -238,13 +237,11 @@ class _FormularioLoginState extends State<FormularioLogin> {
       ),
     ).then((response) {
       if (response.statusCode == 200) {
-        if(UsuarioLogado.getUser().getEhAluno() && UsuarioLogado.getUser().getAssinante())
-        {
-          Navigator.pushNamed(this._context, '/aluno/menu');
-        }
-        // Navigator.pushNamed(this._context, '/simulados');
-        
-        // Navigator.pushNamed(this._context, '/aluno/questaoativa');
+        Navigator.pushNamed(this._context, '/aluno/menu');
+        // if(UsuarioLogado.getUser() != null && UsuarioLogado.getUser().getEhAluno() && UsuarioLogado.getUser().getAssinante())
+        // {
+        //   Navigator.pushNamed(this._context, '/aluno/menu');
+        // }
       } else {
         showDialog(
           context: this._context,
@@ -282,7 +279,9 @@ class _FormularioLoginState extends State<FormularioLogin> {
           ),
           textAlign: TextAlign.right,
         ),
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(this._context, '/aluno/lembrar_senha');
+        },
       ),
     );
   }
@@ -299,7 +298,9 @@ class _FormularioLoginState extends State<FormularioLogin> {
               fontSize: 15,
           ),
         ),
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(this._context, '/aluno/cadastro');
+        },
       ),
     );
   }
