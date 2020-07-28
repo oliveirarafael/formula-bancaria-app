@@ -32,7 +32,8 @@ class FormulaBancariaAPP extends StatelessWidget {
     accentIconTheme: IconThemeData(color: Colors.black),
     dividerColor: Colors.black12,
     textTheme: TextTheme(
-      title: TextStyle(fontSize: 72.0, color: Colors.white, fontWeight: FontWeight.bold),
+      title: TextStyle(
+          fontSize: 72.0, color: Colors.white, fontWeight: FontWeight.bold),
       body1: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       body2: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       caption: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
@@ -49,16 +50,15 @@ class FormulaBancariaAPP extends StatelessWidget {
     iconTheme: IconThemeData(color: Colors.white),
     primaryIconTheme: IconThemeData(color: Colors.green),
     inputDecorationTheme: InputDecorationTheme(
-      fillColor: Colors.white, 
-      hoverColor: Colors.green,
-      focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-            color: Colors.blueAccent, width: 1),
-        borderRadius: BorderRadius.circular(8.0),
-      )
-    ),
+        fillColor: Colors.white,
+        hoverColor: Colors.green,
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.blueAccent, width: 1),
+          borderRadius: BorderRadius.circular(8.0),
+        )),
     accentTextTheme: TextTheme(
-      title: TextStyle(fontSize: 72.0, color: Colors.white, fontWeight: FontWeight.bold),
+      title: TextStyle(
+          fontSize: 72.0, color: Colors.white, fontWeight: FontWeight.bold),
       body1: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       body2: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       caption: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
@@ -77,20 +77,19 @@ class FormulaBancariaAPP extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/',
-      routes: {
-        '/': (context) => FormularioLogin(),
-        '/simulados': (context) => ListaSimulados(),
-        '/simulado/modulos': (context) => ListaModulo(),
-        '/simulado/modulos/questoes': (context) => ListaQuestao(),
-        '/novo-simulado': (context) => FormularioSimulado(),
-        '/novo-modulo': (context) => FormularioModulo(),
-        '/novo-questao': (context) => FormularioQuestao(),
-        '/aluno/menu': (context) => MenuAluno(),
-        '/aluno/simulado/simulado-ativo': (context) => SimuladoAtivoPage(),
-      },
-      theme: basicTheme,
-      debugShowCheckedModeBanner: false
-    );
+        initialRoute: '/',
+        routes: {
+          '/': (context) => FormularioLogin(),
+          '/simulados': (context) => ListaSimulados(),
+          '/simulado/modulos': (context) => ListaModulo(),
+          '/simulado/modulos/questoes': (context) => ListaQuestao(),
+          '/novo-simulado': (context) => FormularioSimulado(),
+          '/novo-modulo': (context) => FormularioModulo(),
+          '/novo-questao': (context) => FormularioQuestao(),
+          '/aluno/menu': (context) => MenuAluno(),
+          '/aluno/simulado/simulado-ativo': (context) => SimuladoAtivoPage(),
+        },
+        //theme: basicTheme,
+        debugShowCheckedModeBanner: false);
   }
 }

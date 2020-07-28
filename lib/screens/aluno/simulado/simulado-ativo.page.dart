@@ -18,7 +18,6 @@ class SimuladoAtivoPage extends StatefulWidget {
 }
 
 class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
-
   final _controller = SimuladoAtivoController();
   List<Widget> _scoreKeeper = [];
   bool _loading = true;
@@ -32,11 +31,10 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
 
   int _respostaSelecionada = -1;
 
-  Color _corRespostaSelecionada =  Colors.indigo;
+  Color _corRespostaSelecionada = Colors.indigo;
   Color _corRespostaNaoSelecionada = Colors.blue;
   Color _corRespostaCerta = Colors.green;
   Color _corRespostaErrada = Colors.red;
-
 
   Future<void> _initialize() async {
     await _controller.initialize();
@@ -46,7 +44,6 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
     });
   }
 
-
   @override
   void initState() {
     super.initState();
@@ -55,21 +52,42 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.grey.shade900,
-      //   title: Text('QUIZ COVID-19 ( ${_scoreKeeper.length}/10 )'),
-      //   centerTitle: true,
-      //   elevation: 0.0,
-      // ),
-      backgroundColor: Colors.grey.shade900,
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.0),
-          child: _buildSimulado()
+      appBar: AppBar(
+        title: Text(
+          '${_controller.getNumeroQuestao()}/${_controller.questionsNumber} questões',
         ),
       ),
+      body: this._buildSimulado(),
+      bottomNavigationBar: new BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.comment,
+              ),
+              tooltip: "Cometário",
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.arrow_forward,
+              ),
+              tooltip: "Pular",
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.done,
+        ),
+        onPressed: () {},
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
@@ -82,205 +100,108 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
         icon: Icons.warning,
       );
 
-    return Column(
+    return _corpo();
+  }
+
+  Widget _cabecalho() {
+    return Container(
+      child: Row(children: <Widget>[
+        Image.asset(
+          'assets/images/logo/logo-vertical-branca.png',
+          height: 60.0,
+        ),
+        Column(children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(left: 30.0),
+            child: Text('${_controller.nomeSimulado}',
+                style: TextStyle(color: Colors.black87, fontSize: 20)),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 30.0),
+            child: Text(
+                '${_controller.getNumeroQuestao()}/${_controller.questionsNumber} questões',
+                style: TextStyle(color: Colors.black87, fontSize: 16)),
+          ),
+        ])
+      ]),
+    );
+  }
+
+  _corpo() {
+    return ListView(
       children: <Widget>[
-        Row(children: <Widget>[
-          Image.asset('assets/images/logo/logo-vertical-branca.png', height: 60.0),
-          Column(children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(left: 30.0),
-              child: Text('${_controller.nomeSimulado}', style: TextStyle(color: Colors.white, fontSize: 20)),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 30.0),
-              child: Text('${_controller.getNumeroQuestao()}/${_controller.questionsNumber} questões', style: TextStyle(color: Colors.white, fontSize: 16)),
-            ),
-          ])
-        ]),
-
-        _buildQuestao(_controller.getQuestion()),
-        _buildAnswerButton(_controller.getAnswer1(), 0),
-        _buildAnswerButton(_controller.getAnswer2(), 1),
-        _buildAnswerButton(_controller.getAnswer3(), 2),
-        _buildAnswerButton(_controller.getAnswer4(), 3),
-        _buildScoreKeeper(),
-
-        _buildAcoes(_controller.getQuestion()),
+        _questao(_controller.getQuestion()),
+        _resposta(_controller.getAnswer1(), 0),
+        _resposta(_controller.getAnswer2(), 1),
+        _resposta(_controller.getAnswer3(), 2),
+        _resposta(_controller.getAnswer4(), 3),
       ],
     );
   }
 
-  _buildQuestao(String question) {
-    return Expanded(
-      flex: 5,
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 16.0),
-        child: Center(
-          child: Text(
-            question,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 25.0,
-              color: Colors.white,
-            ),
+  Widget _questao(String question) {
+    return Container(
+      padding: EdgeInsets.all(25.0),
+      child: Center(
+        child: Text(
+          question,
+          textAlign: TextAlign.left,
+          style: TextStyle(
+            fontSize: 16.0,
+            color: Colors.black87,
           ),
         ),
       ),
     );
   }
 
-  _buildAcoes(String question) {
-    return 
-    Container(
-      margin: EdgeInsets.symmetric(vertical: 30.0, horizontal: 0),
-      height: 60.0,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+  Widget _respostas() {
+    double altura = (MediaQuery.of(context).size.height * 65) / 100;
+    debugPrint("Altura $altura");
+    return Container(
+      height: altura,
+      child: ListView(
         children: <Widget>[
-         !_primeiraQuestao ? Center(child: IconButton(
-            iconSize: 50.0,
-            padding: EdgeInsets.only(bottom: 0.0),
-            icon: Icon(Icons.arrow_left),//, size: 60.0), 
-            color: Colors.white, 
-            tooltip: 'Questão anterior',
-            onPressed: (() {
-              setState(() {
-                  // if (_controller.getNumeroQuestao() < _controller.questionsNumber) {
-                    _respostaSelecionada = -1;
-                    _controller.previousQuestion();
-                    _primeiraQuestao = _controller.primeiraQuestao();
-                    _ultimaQuestao = _controller.ultimaQuestao();
-                    _corrigir = false;
-                  // }
-                });
-            }),
-          )) : Container(),
-          OutlineButton(
-            onPressed: () {
-              // bool correct = _controller.correctAnswer(indexRespostaCorreta);
-              ExibirComentarioDialog.show(
-                context,
-                question: _controller.question,
-              );
-            },
-            padding: EdgeInsets.only(bottom: 0.0),
-            borderSide: BorderSide(
-                color: Colors.white,
-                style: BorderStyle.solid,
-            ),
-            child: Text('Comentário', style: TextStyle(color: Colors.white, fontSize: 11))
-          ),
-            CircleAvatar(
-            radius: 31, 
-            backgroundColor: Colors.blue, 
-            child: CircleAvatar(
-              radius: 29,
-              backgroundColor: Colors.white,
-              child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Image.asset('assets/images/logo/logo-colorida.png'), // CircleAvatar(
-              ),
-            ),
-          ),
-          OutlineButton(
-            onPressed:  (() {
-              setState(() {
-                _corrigir = true;
-              });
-            }),
-            padding: EdgeInsets.only(bottom: 0.0),
-            borderSide: BorderSide(
-                color: Colors.white,
-                style: BorderStyle.solid,
-            ),
-            child: Text('Responder', style: TextStyle(color: Colors.white, fontSize: 11))
-          ),
-          !_ultimaQuestao ? Center(child: IconButton(
-              iconSize: 50.0,
-              padding: EdgeInsets.only(bottom: 0.0),
-              icon: Icon(Icons.arrow_right),//, size: 60.0), 
-              color: Colors.white, 
-              tooltip: 'Próxima questão', 
-              onPressed: (() {
-                setState(() {
-                    // if (_controller.getNumeroQuestao() < _controller.questionsNumber) {
-                      _respostaSelecionada = -1;
-                      _controller.nextQuestion();
-                      _primeiraQuestao = _controller.primeiraQuestao();
-                      _ultimaQuestao = _controller.ultimaQuestao();
-                      _corrigir = false;
-                    // }
-                  });
-              }),
-            )
-          ) : Center(child: IconButton(
-              iconSize: 50.0,
-              padding: EdgeInsets.only(bottom: 0.0),
-              icon: Icon(Icons.check_circle, color: Colors.green),//, size: 60.0), 
-              color: Colors.green, 
-              tooltip: 'Concluir', 
-              onPressed: (() {_concluirSimulado(); }),
-            )
-          ),
+          _resposta(_controller.getAnswer1(), 0),
+          _resposta(_controller.getAnswer2(), 1),
+          _resposta(_controller.getAnswer3(), 2),
+          _resposta(_controller.getAnswer4(), 3),
         ],
-      )
+      ),
     );
   }
 
-  _concluirSimulado() {
-   
-    BaseService service = new BaseService();
-    
-    post(
-      '${service.baseUrl}/simuladosRespondidos',
-      headers: <String, String>{
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + Auth.token()
-      },
-      body: jsonEncode(_controller.getSimuladoRespondido()),
-    ).then((response) {
-      if (response.statusCode == 201) {
-        FinishDialog.show(
-          context,
-          hitNumber: _controller.hitNumber,
-          numeroQuestoes: _controller.questionsNumber
-        );
-      } else {
-        throw Exception('Erro ao salvar simulado');
-      }
-    }).catchError((erro) {
-      debugPrint('Erro: $erro');
-      AlertDialog alert = AlertDialog(
-        title: Text("Alerta"),
-        content: Text("Simulado não pôde ser salvo"),
-        actions: [
-          FlatButton(
-            child: Text("OK"),
-            onPressed: () { },
-          )
-        ],
-      );
-    });
-    _loading = true;
-  }
+  _resposta(String answer, int indexRespostaCorreta) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      child: RadioListTile<int>(
+        title: Text(
+          answer.trim(),
+          textAlign: TextAlign.left,
+        ),
+        value: indexRespostaCorreta,
+        groupValue: _respostaSelecionada,
+        onChanged: _selecionaResposta,
+      ),
+    );
 
-  _buildAnswerButton(String answer, int indexRespostaCorreta) {
-    return Expanded(
+    /*Expanded(
+      flex: 2,
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 8.0),
+        padding: EdgeInsets.symmetric(vertical: 4.0),
         child: GestureDetector(
           child: Container(
             padding: EdgeInsets.all(4.0),
             color: _selectColorResponse(answer, indexRespostaCorreta),
             child: Center(
               child: AutoSizeText(
-                answer,
-                maxLines: 3,
-                minFontSize: 10.0,
-                maxFontSize: 32.0,
-                textAlign: TextAlign.center,
+                answer.trim(),
+                maxLines: 5,
+                minFontSize: 12.0,
+                maxFontSize: 12.0,
+                textAlign: TextAlign.left,
                 style: TextStyle(
-                  color:  Colors.white,
+                  color: Colors.white,
                   fontSize: 20.0,
                 ),
                 overflow: TextOverflow.ellipsis,
@@ -289,7 +210,7 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
           ),
           onTap: () {
             setState(() => _respostaSelecionada = indexRespostaCorreta);
-             _controller.armazenarQuestaoRespondida(indexRespostaCorreta);
+            _controller.armazenarQuestaoRespondida(indexRespostaCorreta);
             // bool correct = _controller.correctAnswer(indexRespostaCorreta);
             // ResultDialog.show(
             //   context,
@@ -319,31 +240,181 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
           },
         ),
       ),
+    );*/
+  }
+
+  Widget _rodape() {
+    return _buildAcoes(_controller.getQuestion());
+    //_buildScoreKeeper(),
+    //,
+  }
+
+  _buildAcoes(String question) {
+    return Positioned(
+      bottom: 0.0,
+      child: Container(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            !_primeiraQuestao
+                ? Center(
+                    child: IconButton(
+                    iconSize: 50.0,
+                    padding: EdgeInsets.only(bottom: 0.0),
+                    icon: Icon(Icons.arrow_left), //, size: 60.0),
+                    tooltip: 'Questão anterior',
+                    onPressed: (() {
+                      setState(() {
+                        // if (_controller.getNumeroQuestao() < _controller.questionsNumber) {
+                        _respostaSelecionada = -1;
+                        _controller.previousQuestion();
+                        _primeiraQuestao = _controller.primeiraQuestao();
+                        _ultimaQuestao = _controller.ultimaQuestao();
+                        _corrigir = false;
+                        // }
+                      });
+                    }),
+                  ))
+                : Container(),
+            OutlineButton(
+                onPressed: () {
+                  // bool correct = _controller.correctAnswer(indexRespostaCorreta);
+                  ExibirComentarioDialog.show(
+                    context,
+                    question: _controller.question,
+                  );
+                },
+                padding: EdgeInsets.only(bottom: 0.0),
+                borderSide: BorderSide(
+                  color: Colors.blue,
+                  style: BorderStyle.solid,
+                ),
+                child: Text('Comentário',
+                    style: TextStyle(color: Colors.blue, fontSize: 11))),
+            CircleAvatar(
+              radius: 31,
+              backgroundColor: Colors.blue,
+              child: CircleAvatar(
+                radius: 29,
+                backgroundColor: Colors.white,
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Image.asset(
+                      'assets/images/logo/logo-colorida.png'), // CircleAvatar(
+                ),
+              ),
+            ),
+            OutlineButton(
+                onPressed: (() {
+                  setState(() {
+                    _corrigir = true;
+                  });
+                }),
+                padding: EdgeInsets.only(bottom: 0.0),
+                borderSide: BorderSide(
+                  color: Colors.blue,
+                  style: BorderStyle.solid,
+                ),
+                child: Text('Responder',
+                    style: TextStyle(color: Colors.blue, fontSize: 11))),
+            !_ultimaQuestao
+                ? Center(
+                    child: IconButton(
+                    iconSize: 50.0,
+                    padding: EdgeInsets.only(bottom: 0.0),
+                    icon: Icon(Icons.arrow_right), //, size: 60.0),
+                    tooltip: 'Próxima questão',
+                    onPressed: (() {
+                      setState(() {
+                        // if (_controller.getNumeroQuestao() < _controller.questionsNumber) {
+                        _respostaSelecionada = -1;
+                        _controller.nextQuestion();
+                        _primeiraQuestao = _controller.primeiraQuestao();
+                        _ultimaQuestao = _controller.ultimaQuestao();
+                        _corrigir = false;
+                        // }
+                      });
+                    }),
+                  ))
+                : Center(
+                    child: IconButton(
+                    iconSize: 50.0,
+                    padding: EdgeInsets.only(bottom: 0.0),
+                    icon: Icon(Icons.check_circle,
+                        color: Colors.green), //, size: 60.0),
+                    color: Colors.green,
+                    tooltip: 'Concluir',
+                    onPressed: (() {
+                      _concluirSimulado();
+                    }),
+                  )),
+          ],
+        ),
+      ),
     );
   }
 
-  Color _selectColorResponse(String textoResposta,int indexRespostaCorreta) {
+  _concluirSimulado() {
+    BaseService service = new BaseService();
+
+    post(
+      '${service.baseUrl}/simuladosRespondidos',
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + Auth.token()
+      },
+      body: jsonEncode(_controller.getSimuladoRespondido()),
+    ).then((response) {
+      if (response.statusCode == 201) {
+        FinishDialog.show(context,
+            hitNumber: _controller.hitNumber,
+            numeroQuestoes: _controller.questionsNumber);
+      } else {
+        throw Exception('Erro ao salvar simulado');
+      }
+    }).catchError((erro) {
+      debugPrint('Erro: $erro');
+      AlertDialog alert = AlertDialog(
+        title: Text("Alerta"),
+        content: Text("Simulado não pôde ser salvo"),
+        actions: [
+          FlatButton(
+            child: Text("OK"),
+            onPressed: () {},
+          )
+        ],
+      );
+    });
+    _loading = true;
+  }
+
+  void _selecionaResposta(int valor) {
+    setState(() {
+      this._respostaSelecionada = valor;
+    });
+  }
+
+  Color _selectColorResponse(String textoResposta, int indexRespostaCorreta) {
     // Busco id da questão
     var idQuestao = _controller.getQuestionId();
 
     // Busco a resposta selecionada pelo id da questão
-    var textoRespostaSelecionada = _controller.getRespostaSelecionada(idQuestao);
+    var textoRespostaSelecionada =
+        _controller.getRespostaSelecionada(idQuestao);
 
     // // Caso não tenha resposta selecionada, a questão não foi respondida
-    // if(textoRespostaSelecionada == null) 
+    // if(textoRespostaSelecionada == null)
     //   return _corRespostaNaoSelecionada;
 
     // Verificamos se é correção
-    if(!_corrigir)
-    {
+    if (!_corrigir) {
       // Caso tenha resposta, verificamos se a resposta é a que estamos no momento
-      if(textoResposta == textoRespostaSelecionada)
+      if (textoResposta == textoRespostaSelecionada)
         return _corRespostaSelecionada;
-      
+
       return _corRespostaNaoSelecionada;
-    }
-    else {
-      if(_controller.verificarRespostaCerta(indexRespostaCorreta))
+    } else {
+      if (_controller.verificarRespostaCerta(indexRespostaCorreta))
         return _corRespostaCerta;
 
       return _corRespostaErrada;
