@@ -7,10 +7,10 @@ final int STATUS_OK = 200;
 final int STATUS_NOT_FOUND = 404;
 
 Client _client = HttpClientWithInterceptor.build(
-    interceptors: [
-      AuthInterceptor(),
-    ],
-    requestTimeout: Duration(seconds: 20),
+  interceptors: [
+    AuthInterceptor(),
+  ],
+  requestTimeout: Duration(seconds: 30),
 );
 
 const String _baseUrl = 'https://formula-bancaria-api.herokuapp.com/api/v1';
@@ -25,6 +25,6 @@ Future<Response> post({String resource, dynamic body}) async {
   );
 }
 
-Future<Response> get(String resource) async{
+Future<Response> get(String resource) async {
   return await _client.get('$_baseUrl/$resource');
 }
