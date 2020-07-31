@@ -8,7 +8,9 @@ import 'package:formula_bancaria_app/screens/questao/formulario.dart';
 import 'package:formula_bancaria_app/screens/questao/lista.dart';
 import 'package:formula_bancaria_app/screens/simulado/formulario.dart';
 import 'package:formula_bancaria_app/screens/simulado/lista.dart';
-import 'package:formula_bancaria_app/screens/usuario/formulario_login.dart';
+import 'package:formula_bancaria_app/screens/usuario/cadastro_usuario.dart';
+import 'package:formula_bancaria_app/screens/usuario/esqueceu_senha.dart';
+import 'package:formula_bancaria_app/screens/usuario/login.dart';
 
 import 'screens/dashboard/dashboard.dart';
 
@@ -83,16 +85,11 @@ class FormulaBancariaAPP extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => FormularioLogin(),
-          '/simulados': (context) => ListaSimulados(),
-          '/simulado/modulos': (context) => ListaModulo(),
-          '/simulado/modulos/questoes': (context) => ListaQuestao(),
-          '/novo-simulado': (context) => FormularioSimulado(),
-          '/novo-modulo': (context) => FormularioModulo(),
-          '/novo-questao': (context) => FormularioQuestao(),
-          '/aluno/menu': (context) => MenuAluno(),
-          '/aluno/simulado/simulado-ativo': (context) => SimuladoAtivoPage(),
-          '/aluno/simulado/concluido': (context) => SimuladoConcluido(),
-          '/aluno/dashboard': (context) => Dashboard(),
+          SimuladoAtivoPage.routeName: (context) => SimuladoAtivoPage(),
+          SimuladoConcluido.routeName: (context) => SimuladoConcluido(),
+          Dashboard.routeName: (context) => Dashboard(),
+          EsqueceuSenha.routeName: (context) => EsqueceuSenha(),
+          CadastroUsuario.routeName: (context) => CadastroUsuario(),
         },
         //theme: basicTheme,
         debugShowCheckedModeBanner: false);

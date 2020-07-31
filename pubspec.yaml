@@ -67,6 +67,8 @@ flutter:
      - assets/icons/percent.png
      - assets/icons/play.png
      - assets/icons/user.png
+     - assets/icons/reset-password-icon.png
+     - assets/icons/add-user.png
 
      - assets/fonts/CenturyGothic.ttf
      - assets/fonts/FranklinGothicBook.ttf

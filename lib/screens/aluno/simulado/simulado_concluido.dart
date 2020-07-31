@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:formula_bancaria_app/controllers/simulado_ativo_controller.dart';
 import 'package:formula_bancaria_app/models/simulado_gerado.dart';
 import 'package:formula_bancaria_app/models/simulado_respondido.dart';
+import 'package:formula_bancaria_app/screens/dashboard/dashboard.dart';
 
 class SimuladoConcluido extends StatelessWidget {
+  static const routeName = '/aluno/simulado/concluido';
+
   SimuladoAtivoController _simuladoAtivoController;
 
   @override
@@ -13,7 +16,7 @@ class SimuladoConcluido extends StatelessWidget {
         appBar: AppBar(
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
-            onPressed: () => Navigator.pushNamed(context, "/aluno/dashboard"),
+            onPressed: () => Navigator.pushNamed(context, Dashboard.routeName),
           ),
           title: Text("Resumo"),
         ),

@@ -6,10 +6,13 @@ import 'package:formula_bancaria_app/components/centered_circular_progress.dart'
 import 'package:formula_bancaria_app/components/centered_message.dart';
 import 'package:formula_bancaria_app/controllers/simulado_ativo_controller.dart';
 import 'package:formula_bancaria_app/models/auth.dart';
+import 'package:formula_bancaria_app/screens/aluno/simulado/simulado_concluido.dart';
 import 'package:formula_bancaria_app/services/base_service.dart';
 import 'package:http/http.dart';
 
 class SimuladoAtivoPage extends StatefulWidget {
+  static const routeName = '/aluno/simulado/simulado-ativo';
+
   @override
   _SimuladoAtivoPageState createState() => _SimuladoAtivoPageState();
 }
@@ -188,7 +191,7 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
       if (response.statusCode == 201) {
         Navigator.pushNamed(
           context,
-          "/aluno/simulado/concluido",
+          SimuladoConcluido.routeName,
           arguments: this._controller,
         );
       } else {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:formula_bancaria_app/screens/aluno/simulado/simulado_ativo.page.dart';
 
 class Dashboard extends StatelessWidget {
+  static const routeName = '/aluno/dashboard';
   BuildContext _context;
 
   @override
@@ -45,8 +47,8 @@ class Dashboard extends StatelessWidget {
       crossAxisCount: 2,
       children: <Widget>[
         GestureDetector(
-          onTap: () => Navigator.pushNamed(
-              this._context, "/aluno/simulado/simulado-ativo"),
+          onTap: () =>
+              Navigator.pushNamed(this._context, SimuladoAtivoPage.routeName),
           child: Container(
             padding: EdgeInsets.all(8),
             child: Column(
