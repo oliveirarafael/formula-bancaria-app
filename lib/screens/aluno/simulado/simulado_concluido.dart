@@ -13,7 +13,7 @@ class SimuladoConcluido extends StatelessWidget {
         appBar: AppBar(
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
-            onPressed: () => Navigator.of(context).pushNamed("/aluno/menu"),
+            onPressed: () => Navigator.pushNamed(context, "/aluno/dashboard"),
           ),
           title: Text("Resumo"),
         ),

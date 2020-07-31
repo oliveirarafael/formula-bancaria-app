@@ -10,6 +10,8 @@ import 'package:formula_bancaria_app/screens/simulado/formulario.dart';
 import 'package:formula_bancaria_app/screens/simulado/lista.dart';
 import 'package:formula_bancaria_app/screens/usuario/formulario_login.dart';
 
+import 'screens/dashboard/dashboard.dart';
+
 void main() => runApp(FormulaBancariaAPP());
 
 class FormulaBancariaAPP extends StatelessWidget {
@@ -90,6 +92,7 @@ class FormulaBancariaAPP extends StatelessWidget {
           '/aluno/menu': (context) => MenuAluno(),
           '/aluno/simulado/simulado-ativo': (context) => SimuladoAtivoPage(),
           '/aluno/simulado/concluido': (context) => SimuladoConcluido(),
+          '/aluno/dashboard': (context) => Dashboard(),
         },
         //theme: basicTheme,
         debugShowCheckedModeBanner: false);

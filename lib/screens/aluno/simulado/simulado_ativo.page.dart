@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:formula_bancaria_app/components/alerta/alerta.dart';
 import 'package:formula_bancaria_app/components/centered_circular_progress.dart';
 import 'package:formula_bancaria_app/components/centered_message.dart';
-import 'package:formula_bancaria_app/components/modal/finish_dialog.dart';
 import 'package:formula_bancaria_app/controllers/simulado_ativo_controller.dart';
 import 'package:formula_bancaria_app/models/auth.dart';
 import 'package:formula_bancaria_app/services/base_service.dart';
@@ -38,27 +37,39 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: this._titulo(),
-      ),
+      appBar: this._cabecalho(),
       body: this._buildSimulado(),
       bottomNavigationBar: this._rodape(),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.done,
-        ),
-        onPressed: this._responder,
-      ),
+      floatingActionButton: this.botaoResponder(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
+  Widget _cabecalho() {
+    if (_loading) return null;
+
+    return AppBar(
+      title: Center(
+        child: this._titulo(),
+      ),
+    );
+  }
+
+  Widget botaoResponder() {
+    if (_loading) return null;
+
+    return FloatingActionButton(
+      child: Icon(
+        Icons.done,
+      ),
+      onPressed: this._responder,
+    );
+  }
+
   Widget _titulo() {
-    return this._controller.nomeSimulado == null
-        ? Text("0/0 Questões")
-        : Text(
-            '${_controller.getNumeroQuestao()}/${_controller.questionsNumber} questões',
-          );
+    return Text(
+      '${_controller.getNumeroQuestao()}/${_controller.questionsNumber} questões',
+    );
   }
 
   _buildSimulado() {
@@ -81,7 +92,9 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
     );
   }
 
-  _rodape() {
+  Widget _rodape() {
+    if (_loading) return null;
+
     return BottomAppBar(
       shape: CircularNotchedRectangle(),
       child: Row(

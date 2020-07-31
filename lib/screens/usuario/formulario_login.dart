@@ -24,40 +24,37 @@ class _FormularioLoginState extends State<FormularioLogin> {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-    
+
     return Scaffold(
-      body: SafeArea(child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 40.0),
-          child: SingleChildScrollView(
-          child: Form(
-            key: _loginFormKey,
-            child: Column(
-              children: <Widget>[
-                  _espacamento(50),
-                  Logo(
-                  height: 80.0
-                  ),
-                  _espacamento(40),
-                  _emailFormField(),
-                  _espacamento(20),
-                  _senhaFormField(),
-                  _espacamento(10),
-                  _linkEsqueceuSenha(),
-                  _espacamento(30),
-                  _botaoLogin(),
-                  _espacamento(20),
-                  _botaoLoginGoogle(),
-                  _espacamento(25),
-                  _linkCadastrar(),
-                  _espacamento(25),
-                  _marcaPatrocinador(),
-                ],
-              ),
-            ),
+        body: SafeArea(
+            child: Padding(
+      padding: EdgeInsets.symmetric(horizontal: 40.0),
+      child: SingleChildScrollView(
+        child: Form(
+          key: _loginFormKey,
+          child: Column(
+            children: <Widget>[
+              _espacamento(50),
+              Logo(height: 80.0),
+              _espacamento(40),
+              _emailFormField(),
+              _espacamento(20),
+              _senhaFormField(),
+              _espacamento(10),
+              _linkEsqueceuSenha(),
+              _espacamento(30),
+              _botaoLogin(),
+              _espacamento(20),
+              _botaoLoginGoogle(),
+              _espacamento(25),
+              _linkCadastrar(),
+              _espacamento(25),
+              _marcaPatrocinador(),
+            ],
           ),
-        )
-      )
-    );
+        ),
+      ),
+    )));
   }
 
   Widget _emailFormField() {
@@ -80,24 +77,25 @@ class _FormularioLoginState extends State<FormularioLogin> {
       keyboardType: TextInputType.emailAddress,
       obscureText: false,
       decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: "Email",
-          filled: true,                 // Novo
-          fillColor: Color(0xFFDBEDFF), // Novo
-          prefixIcon: Icon(Icons.email, color: Theme.of(context).scaffoldBackgroundColor),
-          enabledBorder: OutlineInputBorder( // Novo
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            borderSide: BorderSide(color: Colors.grey),
-          ),
-          focusedBorder: OutlineInputBorder( // Novo
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            borderSide: BorderSide(color: Colors.grey),
-          ),
+        border: InputBorder.none,
+        hintText: "Email",
+        filled: true, // Novo
+        fillColor: Color(0xFFDBEDFF), // Novo
+        prefixIcon:
+            Icon(Icons.email, color: Theme.of(context).scaffoldBackgroundColor),
+        enabledBorder: OutlineInputBorder(
+          // Novo
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          borderSide: BorderSide(color: Colors.grey),
         ),
-      style: TextStyle(
-        fontSize: 16,
-        color: Theme.of(context).scaffoldBackgroundColor
+        focusedBorder: OutlineInputBorder(
+          // Novo
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          borderSide: BorderSide(color: Colors.grey),
+        ),
       ),
+      style: TextStyle(
+          fontSize: 16, color: Theme.of(context).scaffoldBackgroundColor),
     );
   }
 
@@ -127,24 +125,25 @@ class _FormularioLoginState extends State<FormularioLogin> {
       keyboardType: TextInputType.text,
       obscureText: true,
       decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: "Senha",
-          filled: true,                 // Novo
-          fillColor: Color(0xFFDBEDFF), // Novo
-          prefixIcon: Icon(Icons.lock, color: Theme.of(context).scaffoldBackgroundColor),
-          enabledBorder: OutlineInputBorder( // Novo
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            borderSide: BorderSide(color: Colors.transparent),
-          ),
-          focusedBorder: OutlineInputBorder( // Novo
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            borderSide: BorderSide(color: Colors.transparent),
-          ),
+        border: InputBorder.none,
+        hintText: "Senha",
+        filled: true, // Novo
+        fillColor: Color(0xFFDBEDFF), // Novo
+        prefixIcon:
+            Icon(Icons.lock, color: Theme.of(context).scaffoldBackgroundColor),
+        enabledBorder: OutlineInputBorder(
+          // Novo
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          borderSide: BorderSide(color: Colors.transparent),
         ),
-      style: TextStyle(
-        fontSize: 16,
-        color: Theme.of(context).scaffoldBackgroundColor
+        focusedBorder: OutlineInputBorder(
+          // Novo
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          borderSide: BorderSide(color: Colors.transparent),
+        ),
       ),
+      style: TextStyle(
+          fontSize: 16, color: Theme.of(context).scaffoldBackgroundColor),
     );
   }
 
@@ -160,29 +159,26 @@ class _FormularioLoginState extends State<FormularioLogin> {
       width: 250.0,
       child: RaisedButton(
         onPressed: () {
-            var currentState = this._loginFormKey.currentState;
-            if (currentState.validate()) {
-              currentState.save();
-              _login();
-            }
-          },
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
+          var currentState = this._loginFormKey.currentState;
+          if (currentState.validate()) {
+            currentState.save();
+            _login();
+          }
+        },
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
         padding: EdgeInsets.all(0.0),
         child: Ink(
           decoration: BoxDecoration(
-            color: Color(0xff0075ff),
-            borderRadius: BorderRadius.circular(30.0)
-          ),
+              color: Color(0xff0075ff),
+              borderRadius: BorderRadius.circular(30.0)),
           child: Container(
             constraints: BoxConstraints(maxWidth: 300.0, minHeight: 60.0),
             alignment: Alignment.center,
             child: Text(
               "Login",
               textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18
-              ),
+              style: TextStyle(color: Colors.white, fontSize: 18),
             ),
           ),
         ),
@@ -196,29 +192,29 @@ class _FormularioLoginState extends State<FormularioLogin> {
       width: 250.0,
       child: RaisedButton(
         onPressed: () {
-            var currentState = this._loginFormKey.currentState;
-            if (currentState.validate()) {
-              currentState.save();
-              _login();
-            }
-          },
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
+          var currentState = this._loginFormKey.currentState;
+          if (currentState.validate()) {
+            currentState.save();
+            _login();
+          }
+        },
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
         padding: EdgeInsets.all(0.0),
         child: Ink(
           decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(30.0),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(30.0),
           ),
           child: Container(
             constraints: BoxConstraints(maxWidth: 300.0, minHeight: 60.0),
             alignment: Alignment.center,
-            child: 
-              Text(
+            child: Text(
               "Login com o Google",
               textAlign: TextAlign.center,
               style: TextStyle(
-                  color: Colors.black87,
-                  fontSize: 18,
+                color: Colors.black87,
+                fontSize: 18,
               ),
             ),
           ),
@@ -238,12 +234,12 @@ class _FormularioLoginState extends State<FormularioLogin> {
       ),
     ).then((response) {
       if (response.statusCode == 200) {
-        if(UsuarioLogado.getUser().getEhAluno() && UsuarioLogado.getUser().getAssinante())
-        {
-          Navigator.pushNamed(this._context, '/aluno/menu');
+        if (UsuarioLogado.getUser().getEhAluno() &&
+            UsuarioLogado.getUser().getAssinante()) {
+          Navigator.pushNamed(context, '/aluno/dashboard');
         }
         // Navigator.pushNamed(this._context, '/simulados');
-        
+
         // Navigator.pushNamed(this._context, '/aluno/questaoativa');
       } else {
         showDialog(
@@ -277,8 +273,8 @@ class _FormularioLoginState extends State<FormularioLogin> {
         child: Text(
           'Esqueceu sua senha?',
           style: TextStyle(
-              color: Colors.white,
-              fontSize: 15,
+            color: Colors.white,
+            fontSize: 15,
           ),
           textAlign: TextAlign.right,
         ),
@@ -295,8 +291,8 @@ class _FormularioLoginState extends State<FormularioLogin> {
         child: Text(
           'Ainda não tem acesso? Cadastre-se',
           style: TextStyle(
-              color: Colors.white,
-              fontSize: 15,
+            color: Colors.white,
+            fontSize: 15,
           ),
         ),
         onTap: () {},
@@ -308,17 +304,16 @@ class _FormularioLoginState extends State<FormularioLogin> {
     return Container(
       height: 70,
       alignment: Alignment.center,
-       child: Row(children: <Widget>[
+      child: Row(children: <Widget>[
         Text(
           'Apoio',
           style: TextStyle(
-              color: Colors.white,
-              fontSize: 25,
+            color: Colors.white,
+            fontSize: 25,
           ),
         ),
         Image.asset('assets/icons/play.png', height: 70),
-       ],
-       mainAxisAlignment: MainAxisAlignment.center) ,
+      ], mainAxisAlignment: MainAxisAlignment.center),
       // ),
     );
   }
@@ -336,7 +331,7 @@ class _FormularioLoginState extends State<FormularioLogin> {
   //         textAlign: TextAlign.center,
   //       ),
   //       // Image.asset('assets/icons/user.png', )
-  //     ],) 
+  //     ],)
   //   );
   // }
 }
