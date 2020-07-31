@@ -11,6 +11,10 @@ class SimuladoConcluido extends StatelessWidget {
     this._simuladoAtivoController = ModalRoute.of(context).settings.arguments;
     return Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.of(context).pushNamed("/aluno/menu"),
+          ),
           title: Text("Resumo"),
         ),
         body: SingleChildScrollView(
@@ -104,21 +108,6 @@ class SimuladoConcluido extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Icon(
-                  Icons.lens,
-                  color: Colors.yellow,
-                ),
-                Text(
-                  "Escolhida",
-                  textAlign: TextAlign.center,
-                )
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              children: <Widget>[
-                Icon(
                   Icons.done_all,
                   color: Colors.green,
                 ),
@@ -137,20 +126,6 @@ class SimuladoConcluido extends StatelessWidget {
   _questoes() {
     List<QuestaoSimuladoGerado> questoes =
         this._simuladoAtivoController.getSimuladoGerado().questoes;
-
-    for (QuestaoSimuladoGerado questao in questoes) {
-      print("|-${questao.enunciado}");
-
-      for (RespostaQuestaoSimuladoGerado resposta in questao.respostas) {
-        print("|--- ${resposta.descricao} - ${resposta.correta}");
-      }
-      print("--------------------------------------------------");
-    }
-
-    print(questoes.length);
-    print(
-        this._simuladoAtivoController.getSimuladoRespondido().questoes.length);
-
     return Column(
       children: questoes
           .map(
@@ -214,12 +189,17 @@ class _ItemQuestaoGerada extends StatelessWidget {
           (r) => Row(
             children: <Widget>[
               Icon(
-                r.correta ? Icons.check : Icons.close,
+                r.correta
+                    ? (this._respostaCerta ? Icons.done_all : Icons.done)
+                    : Icons.close,
                 color: r.correta ? Colors.green : Colors.red,
               ),
-              Text(
-                r.descricao,
-                style: TextStyle(color: r.correta ? Colors.green : Colors.red),
+              Flexible(
+                child: Text(
+                  r.descricao,
+                  style:
+                      TextStyle(color: r.correta ? Colors.green : Colors.red),
+                ),
               ),
             ],
           ),
