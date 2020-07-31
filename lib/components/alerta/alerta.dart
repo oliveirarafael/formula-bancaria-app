@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Alerta {
-  static Future<void> alert(context, mensagem) async {
+  static Future<void> show(context, mensagem) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -25,6 +25,27 @@ class Alerta {
               },
             ),
           ],
+        );
+      },
+    );
+  }
+
+  static Future<void> bloqueio(context, mensagem) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Icon(Icons.info),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Center(
+                  child: Text(mensagem),
+                ),
+              ],
+            ),
+          ),
         );
       },
     );

@@ -39,9 +39,7 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          '${_controller.getNumeroQuestao()}/${_controller.questionsNumber} questões',
-        ),
+        title: this._titulo(),
       ),
       body: this._buildSimulado(),
       bottomNavigationBar: this._rodape(),
@@ -53,6 +51,14 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
+  }
+
+  Widget _titulo() {
+    return this._controller.nomeSimulado == null
+        ? Text("0/0 Questões")
+        : Text(
+            '${_controller.getNumeroQuestao()}/${_controller.questionsNumber} questões',
+          );
   }
 
   _buildSimulado() {
@@ -118,16 +124,17 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
           textAlign: TextAlign.left,
         ),
         value: indexRespostaCorreta,
-        groupValue: _respostaSelecionada,
-        onChanged: _selecionaResposta,
+        groupValue: this._respostaSelecionada,
+        onChanged: this._selecionaResposta,
       ),
     );
   }
 
   _responder() {
     if (this._respostaSelecionada < 0) {
-      Alerta.alert(context, "Selecione uma resposta");
+      Alerta.show(context, "Selecione uma resposta");
     } else if (this._controller.ultimaQuestao()) {
+      this._controller.armazenarQuestaoRespondida(this._respostaSelecionada);
       this._concluirSimulado();
     } else {
       this._controller.armazenarQuestaoRespondida(this._respostaSelecionada);
@@ -155,6 +162,7 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
 
   _concluirSimulado() {
     BaseService service = new BaseService();
+    Alerta.bloqueio(context, "Aguarde...");
 
     post(
       '${service.baseUrl}/simuladosRespondidos',
@@ -165,9 +173,11 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
       body: jsonEncode(_controller.getSimuladoRespondido()),
     ).then((response) {
       if (response.statusCode == 201) {
-        FinishDialog.show(context,
-            hitNumber: _controller.hitNumber,
-            numeroQuestoes: _controller.questionsNumber);
+        Navigator.pushNamed(
+          context,
+          "/aluno/simulado/concluido",
+          arguments: this._controller,
+        );
       } else {
         throw Exception('Erro ao salvar simulado');
       }
@@ -184,7 +194,6 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
         ],
       );
     });
-    _loading = true;
   }
 
   void _selecionaResposta(int valor) {

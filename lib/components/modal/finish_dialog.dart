@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:formula_bancaria_app/screens/aluno/simulado/simulado-ativo.page.dart';
+import 'package:formula_bancaria_app/screens/aluno/simulado/simulado_ativo.page.dart';
 import 'package:share/share.dart';
 
 class FinishDialog {
-  static Future show(
-    BuildContext context, {
-    int hitNumber,
-    int numeroQuestoes
-  }) {
+  static Future show(BuildContext context,
+      {int hitNumber, int numeroQuestoes}) {
     return showDialog<void>(
       context: context,
       barrierDismissible: false,

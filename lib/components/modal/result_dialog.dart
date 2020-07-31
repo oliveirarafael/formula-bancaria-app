@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'package:formula_bancaria_app/models/question.dart';
-import 'package:formula_bancaria_app/models/simulado-gerado.dart';
+import 'package:formula_bancaria_app/models/simulado_gerado.dart';
 
 class ResultDialog {
   static Future show(

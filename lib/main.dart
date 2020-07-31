@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:formula_bancaria_app/screens/aluno/menu.dart';
-import 'package:formula_bancaria_app/screens/aluno/simulado/simulado-ativo.page.dart';
+import 'package:formula_bancaria_app/screens/aluno/simulado/simulado_ativo.page.dart';
+import 'package:formula_bancaria_app/screens/aluno/simulado/simulado_concluido.dart';
 import 'package:formula_bancaria_app/screens/modulo/formulario.dart';
 import 'package:formula_bancaria_app/screens/modulo/lista.dart';
 import 'package:formula_bancaria_app/screens/questao/formulario.dart';
@@ -88,6 +89,7 @@ class FormulaBancariaAPP extends StatelessWidget {
           '/novo-questao': (context) => FormularioQuestao(),
           '/aluno/menu': (context) => MenuAluno(),
           '/aluno/simulado/simulado-ativo': (context) => SimuladoAtivoPage(),
+          '/aluno/simulado/concluido': (context) => SimuladoConcluido(),
         },
         //theme: basicTheme,
         debugShowCheckedModeBanner: false);
