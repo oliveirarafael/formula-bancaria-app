@@ -5,6 +5,7 @@ import 'package:http_interceptor/http_interceptor.dart';
 final int STATUS_CREATED = 201;
 final int STATUS_OK = 200;
 final int STATUS_NOT_FOUND = 404;
+final int STATUS_CONFLICT = 409;
 
 Client _client = HttpClientWithInterceptor.build(
   interceptors: [

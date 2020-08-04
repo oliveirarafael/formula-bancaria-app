@@ -8,6 +8,7 @@ import 'package:formula_bancaria_app/screens/questao/formulario.dart';
 import 'package:formula_bancaria_app/screens/questao/lista.dart';
 import 'package:formula_bancaria_app/screens/simulado/formulario.dart';
 import 'package:formula_bancaria_app/screens/simulado/lista.dart';
+import 'package:formula_bancaria_app/screens/usuario/cadastro_sucesso.dart';
 import 'package:formula_bancaria_app/screens/usuario/cadastro_usuario.dart';
 import 'package:formula_bancaria_app/screens/usuario/esqueceu_senha.dart';
 import 'package:formula_bancaria_app/screens/usuario/login.dart';
@@ -90,6 +91,7 @@ class FormulaBancariaAPP extends StatelessWidget {
           Dashboard.routeName: (context) => Dashboard(),
           EsqueceuSenha.routeName: (context) => EsqueceuSenha(),
           CadastroUsuario.routeName: (context) => CadastroUsuario(),
+          CadastroSucesso.routeName: (context) => CadastroSucesso(),
         },
         //theme: basicTheme,
         debugShowCheckedModeBanner: false);

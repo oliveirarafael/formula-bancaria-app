@@ -13,10 +13,12 @@ class AuthInterceptor implements InterceptorContract {
         '========================== Request ====================================');
     print(data.url);
     print(data.method);
-    if (data.url.contains('auth') || data.url.contains('esqueceu-senha')) {
+    if (data.url.contains('auth') ||
+        data.url.contains('esqueceu-senha') ||
+        data.url.contains('usuarios/alunos')) {
       return data;
     }
-    //print(data.body);
+    print(data.body);
     //print(data.headers);
     //print(
     //  '========================== Request ====================================');

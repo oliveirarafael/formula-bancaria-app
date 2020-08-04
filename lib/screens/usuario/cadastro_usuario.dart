@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:formula_bancaria_app/components/alerta/alerta.dart';
 import 'package:formula_bancaria_app/models/usuario.dart';
+import 'package:formula_bancaria_app/screens/usuario/cadastro_sucesso.dart';
 import 'package:formula_bancaria_app/services/api.dart';
 import 'package:formula_bancaria_app/validators/validador.dart';
 
@@ -90,6 +93,10 @@ class CadastroUsuario extends StatelessWidget {
                       return 'Campo Obrigatório';
                     }
 
+                    if (senha.length < 6) {
+                      return "A senha deve possuir no mínimo 6 caracteres";
+                    }
+
                     return null;
                   },
                   keyboardType: TextInputType.text,
@@ -155,6 +162,7 @@ class CadastroUsuario extends StatelessWidget {
                       var currentState = this._cadastroFormKey.currentState;
                       if (currentState.validate()) {
                         currentState.save();
+                        this._cadastrar(context);
                       }
                     },
                     shape: RoundedRectangleBorder(
@@ -174,26 +182,32 @@ class CadastroUsuario extends StatelessWidget {
     );
   }
 
-  void _cadastrar() {
+  void _cadastrar(BuildContext context) {
     post(
       resource: 'usuarios/alunos',
       body: jsonEncode(
         Usuario(
-          nome: this._nome,
-          email: this._email,
-          senha: this._senha,
+          nome: this._nome.trim(),
+          email: this._email.trim(),
+          senha: this._senha.trim(),
         ),
       ),
     ).then(
       (response) {
         if (response.statusCode == STATUS_CREATED) {
-          /*Navigator.pushNamed(
-            this._context,
-          );*/
+          Navigator.pushNamed(
+            context,
+            CadastroSucesso.routeName,
+            arguments: {"nome": this._nome, "email": this._email},
+          );
+        } else if (response.statusCode == HttpStatus.conflict) {
+          Alerta.show(context, "Usuário já cadastrado");
+        } else {
+          Alerta.show(context, "Não foi possivel cadastrar seu usuário");
         }
       },
     ).catchError((erro) {
-      debugPrint('Erro: $erro');
+      Alerta.show(context, "Não foi possivel realizar o cadastro");
     });
   }
 }
