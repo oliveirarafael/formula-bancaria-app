@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:formula_bancaria_app/models/usuario.dart';
+import 'package:formula_bancaria_app/services/api.dart';
 import 'package:formula_bancaria_app/validators/validador.dart';
 
 class CadastroUsuario extends StatelessWidget {
@@ -168,5 +172,28 @@ class CadastroUsuario extends StatelessWidget {
         ]),
       ),
     );
+  }
+
+  void _cadastrar() {
+    post(
+      resource: 'usuarios/alunos',
+      body: jsonEncode(
+        Usuario(
+          nome: this._nome,
+          email: this._email,
+          senha: this._senha,
+        ),
+      ),
+    ).then(
+      (response) {
+        if (response.statusCode == STATUS_CREATED) {
+          /*Navigator.pushNamed(
+            this._context,
+          );*/
+        }
+      },
+    ).catchError((erro) {
+      debugPrint('Erro: $erro');
+    });
   }
 }

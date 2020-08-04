@@ -3,8 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:formula_bancaria_app/components/logo.dart';
-import 'package:formula_bancaria_app/models/usuario_logado.dart';
-import 'package:formula_bancaria_app/models/usuario_login.dart';
+import 'package:formula_bancaria_app/models/usuario.dart';
 import 'package:formula_bancaria_app/screens/usuario/cadastro_usuario.dart';
 import 'package:formula_bancaria_app/screens/usuario/esqueceu_senha.dart';
 import 'package:formula_bancaria_app/services/api.dart';
@@ -104,7 +103,7 @@ class _FormularioLoginState extends State<FormularioLogin> {
         onSaved: (senha) {
           this._senha = senha;
         },
-        initialValue: '123456',
+        initialValue: '88418254',
         validator: (senha) {
           if (senha.isEmpty) {
             return 'Campo Obrigatório';
@@ -192,9 +191,9 @@ class _FormularioLoginState extends State<FormularioLogin> {
     post(
       resource: 'auth',
       body: jsonEncode(
-        UsuarioLogin(
-          this._email,
-          this._senha,
+        Usuario(
+          email: this._email,
+          senha: this._senha,
         ),
       ),
     ).then((response) {

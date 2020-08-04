@@ -16,6 +16,9 @@ class SimuladoService extends BaseService {
         '$_baseUrl/$_resource/${idSimulado.toString()}/gerar',
         headers: {HttpHeaders.authorizationHeader: 'Bearer ' + token});
 
+    print(response.statusCode);
+    print(response.body);
+
     if (response.statusCode == 200) {
       return SimuladoGerado.fromJson(json.decode(response.body));
     } else {

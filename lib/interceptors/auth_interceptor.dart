@@ -13,13 +13,14 @@ class AuthInterceptor implements InterceptorContract {
         '========================== Request ====================================');
     print(data.url);
     print(data.method);
-    if (!data.url.contains('auth')) {
-      data.headers['Authorization'] = 'Bearer ${Auth.token()}';
+    if (data.url.contains('auth') || data.url.contains('esqueceu-senha')) {
+      return data;
     }
-    print(data.body);
-    print(data.headers);
-    print(
-        '========================== Request ====================================');
+    //print(data.body);
+    //print(data.headers);
+    //print(
+    //  '========================== Request ====================================');
+    data.headers['Authorization'] = 'Bearer ${Auth.token()}';
     return data;
   }
 

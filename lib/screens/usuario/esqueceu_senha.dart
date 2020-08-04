@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:formula_bancaria_app/components/alerta/alerta.dart';
 import 'package:formula_bancaria_app/validators/validador.dart';
+import 'package:formula_bancaria_app/services/api.dart';
 
-class EsqueceuSenha extends StatelessWidget {
+class EsqueceuSenha extends StatefulWidget {
   static const routeName = '/usuario/esqueceu-senha';
+  @override
+  _EsqueceuSenhaState createState() => _EsqueceuSenhaState();
+}
+
+class _EsqueceuSenhaState extends State<EsqueceuSenha> {
   final _emailFormKey = GlobalKey<FormState>();
   String _email;
 
@@ -115,5 +122,17 @@ class EsqueceuSenha extends StatelessWidget {
     );
   }
 
-  void _enviar() {}
+  void _enviar() {
+    this._email = this._email.toLowerCase().trim();
+    get("usuarios/esqueceu-senha?email=${this._email}").then((response) {
+      if (response.statusCode == 200) {
+        Alerta.show(context, "Sua nova senha foi enviada para o seu E-mail");
+      } else if (response.statusCode == 404) {
+        Alerta.show(context, "Usuário não foi encontrado");
+      }
+    }).catchError((erro) {
+      debugPrint("Erro: $erro");
+      //Alerta.show(context, erro);
+    });
+  }
 }
