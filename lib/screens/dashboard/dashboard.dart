@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:formula_bancaria_app/screens/aluno/aulas_particulares.dart';
+import 'package:formula_bancaria_app/screens/aluno/dicas_fundador.dart';
+import 'package:formula_bancaria_app/screens/aluno/ebooks_apostilas.dart';
+import 'package:formula_bancaria_app/screens/aluno/formula_expert.dart';
+import 'package:formula_bancaria_app/screens/aluno/loja_virtual.dart';
+import 'package:formula_bancaria_app/screens/aluno/mude_vida.dart';
 import 'package:formula_bancaria_app/screens/aluno/simulado/simulado_ativo.page.dart';
 
 class Dashboard extends StatelessWidget {
   static const routeName = '/aluno/dashboard';
-  BuildContext _context;
 
   @override
   Widget build(BuildContext context) {
-    this._context = context;
     return Scaffold(
       appBar: AppBar(
         leading: Row(
@@ -33,12 +37,46 @@ class Dashboard extends StatelessWidget {
               onPressed: () => print("ok"))
         ],
       ),
-      body: this._gridSimulados(),
-      bottomNavigationBar: BottomAppBar(),
+      body: this._gridSimulados(context),
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          children: <Widget>[
+            IconButton(
+              icon: Icon(Icons.book),
+              onPressed: () =>
+                  Navigator.pushNamed(context, AulasParticulares.routeName),
+            ),
+            IconButton(
+              icon: Icon(Icons.book),
+              onPressed: () =>
+                  Navigator.pushNamed(context, DicasFundador.routeName),
+            ),
+            IconButton(
+              icon: Icon(Icons.book),
+              onPressed: () =>
+                  Navigator.pushNamed(context, EbooksApostilas.routeName),
+            ),
+            IconButton(
+              icon: Icon(Icons.book),
+              onPressed: () =>
+                  Navigator.pushNamed(context, FormulaExpert.routeName),
+            ),
+            IconButton(
+              icon: Icon(Icons.book),
+              onPressed: () =>
+                  Navigator.pushNamed(context, LojaVirtual.routeName),
+            ),
+            IconButton(
+              icon: Icon(Icons.book),
+              onPressed: () => Navigator.pushNamed(context, MudeVida.routeName),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
-  Widget _gridSimulados() {
+  Widget _gridSimulados(BuildContext context) {
     return GridView.count(
       primary: false,
       padding: const EdgeInsets.all(20),
@@ -48,7 +86,7 @@ class Dashboard extends StatelessWidget {
       children: <Widget>[
         GestureDetector(
           onTap: () =>
-              Navigator.pushNamed(this._context, SimuladoAtivoPage.routeName),
+              Navigator.pushNamed(context, SimuladoAtivoPage.routeName),
           child: Container(
             padding: EdgeInsets.all(8),
             child: Column(
@@ -73,8 +111,8 @@ class Dashboard extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () => Navigator.pushNamed(
-              this._context, "/aluno/simulado/simulado-ativo"),
+          onTap: () =>
+              Navigator.pushNamed(context, "/aluno/simulado/simulado-ativo"),
           child: Container(
             padding: EdgeInsets.all(8),
             child: Column(
@@ -99,8 +137,8 @@ class Dashboard extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () => Navigator.pushNamed(
-              this._context, "/aluno/simulado/simulado-ativo"),
+          onTap: () =>
+              Navigator.pushNamed(context, "/aluno/simulado/simulado-ativo"),
           child: Container(
             padding: EdgeInsets.all(8),
             child: Column(
@@ -125,8 +163,8 @@ class Dashboard extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () => Navigator.pushNamed(
-              this._context, "/aluno/simulado/simulado-ativo"),
+          onTap: () =>
+              Navigator.pushNamed(context, "/aluno/simulado/simulado-ativo"),
           child: Container(
             padding: EdgeInsets.all(8),
             child: Column(

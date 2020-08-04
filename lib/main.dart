@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:formula_bancaria_app/screens/aluno/aulas_particulares.dart';
+import 'package:formula_bancaria_app/screens/aluno/dicas_fundador.dart';
+import 'package:formula_bancaria_app/screens/aluno/ebooks_apostilas.dart';
+import 'package:formula_bancaria_app/screens/aluno/formula_expert.dart';
+import 'package:formula_bancaria_app/screens/aluno/loja_virtual.dart';
 import 'package:formula_bancaria_app/screens/aluno/menu.dart';
+import 'package:formula_bancaria_app/screens/aluno/mude_vida.dart';
 import 'package:formula_bancaria_app/screens/aluno/simulado/simulado_ativo.page.dart';
 import 'package:formula_bancaria_app/screens/aluno/simulado/simulado_concluido.dart';
 import 'package:formula_bancaria_app/screens/modulo/formulario.dart';
@@ -92,6 +98,12 @@ class FormulaBancariaAPP extends StatelessWidget {
           EsqueceuSenha.routeName: (context) => EsqueceuSenha(),
           CadastroUsuario.routeName: (context) => CadastroUsuario(),
           CadastroSucesso.routeName: (context) => CadastroSucesso(),
+          AulasParticulares.routeName: (context) => AulasParticulares(),
+          DicasFundador.routeName: (context) => DicasFundador(),
+          EbooksApostilas.routeName: (context) => EbooksApostilas(),
+          FormulaExpert.routeName: (context) => FormulaExpert(),
+          LojaVirtual.routeName: (context) => LojaVirtual(),
+          MudeVida.routeName: (context) => MudeVida(),
         },
         //theme: basicTheme,
         debugShowCheckedModeBanner: false);
