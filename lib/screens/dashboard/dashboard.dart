@@ -40,6 +40,7 @@ class Dashboard extends StatelessWidget {
       body: this._gridSimulados(context),
       bottomNavigationBar: BottomAppBar(
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             IconButton(
               icon: Icon(Icons.book),
@@ -47,27 +48,27 @@ class Dashboard extends StatelessWidget {
                   Navigator.pushNamed(context, AulasParticulares.routeName),
             ),
             IconButton(
-              icon: Icon(Icons.book),
+              icon: Icon(Icons.info),
               onPressed: () =>
                   Navigator.pushNamed(context, DicasFundador.routeName),
             ),
             IconButton(
-              icon: Icon(Icons.book),
+              icon: Icon(Icons.bookmark),
               onPressed: () =>
                   Navigator.pushNamed(context, EbooksApostilas.routeName),
             ),
             IconButton(
-              icon: Icon(Icons.book),
+              icon: Icon(Icons.folder),
               onPressed: () =>
                   Navigator.pushNamed(context, FormulaExpert.routeName),
             ),
             IconButton(
-              icon: Icon(Icons.book),
+              icon: Icon(Icons.shop),
               onPressed: () =>
                   Navigator.pushNamed(context, LojaVirtual.routeName),
             ),
             IconButton(
-              icon: Icon(Icons.book),
+              icon: Icon(Icons.link_off),
               onPressed: () => Navigator.pushNamed(context, MudeVida.routeName),
             ),
           ],

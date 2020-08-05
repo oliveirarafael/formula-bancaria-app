@@ -6,6 +6,11 @@ class FormulaExpert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Formula Expert",
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -24,7 +29,7 @@ class FormulaExpert extends StatelessWidget {
                           repeat: ImageRepeat.noRepeat),
                     ),
                     // color: Colors.white,
-                    height: 500,
+                    height: 560,
                     child: Column(children: <Widget>[
                       // Image.asset('assets/images/fundador.png', fit: BoxFit.cover, alignment: new Alignment(-2.0, -1.0),),
                       Padding(
@@ -34,7 +39,7 @@ class FormulaExpert extends StatelessWidget {
                               // Row(children: <Widget>[
                               Text("Fórmula Expert",
                                   style: TextStyle(
-                                      color: Colors.yellow,
+                                      color: Colors.blue,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 24)),
                           // ]),
@@ -49,7 +54,7 @@ class FormulaExpert extends StatelessWidget {
                                       "Atendimento ao cliente através da\n" +
                                       "assinatura mensal do Fórmula Expert.\n",
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color: Colors.black87,
                                       fontWeight: FontWeight.normal,
                                       fontSize: 16,
                                       height: 1.2)),
@@ -58,7 +63,7 @@ class FormulaExpert extends StatelessWidget {
                               child: Text(
                                   "•Receba diariamente \nnotícias exclusivas sobre \no mercado.",
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color: Colors.black87,
                                       fontWeight: FontWeight.normal,
                                       fontSize: 16)),
                               alignment: Alignment.centerLeft),
@@ -67,7 +72,7 @@ class FormulaExpert extends StatelessWidget {
                               child: Text(
                                   "•Acesse a +200 vídeos de \npráticas do dia a dia.",
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color: Colors.black87,
                                       fontWeight: FontWeight.normal,
                                       fontSize: 16)),
                               alignment: Alignment.centerLeft),
@@ -75,7 +80,7 @@ class FormulaExpert extends StatelessWidget {
                           Align(
                               child: Text("•Insight de Investimentos",
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color: Colors.black87,
                                       fontWeight: FontWeight.normal,
                                       fontSize: 16)),
                               alignment: Alignment.centerLeft),
@@ -84,7 +89,7 @@ class FormulaExpert extends StatelessWidget {
                               child: Text(
                                   "•E-books e ferramentas \npara facilitar seu dia a dia",
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color: Colors.black87,
                                       fontWeight: FontWeight.normal,
                                       fontSize: 16)),
                               alignment: Alignment.centerLeft),
@@ -93,7 +98,7 @@ class FormulaExpert extends StatelessWidget {
                               child: Text(
                                   "•Suporte na compreensão \ndo mercado de ações e nas \nopções de investimentos \ne muito mais",
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color: Colors.black87,
                                       fontWeight: FontWeight.normal,
                                       fontSize: 16)),
                               alignment: Alignment.centerLeft),
@@ -110,10 +115,9 @@ class FormulaExpert extends StatelessWidget {
                                 FlatButton.icon(
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10.0),
-                                      side: BorderSide(
-                                          color: Theme.of(context)
-                                              .scaffoldBackgroundColor)),
-                                  color: Colors.yellow,
+                                      side:
+                                          BorderSide(color: Colors.blue[100])),
+                                  color: Colors.blue,
                                   icon: Icon(Icons.camera,
                                       color: Theme.of(context)
                                           .scaffoldBackgroundColor),

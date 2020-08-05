@@ -6,6 +6,9 @@ class DicasFundador extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Dicas com Fundador"),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -23,7 +26,7 @@ class DicasFundador extends StatelessWidget {
                             alignment: Alignment.bottomRight,
                             repeat: ImageRepeat.noRepeat)),
                     // color: Colors.white,
-                    height: 500,
+                    //height: 500,
                     child: Column(children: <Widget>[
                       // Image.asset('assets/images/fundador.png', fit: BoxFit.cover, alignment: new Alignment(-2.0, -1.0),),
                       Padding(
@@ -110,12 +113,12 @@ class DicasFundador extends StatelessWidget {
                         alignment: Alignment.topRight,
                         child: Visibility(
                           child: Padding(
-                              padding: EdgeInsets.only(right: 0),
-                              child: ImageIcon(
-                                AssetImage("assets/images/fundador.png"),
-                                size: 10,
-                                color: Colors.white,
-                              )),
+                            padding: EdgeInsets.only(right: 0),
+                            child: ImageIcon(
+                              AssetImage("assets/images/fundador.png"),
+                              size: 10,
+                            ),
+                          ),
                         ),
                       ),
                       SizedBox(height: 70.0),
@@ -128,16 +131,20 @@ class DicasFundador extends StatelessWidget {
                               children: <Widget>[
                                 FlatButton.icon(
                                   shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      side: BorderSide(
-                                          color: Theme.of(context)
-                                              .scaffoldBackgroundColor)),
-                                  color:
-                                      Theme.of(context).scaffoldBackgroundColor,
-                                  icon: Icon(Icons.camera, color: Colors.white),
-                                  label: Text('Seguir!',
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 20.0)),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    side: BorderSide(color: Colors.red),
+                                  ),
+                                  icon: Icon(
+                                    Icons.camera,
+                                    color: Colors.red,
+                                  ),
+                                  label: Text(
+                                    'Seguir!',
+                                    style: TextStyle(
+                                      fontSize: 20.0,
+                                      color: Colors.red,
+                                    ),
+                                  ),
                                   padding: EdgeInsets.all(15.0),
                                   onPressed: () {},
                                 ),

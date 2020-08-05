@@ -6,6 +6,9 @@ class MudeVida extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Mude de Vida"),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -24,10 +27,7 @@ class MudeVida extends StatelessWidget {
                             //CircleImage(assetImage: 'assets/images/logo/logo-branca.png', height: 40.0),
                             Text("Mude de Vida",
                                 style: TextStyle(
-                                    color: Theme.of(context)
-                                        .scaffoldBackgroundColor,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 22)),
+                                    fontWeight: FontWeight.bold, fontSize: 22)),
                           ]),
                         ),
                       ),
@@ -49,27 +49,18 @@ class MudeVida extends StatelessWidget {
                             label: Text(
                               'Fórmula comentada',
                               style: TextStyle(
-                                  color:
-                                      Theme.of(context).scaffoldBackgroundColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20.0),
+                                  fontWeight: FontWeight.bold, fontSize: 20.0),
                             ),
                             icon: Image.asset(
                               'assets/images/logo/logo-colorida.png',
                               height: 30.0,
                             ),
-                            textColor:
-                                Theme.of(context).scaffoldBackgroundColor,
-                            splashColor:
-                                Theme.of(context).scaffoldBackgroundColor,
                             color: Colors.white,
                           )),
                       SizedBox(height: 10.0),
                       Text('R\$14,90 / Mensal (Exceto CFP®)',
                           style: TextStyle(
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18)),
+                              fontWeight: FontWeight.bold, fontSize: 18)),
                       SizedBox(height: 20.0),
                       SizedBox(
                           height: 50.0,
@@ -88,24 +79,19 @@ class MudeVida extends StatelessWidget {
                             label: Text(
                               'CFP® comentado',
                               style: TextStyle(
-                                  color: Colors.yellow,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20.0),
+                                  fontWeight: FontWeight.bold, fontSize: 20.0),
                             ),
                             icon: Image.asset(
-                              'assets/images/logo/logo-branca.png',
-                              height: 50.0,
+                              'assets/images/logo/logo-colorida.png',
+                              height: 30.0,
                             ),
-                            textColor: Colors.yellow,
                             splashColor: Colors.white,
                             color: Theme.of(context).scaffoldBackgroundColor,
                           )),
                       SizedBox(height: 10.0),
                       Text('R\$44,90 / Mensal (CFP®)',
                           style: TextStyle(
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18)),
+                              fontWeight: FontWeight.bold, fontSize: 18)),
                       SizedBox(
                         height: 20.0,
                       ),
@@ -115,21 +101,18 @@ class MudeVida extends StatelessWidget {
                             child: Row(
                           children: <Widget>[
                             IconButton(
-                                icon: Icon(Icons.arrow_downward,
-                                    color: Theme.of(context)
-                                        .scaffoldBackgroundColor),
+                                icon: Icon(
+                                  Icons.arrow_downward,
+                                ),
                                 iconSize: 30,
                                 onPressed: null),
                             Text("Conheça e Mude de Vida",
                                 style: TextStyle(
-                                    color: Theme.of(context)
-                                        .scaffoldBackgroundColor,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20)),
+                                    fontWeight: FontWeight.bold, fontSize: 20)),
                             IconButton(
-                                icon: Icon(Icons.arrow_downward,
-                                    color: Theme.of(context)
-                                        .scaffoldBackgroundColor),
+                                icon: Icon(
+                                  Icons.arrow_downward,
+                                ),
                                 iconSize: 30,
                                 onPressed: null),
                           ],
@@ -153,16 +136,12 @@ class MudeVida extends StatelessWidget {
                             label: Text(
                               'Fórmula Expert',
                               style: TextStyle(
-                                  color: Colors.yellow,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20.0),
+                                  fontWeight: FontWeight.bold, fontSize: 20.0),
                             ),
                             icon: Image.asset(
-                              'assets/images/logo/logo-branca.png',
-                              height: 50.0,
+                              'assets/images/logo/logo-colorida.png',
+                              height: 30.0,
                             ),
-                            textColor: Colors.yellow,
-                            splashColor: Colors.white,
                             color: Theme.of(context).scaffoldBackgroundColor,
                           )),
                     ]),

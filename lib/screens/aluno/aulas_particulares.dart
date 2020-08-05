@@ -57,6 +57,9 @@ class _AulasParticularesState extends State<AulasParticulares> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Aulas Particulares"),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
