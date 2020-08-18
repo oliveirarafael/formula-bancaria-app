@@ -14,15 +14,9 @@ class Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Row(
-          children: <Widget>[
-            IconButton(
-              icon: Icon(Icons.account_circle),
-              onPressed: () => print("Sair"),
-            ),
-          ],
-        ),
-        title: Center(
+        backgroundColor: Color(0xFF2A2F52),
+        leading: Container(),
+        title: Container(
           child: Image.asset(
             'assets/images/logo/logo-horizontal-branca.png',
             height: 40,
@@ -39,37 +33,32 @@ class Dashboard extends StatelessWidget {
       ),
       body: this._gridSimulados(context),
       bottomNavigationBar: BottomAppBar(
+        color: Color(0xFF2A2F52),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             IconButton(
-              icon: Icon(Icons.book),
+              icon: Image.asset("assets/icons/percent.png"),
               onPressed: () =>
                   Navigator.pushNamed(context, AulasParticulares.routeName),
             ),
             IconButton(
-              icon: Icon(Icons.info),
+              icon: Image.asset("assets/icons/user.png"),
               onPressed: () =>
                   Navigator.pushNamed(context, DicasFundador.routeName),
             ),
             IconButton(
-              icon: Icon(Icons.bookmark),
+              icon: Image.asset("assets/icons/circulo-formula.png"),
+            ),
+            IconButton(
+              icon: Image.asset("assets/icons/cart.png"),
               onPressed: () =>
                   Navigator.pushNamed(context, EbooksApostilas.routeName),
             ),
             IconButton(
-              icon: Icon(Icons.folder),
+              icon: Image.asset("assets/icons/play.png"),
               onPressed: () =>
                   Navigator.pushNamed(context, FormulaExpert.routeName),
-            ),
-            IconButton(
-              icon: Icon(Icons.shop),
-              onPressed: () =>
-                  Navigator.pushNamed(context, LojaVirtual.routeName),
-            ),
-            IconButton(
-              icon: Icon(Icons.link_off),
-              onPressed: () => Navigator.pushNamed(context, MudeVida.routeName),
             ),
           ],
         ),

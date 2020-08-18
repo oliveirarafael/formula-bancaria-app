@@ -26,37 +26,96 @@ class _FormularioLoginState extends State<FormularioLogin> {
 
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 40.0),
-          child: SingleChildScrollView(
-            child: Form(
-              key: _loginFormKey,
+        child: SingleChildScrollView(
+          child: Form(
+            key: _loginFormKey,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 40.0),
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/images/fundo.png"),
+                    fit: BoxFit.cover,
+                    repeat: ImageRepeat.noRepeat),
+              ),
               child: Column(
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.only(top: 50),
-                    child: Logo(height: 100.0),
+                    margin: EdgeInsets.only(top: 30),
+                    child: Logo(height: 120.0),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 30),
+                    alignment: AlignmentDirectional.topStart,
+                    margin: EdgeInsets.only(top: 20),
+                    child: Text(
+                      "Login",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
                     child: _emailFormField(),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 30),
+                    alignment: AlignmentDirectional.topStart,
+                    margin: EdgeInsets.only(top: 10),
+                    child: Text(
+                      "Senha",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
                     child: _senhaFormField(),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 30),
-                    child: _linkEsqueceuSenha(),
+                    margin: EdgeInsets.only(top: 20),
+                    child: Row(
+                      children: [
+                        _botaoLogin(),
+                        _linkEsqueceuSenha(),
+                      ],
+                    ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 30),
-                    child: _botaoLogin(),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 30),
+                    margin: EdgeInsets.only(top: 20),
                     child: _linkCadastrar(),
                   ),
+                  Container(
+                    margin: EdgeInsets.only(top: 20),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: 20,
+                          ),
+                          child: Text(
+                            "Apoio",
+                            style: TextStyle(color: Colors.white, fontSize: 25),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: 50,
+                          ),
+                          child: Image.asset(
+                            'assets/images/logo/logo-ibemf-branca.png',
+                            height: 80,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
                   //_botaoLoginGoogle(),
                 ],
               ),
@@ -87,52 +146,71 @@ class _FormularioLoginState extends State<FormularioLogin> {
       keyboardType: TextInputType.emailAddress,
       obscureText: false,
       decoration: InputDecoration(
-        hintText: "Email",
-        prefixIcon: Icon(
-          Icons.email,
+        border: InputBorder.none,
+        hintText: "E-mail",
+        filled: true,
+        fillColor: Colors.white,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          borderSide: BorderSide(color: Colors.grey),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          borderSide: BorderSide(color: Colors.blue),
         ),
       ),
       style: TextStyle(
         fontSize: 16,
+        color: Color(0xFF2A2F52),
       ),
     );
   }
 
   Widget _senhaFormField() {
     return TextFormField(
-        onSaved: (senha) {
-          this._senha = senha;
-        },
-        initialValue: '88418254',
-        validator: (senha) {
-          if (senha.isEmpty) {
-            return 'Campo Obrigatório';
-          }
+      onSaved: (senha) {
+        this._senha = senha;
+      },
+      initialValue: '88418254',
+      validator: (senha) {
+        if (senha.isEmpty) {
+          return 'Campo Obrigatório';
+        }
 
-          if (senha.length < 6) {
-            return 'Deve ter mais que 5 caracteres';
-          }
+        if (senha.length < 6) {
+          return 'Deve ter mais que 5 caracteres';
+        }
 
-          return null;
-        },
-        keyboardType: TextInputType.text,
-        obscureText: true,
-        decoration: InputDecoration(
-            hintText: "Senha", // Novo
-            prefixIcon: Icon(
-              Icons.lock,
-            )),
-        style: TextStyle(
-          fontSize: 16,
-        ));
+        return null;
+      },
+      keyboardType: TextInputType.text,
+      obscureText: true,
+      decoration: InputDecoration(
+        border: InputBorder.none,
+        hintText: "Senha",
+        filled: true,
+        fillColor: Colors.white,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          borderSide: BorderSide(color: Colors.grey),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          borderSide: BorderSide(color: Colors.blue),
+        ),
+      ),
+      style: TextStyle(
+        fontSize: 16,
+        color: Color(0xFF2A2F52),
+      ),
+    );
   }
 
   Widget _botaoLogin() {
     return Container(
-      height: 40.0,
-      width: double.infinity,
+      margin: EdgeInsets.only(right: 20),
       child: RaisedButton(
-        color: Colors.blue[300],
+        color: Colors.white,
         onPressed: () {
           var currentState = this._loginFormKey.currentState;
           if (currentState.validate()) {
@@ -142,9 +220,9 @@ class _FormularioLoginState extends State<FormularioLogin> {
         },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
         child: Text(
-          "Login",
+          "Entrar",
           textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.white, fontSize: 18),
+          style: TextStyle(color: Color(0xFF2A2F52), fontSize: 18),
         ),
       ),
     );
@@ -244,13 +322,12 @@ class _FormularioLoginState extends State<FormularioLogin> {
 
   Widget _linkEsqueceuSenha() {
     return Container(
-      height: 20,
-      alignment: Alignment.centerRight,
       child: InkWell(
         child: Text(
           'Esqueceu sua senha?',
           style: TextStyle(
             fontSize: 15,
+            color: Colors.white,
           ),
           textAlign: TextAlign.right,
         ),
@@ -268,6 +345,7 @@ class _FormularioLoginState extends State<FormularioLogin> {
           'Ainda não tem acesso? Cadastre-se',
           style: TextStyle(
             fontSize: 15,
+            color: Colors.white,
           ),
         ),
         onTap: () => Navigator.pushNamed(context, CadastroUsuario.routeName),
