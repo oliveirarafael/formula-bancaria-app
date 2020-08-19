@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:formula_bancaria_app/components/circle_image.dart';
 import 'package:formula_bancaria_app/components/circle_link.dart';
+import 'package:formula_bancaria_app/components/footer.dart';
+import 'package:formula_bancaria_app/components/header.dart';
 
 class EbooksApostilas extends StatelessWidget {
   static const routeName = '/alunos/ebooks';
@@ -8,9 +10,7 @@ class EbooksApostilas extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("E-books & Apostilas"),
-      ),
+      appBar: Header().get(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -38,13 +38,24 @@ class EbooksApostilas extends StatelessWidget {
                       ),
                       SizedBox(height: 20.0),
                       Center(
-                          child: Row(children: <Widget>[
-                        CircleLink(
-                            buttonText: "CPA 10", height: 35.0, link: ""),
-                        CircleLink(
-                            buttonText: "CPA 20", height: 35.0, link: ""),
-                        CircleLink(buttonText: "CEA", height: 35.0, link: "")
-                      ])),
+                        child: Row(children: <Widget>[
+                          CircleLink(
+                            buttonText: "CPA 10",
+                            height: 35.0,
+                            link: "",
+                          ),
+                          CircleLink(
+                            buttonText: "CPA 20",
+                            height: 35.0,
+                            link: "",
+                          ),
+                          CircleLink(
+                            buttonText: "CEA",
+                            height: 35.0,
+                            link: "",
+                          ),
+                        ]),
+                      ),
                       SizedBox(height: 20.0),
                       Center(
                           child: Row(children: <Widget>[
@@ -62,15 +73,20 @@ class EbooksApostilas extends StatelessWidget {
                               verticalDirection: VerticalDirection.down,
                               children: <Widget>[
                             FlatButton.icon(
+                              color: Color(0xFF2A2F52),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                                 // side: BorderSide(color: Colors.red)
                               ),
                               icon: Icon(
                                 Icons.file_download,
+                                color: Colors.white,
                               ),
                               label: Text('Baixar apostila',
-                                  style: TextStyle(fontSize: 20.0)),
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                    color: Colors.white,
+                                  )),
                               padding: EdgeInsets.all(15.0),
                               onPressed: () {},
                             ),
@@ -81,6 +97,7 @@ class EbooksApostilas extends StatelessWidget {
               ])),
         ),
       ),
+      bottomNavigationBar: Footer(),
     );
   }
 }

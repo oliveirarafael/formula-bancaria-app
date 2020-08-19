@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:formula_bancaria_app/components/circle_image_link.dart';
+import 'package:formula_bancaria_app/components/footer.dart';
+import 'package:formula_bancaria_app/components/header.dart';
+import 'package:formula_bancaria_app/screens/aluno/aulas_particulares.dart';
+import 'package:formula_bancaria_app/screens/aluno/ebooks_apostilas.dart';
+import 'package:formula_bancaria_app/screens/aluno/mude_vida.dart';
 // import 'package:formula_bancaria_app/components/circle_image.dart';
 
 class LojaVirtual extends StatelessWidget {
@@ -7,9 +13,7 @@ class LojaVirtual extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Loja Virtual"),
-      ),
+      appBar: Header().get(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -36,7 +40,10 @@ class LojaVirtual extends StatelessWidget {
                         SizedBox(width: 10.0),
                         Center(
                           child: Column(children: <Widget>[
-                            //CircleImageLink(assetImage: "assets/images/pessoa.png", height: 55.0, link: '/aluno/aulas_particulares'),
+                            CircleImageLink(
+                                assetImage: "assets/images/pessoa.png",
+                                height: 55.0,
+                                link: ""),
                             Text(
                               "Cursos\npresenciais",
                               textAlign: TextAlign.center,
@@ -48,7 +55,10 @@ class LojaVirtual extends StatelessWidget {
                         SizedBox(width: 40.0),
                         Center(
                           child: Column(children: <Widget>[
-                            //CircleImageLink(assetImage: "assets/images/capelo.png", height: 55.0, link: ""),
+                            CircleImageLink(
+                                assetImage: "assets/images/capelo.png",
+                                height: 55.0,
+                                link: ""),
                             Text(
                               "Cursos\nonline",
                               textAlign: TextAlign.center,
@@ -65,7 +75,10 @@ class LojaVirtual extends StatelessWidget {
                         SizedBox(width: 10.0),
                         Center(
                           child: Column(children: <Widget>[
-                            //CircleImageLink(assetImage: "assets/images/ebook.png", height: 55.0, link: '/aluno/ebooks_apostilas'),
+                            CircleImageLink(
+                                assetImage: "assets/images/ebook.png",
+                                height: 55.0,
+                                link: EbooksApostilas.routeName),
                             Text(
                               "E-book &\n Apostilas",
                               textAlign: TextAlign.center,
@@ -77,7 +90,11 @@ class LojaVirtual extends StatelessWidget {
                         SizedBox(width: 40.0),
                         Center(
                           child: Column(children: <Widget>[
-                            //CircleImageLink(assetImage: "assets/images/logo/logo-branca.png", height: 55.0, link: '/aluno/mude_vida'),
+                            CircleImageLink(
+                                assetImage:
+                                    "assets/images/logo/logo-branca.png",
+                                height: 55.0,
+                                link: MudeVida.routeName),
                             Text(
                               "Mude de\nVida",
                               textAlign: TextAlign.center,
@@ -95,6 +112,7 @@ class LojaVirtual extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: Footer(),
     );
   }
 }

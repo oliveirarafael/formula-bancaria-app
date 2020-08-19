@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:formula_bancaria_app/components/circle_image.dart';
+import 'package:formula_bancaria_app/components/footer.dart';
+import 'package:formula_bancaria_app/components/header.dart';
 
 class MudeVida extends StatelessWidget {
   static const routeName = '/alunos/mude-vida';
@@ -6,9 +9,7 @@ class MudeVida extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Mude de Vida"),
-      ),
+      appBar: Header().get(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -24,7 +25,10 @@ class MudeVida extends StatelessWidget {
                         padding: EdgeInsets.all(10.0),
                         child: Center(
                           child: Row(children: <Widget>[
-                            //CircleImage(assetImage: 'assets/images/logo/logo-branca.png', height: 40.0),
+                            CircleImage(
+                                assetImage:
+                                    'assets/images/logo/logo-branca.png',
+                                height: 40.0),
                             Text("Mude de Vida",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 22)),
@@ -42,14 +46,14 @@ class MudeVida extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10.0)),
-                              side: BorderSide(
-                                  color: Theme.of(context)
-                                      .scaffoldBackgroundColor),
+                              side: BorderSide(color: Color(0xFF2A2F52)),
                             ),
                             label: Text(
                               'Fórmula comentada',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20.0),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20.0,
+                                  color: Colors.yellowAccent[300]),
                             ),
                             icon: Image.asset(
                               'assets/images/logo/logo-colorida.png',
@@ -60,34 +64,36 @@ class MudeVida extends StatelessWidget {
                       SizedBox(height: 10.0),
                       Text('R\$14,90 / Mensal (Exceto CFP®)',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18)),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              color: Color(0xFF2A2F52))),
                       SizedBox(height: 20.0),
                       SizedBox(
-                          height: 50.0,
-                          width: 300.0,
-                          child: RaisedButton.icon(
+                        height: 50.0,
+                        width: 300.0,
+                        child: RaisedButton.icon(
                             onPressed: () {
                               print('Button Clicked.');
                             },
                             shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10.0)),
-                              side: BorderSide(
-                                  color: Theme.of(context)
-                                      .scaffoldBackgroundColor),
+                              side: BorderSide(color: Color(0xFF2A2F52)),
                             ),
                             label: Text(
                               'CFP® comentado',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20.0),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20.0,
+                                  color: Colors.yellowAccent[700]),
                             ),
                             icon: Image.asset(
-                              'assets/images/logo/logo-colorida.png',
-                              height: 30.0,
+                              'assets/images/logo/logo-branca.png',
+                              height: 40.0,
                             ),
                             splashColor: Colors.white,
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                          )),
+                            color: Color(0xFF2A2F52)),
+                      ),
                       SizedBox(height: 10.0),
                       Text('R\$44,90 / Mensal (CFP®)',
                           style: TextStyle(
@@ -108,7 +114,9 @@ class MudeVida extends StatelessWidget {
                                 onPressed: null),
                             Text("Conheça e Mude de Vida",
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 20)),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Color(0xFF2A2F52))),
                             IconButton(
                                 icon: Icon(
                                   Icons.arrow_downward,
@@ -129,20 +137,20 @@ class MudeVida extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10.0)),
-                              side: BorderSide(
-                                  color: Theme.of(context)
-                                      .scaffoldBackgroundColor),
+                              side: BorderSide(color: Color(0xFF2A2F52)),
                             ),
                             label: Text(
                               'Fórmula Expert',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20.0),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20.0,
+                                  color: Colors.yellowAccent[700]),
                             ),
                             icon: Image.asset(
-                              'assets/images/logo/logo-colorida.png',
-                              height: 30.0,
+                              'assets/images/logo/logo-branca.png',
+                              height: 40.0,
                             ),
-                            color: Theme.of(context).scaffoldBackgroundColor,
+                            color: Color(0xFF2A2F52),
                           )),
                     ]),
                   ),
@@ -150,6 +158,7 @@ class MudeVida extends StatelessWidget {
               ])),
         ),
       ),
+      bottomNavigationBar: Footer(),
     );
   }
 }

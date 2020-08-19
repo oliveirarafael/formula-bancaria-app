@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:formula_bancaria_app/screens/aluno/aulas_particulares.dart';
-import 'package:formula_bancaria_app/screens/aluno/dicas_fundador.dart';
-import 'package:formula_bancaria_app/screens/aluno/ebooks_apostilas.dart';
-import 'package:formula_bancaria_app/screens/aluno/formula_expert.dart';
-import 'package:formula_bancaria_app/screens/aluno/loja_virtual.dart';
-import 'package:formula_bancaria_app/screens/aluno/mude_vida.dart';
+import 'package:formula_bancaria_app/components/footer.dart';
+import 'package:formula_bancaria_app/components/header.dart';
 import 'package:formula_bancaria_app/screens/aluno/simulado/simulado_ativo.page.dart';
 
 class Dashboard extends StatelessWidget {
@@ -13,56 +9,9 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xFF2A2F52),
-        leading: Container(),
-        title: Container(
-          child: Image.asset(
-            'assets/images/logo/logo-horizontal-branca.png',
-            height: 40,
-          ),
-        ),
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(
-                Icons.exit_to_app,
-                color: Colors.white,
-              ),
-              onPressed: () => print("ok"))
-        ],
-      ),
+      appBar: Header().get(),
       body: this._gridSimulados(context),
-      bottomNavigationBar: BottomAppBar(
-        color: Color(0xFF2A2F52),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            IconButton(
-              icon: Image.asset("assets/icons/percent.png"),
-              onPressed: () =>
-                  Navigator.pushNamed(context, AulasParticulares.routeName),
-            ),
-            IconButton(
-              icon: Image.asset("assets/icons/user.png"),
-              onPressed: () =>
-                  Navigator.pushNamed(context, DicasFundador.routeName),
-            ),
-            IconButton(
-              icon: Image.asset("assets/icons/circulo-formula.png"),
-            ),
-            IconButton(
-              icon: Image.asset("assets/icons/cart.png"),
-              onPressed: () =>
-                  Navigator.pushNamed(context, EbooksApostilas.routeName),
-            ),
-            IconButton(
-              icon: Image.asset("assets/icons/play.png"),
-              onPressed: () =>
-                  Navigator.pushNamed(context, FormulaExpert.routeName),
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: Footer(),
     );
   }
 

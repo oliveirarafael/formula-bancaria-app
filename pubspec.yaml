@@ -68,6 +68,8 @@ flutter:
      - assets/images/ebook.png
      - assets/images/circulo-azul.png
      - assets/images/fundo.png
+     - assets/images/pessoa.png
+     - assets/images/capelo.png
      
 
      - assets/icons/cart.png
