@@ -234,17 +234,18 @@ class _SimuladoAtivoPageState extends State<SimuladoAtivoPage> {
     );
   }
 
-  _concluirSimulado() {
+  void _concluirSimulado() {
    
     BaseService service = new BaseService();
-    
+    String teste = jsonEncode(_controller.getSimuladoRespondido());
+    debugPrint(teste);
     post(
       '${service.baseUrl}/simuladosRespondidos',
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + Auth.token()
       },
-      body: jsonEncode(_controller.getSimuladoRespondido()),
+      body: teste,
     ).then((response) {
       if (response.statusCode == 201) {
         FinishDialog.show(
