@@ -1,6 +1,9 @@
-import 'package:formula_bancaria_app/models/simulado-gerado.dart';
+// import 'package:formula_bancaria_app/models/questao_ativa.dart';
+// import 'package:formula_bancaria_app/models/question.dart';
+import 'package:formula_bancaria_app/models/simulado_gerado.dart';
 import 'package:formula_bancaria_app/models/simulado_respondido.dart';
 import 'package:formula_bancaria_app/models/usuario_logado.dart';
+// import 'package:formula_bancaria_app/services/quiz_api.dart';
 import 'package:formula_bancaria_app/services/simulado_service.dart';
 
 class SimuladoAtivoController {
@@ -10,21 +13,27 @@ class SimuladoAtivoController {
   int _questaoIndex = 0;
   int hitNumber = 0;
 
-  int get questionsNumber => _questoesPlanilha.length;
-  // Question get question => _questoesPlanilha[_questaoIndex];
-  QuestaoSimuladoGerado get question => _questoesPlanilha[_questaoIndex];
-  String get nomeSimulado => _simuladoGerado.titulo;
+  int questionsNumber = 0;
+  QuestaoSimuladoGerado question;
+  String nomeSimulado;
 
-  Future<void> initialize() async {
-    int simuladoId = 1;
+  Future<void> initialize(int simuladoId) async {
+    //int simuladoId = 1;
     int usuarioId = UsuarioLogado.getUser().id;
     _simuladoGerado = await gerarSimuladoParaResponder(simuladoId);
-    _simuladoRespondido = SimuladoRespondido(simuladoId, usuarioId, null); 
+    _simuladoRespondido = SimuladoRespondido(simuladoId, usuarioId, null);
 
     _questaoIndex = 0;
     hitNumber = 0;
+
     _questoesPlanilha = _simuladoGerado.questoes;
-  
+    nomeSimulado = _simuladoGerado.titulo;
+
+    if (_questoesPlanilha.isNotEmpty) {
+      questionsNumber = _questoesPlanilha.length;
+      question = _questoesPlanilha[_questaoIndex];
+    }
+
     print('Número de questões: ${_simuladoGerado.questoes.length}');
   }
 
@@ -48,10 +57,14 @@ class SimuladoAtivoController {
     return _questoesPlanilha[_questaoIndex].enunciado;
   }
 
+  String getComentario() {
+    return _questoesPlanilha[_questaoIndex].comentario;
+  }
+
   int getQuestionId() {
     return _questoesPlanilha[_questaoIndex].id;
   }
-  
+
   String getAnswer1() {
     return _questoesPlanilha[_questaoIndex].respostas[0].descricao;
   }
@@ -69,52 +82,61 @@ class SimuladoAtivoController {
   }
 
   bool correctAnswer(int indexRespostaEscolhida) {
-    var correct = (_questoesPlanilha[_questaoIndex].respostas[indexRespostaEscolhida].correta);
+    var correct = (_questoesPlanilha[_questaoIndex]
+        .respostas[indexRespostaEscolhida]
+        .correta);
     hitNumber = hitNumber + (correct ? 1 : 0);
     return correct;
   }
 
-  void armazenarQuestaoRespondida(int indexRespostaEscolhida)
-  {
+  void armazenarQuestaoRespondida(int indexRespostaEscolhida) {
     int questaoRespondida = _questoesPlanilha[_questaoIndex].id;
-    int respostaEscolhida = _questoesPlanilha[_questaoIndex].respostas[indexRespostaEscolhida].id;
+    int respostaEscolhida =
+        _questoesPlanilha[_questaoIndex].respostas[indexRespostaEscolhida].id;
 
-    if(_simuladoRespondido.questoes == null)
-    {
+    if (_simuladoRespondido.questoes == null) {
       _simuladoRespondido.questoes = List<QuestaoRespondida>();
     }
 
-    if(_simuladoRespondido.questoes != null &&_simuladoRespondido.questoes.any((q) => q.questaoId == questaoRespondida))
-    {
-      _simuladoRespondido.questoes.where((q) => q.questaoId == questaoRespondida).first.respostaEscolhidaId = respostaEscolhida;
-    }
-    else {
-      _simuladoRespondido.questoes.add(new QuestaoRespondida(questaoRespondida, respostaEscolhida));
+    if (_simuladoRespondido.questoes != null &&
+        _simuladoRespondido.questoes
+            .any((q) => q.questaoId == questaoRespondida)) {
+      _simuladoRespondido.questoes
+          .where((q) => q.questaoId == questaoRespondida)
+          .first
+          .respostaEscolhidaId = respostaEscolhida;
+    } else {
+      _simuladoRespondido.questoes
+          .add(new QuestaoRespondida(questaoRespondida, respostaEscolhida));
 
-      if(_questoesPlanilha[_questaoIndex].respostas[indexRespostaEscolhida].correta)
-      {
+      if (_questoesPlanilha[_questaoIndex]
+          .respostas[indexRespostaEscolhida]
+          .correta) {
         hitNumber++;
       }
     }
   }
 
-  String getRespostaSelecionada(idQuestao)
-  {
-    if(_simuladoRespondido == null) return null;
+  String getRespostaSelecionada(idQuestao) {
+    if (_simuladoRespondido == null) return null;
 
-    if(_simuladoRespondido.questoes == null) return null;
+    if (_simuladoRespondido.questoes == null) return null;
 
-    if(!_simuladoRespondido.questoes.any((q) => q.questaoId == idQuestao)) return null;
+    if (!_simuladoRespondido.questoes.any((q) => q.questaoId == idQuestao))
+      return null;
 
-    var questaoRespondida = _simuladoRespondido.questoes.firstWhere((q) => q.questaoId == idQuestao);
+    var questaoRespondida = _simuladoRespondido.questoes
+        .firstWhere((q) => q.questaoId == idQuestao);
 
-    if(questaoRespondida == null) return null;
+    if (questaoRespondida == null) return null;
 
     var respostaEscolhidaId = questaoRespondida.respostaEscolhidaId;
 
-    var respostaEscolhida = _questoesPlanilha[_questaoIndex].respostas.firstWhere((r) => r.id == respostaEscolhidaId);
+    var respostaEscolhida = _questoesPlanilha[_questaoIndex]
+        .respostas
+        .firstWhere((r) => r.id == respostaEscolhidaId);
 
-    if(respostaEscolhida == null) return null;
+    if (respostaEscolhida == null) return null;
 
     return respostaEscolhida.descricao;
   }
@@ -123,18 +145,31 @@ class SimuladoAtivoController {
     return SimuladoService().gerarSimulado(id);
   }
 
-  SimuladoRespondido getSimuladoRespondido()
-  {
+  // Future<bool> concluirSimulado() async {
+  //   // return SimuladoRespondidoService().concluirSimulado(_simuladoRespondido);
+
+  //   // return response;
+  //   BaseService service = new BaseService();
+
+  //   final token = Auth.token();
+  //   bool _boolResponse;
+  //   String resource = "simuladosRespondidos";
+
+  // }
+
+  SimuladoRespondido getSimuladoRespondido() {
     return _simuladoRespondido;
   }
 
-  int getNumeroQuestao()
-  {
+  SimuladoGerado getSimuladoGerado() {
+    return this._simuladoGerado;
+  }
+
+  int getNumeroQuestao() {
     return _questaoIndex + 1;
   }
 
-  bool verificarRespostaCerta(int indexResposta)
-  {
+  bool verificarRespostaCerta(int indexResposta) {
     return _questoesPlanilha[_questaoIndex].respostas[indexResposta].correta;
   }
 }

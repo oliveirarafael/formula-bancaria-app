@@ -17,23 +17,27 @@ class MenuItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _context = context;
-    return  Container(
+    return Container(
       margin: EdgeInsets.only(left: 18, top: 15, bottom: 5),
       width: 150,
       height: 100,
       child: FlatButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25.0)
-        ),
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
         color: Theme.of(context).scaffoldBackgroundColor,
         //color: Colors.blue,
-        onPressed: () => { Navigator.pushNamed(this._context, '/aluno/simulado/simulado_ativo') },
+        onPressed: () => {
+          Navigator.pushNamed(this._context, '/aluno/simulado/simulado_ativo')
+        },
         padding: EdgeInsets.all(10.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             icon,
-            Text(buttonText, style: TextStyle(color: Colors.white),)
+            Text(
+              buttonText,
+              style: TextStyle(color: Colors.black),
+            )
           ],
         ),
       ),

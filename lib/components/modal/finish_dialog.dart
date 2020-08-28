@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 
 class FinishDialog {
-  static Future show(
-    BuildContext context, {
-    int hitNumber,
-    int numeroQuestoes
-  }) {
+  static Future show(BuildContext context,
+      {int hitNumber, int numeroQuestoes}) {
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
