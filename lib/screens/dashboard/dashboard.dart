@@ -24,8 +24,12 @@ class Dashboard extends StatelessWidget {
       crossAxisCount: 2,
       children: <Widget>[
         GestureDetector(
-          onTap: () =>
-              Navigator.pushNamed(context, SimuladoAtivoPage.routeName),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SimuladoAtivoPage(simuladoId: 1),
+            ),
+          ),
           child: Container(
             padding: EdgeInsets.all(8),
             child: Column(
@@ -50,8 +54,12 @@ class Dashboard extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () =>
-              Navigator.pushNamed(context, "/aluno/simulado/simulado-ativo"),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SimuladoAtivoPage(simuladoId: 2),
+            ),
+          ),
           child: Container(
             padding: EdgeInsets.all(8),
             child: Column(
@@ -76,8 +84,12 @@ class Dashboard extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () =>
-              Navigator.pushNamed(context, "/aluno/simulado/simulado-ativo"),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SimuladoAtivoPage(simuladoId: 3),
+            ),
+          ),
           child: Container(
             padding: EdgeInsets.all(8),
             child: Column(
@@ -102,8 +114,12 @@ class Dashboard extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () =>
-              Navigator.pushNamed(context, "/aluno/simulado/simulado-ativo"),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SimuladoAtivoPage(simuladoId: 4),
+            ),
+          ),
           child: Container(
             padding: EdgeInsets.all(8),
             child: Column(
@@ -115,7 +131,7 @@ class Dashboard extends StatelessWidget {
                   color: Colors.white,
                 ),
                 Text(
-                  "CFP",
+                  "AAI",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 25,

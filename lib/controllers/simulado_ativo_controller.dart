@@ -1,17 +1,10 @@
-import 'dart:convert';
-import 'dart:math';
-
 // import 'package:formula_bancaria_app/models/questao_ativa.dart';
 // import 'package:formula_bancaria_app/models/question.dart';
-import 'package:formula_bancaria_app/models/auth.dart';
 import 'package:formula_bancaria_app/models/simulado_gerado.dart';
 import 'package:formula_bancaria_app/models/simulado_respondido.dart';
 import 'package:formula_bancaria_app/models/usuario_logado.dart';
-import 'package:formula_bancaria_app/services/base_service.dart';
-import 'package:formula_bancaria_app/services/simulado_respondido_service.dart';
 // import 'package:formula_bancaria_app/services/quiz_api.dart';
 import 'package:formula_bancaria_app/services/simulado_service.dart';
-import 'package:http/http.dart';
 
 class SimuladoAtivoController {
   SimuladoGerado _simuladoGerado;
@@ -20,23 +13,26 @@ class SimuladoAtivoController {
   int _questaoIndex = 0;
   int hitNumber = 0;
 
-  int questionsNumber;
+  int questionsNumber = 0;
   QuestaoSimuladoGerado question;
   String nomeSimulado;
 
-  Future<void> initialize() async {
-    int simuladoId = 1;
+  Future<void> initialize(int simuladoId) async {
+    //int simuladoId = 1;
     int usuarioId = UsuarioLogado.getUser().id;
     _simuladoGerado = await gerarSimuladoParaResponder(simuladoId);
     _simuladoRespondido = SimuladoRespondido(simuladoId, usuarioId, null);
 
     _questaoIndex = 0;
     hitNumber = 0;
-    _questoesPlanilha = _simuladoGerado.questoes;
 
-    questionsNumber = _questoesPlanilha.length;
-    question = _questoesPlanilha[_questaoIndex];
+    _questoesPlanilha = _simuladoGerado.questoes;
     nomeSimulado = _simuladoGerado.titulo;
+
+    if (_questoesPlanilha.isNotEmpty) {
+      questionsNumber = _questoesPlanilha.length;
+      question = _questoesPlanilha[_questaoIndex];
+    }
 
     print('Número de questões: ${_simuladoGerado.questoes.length}');
   }
@@ -59,6 +55,10 @@ class SimuladoAtivoController {
 
   String getQuestion() {
     return _questoesPlanilha[_questaoIndex].enunciado;
+  }
+
+  String getComentario() {
+    return _questoesPlanilha[_questaoIndex].comentario;
   }
 
   int getQuestionId() {

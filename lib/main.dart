@@ -4,16 +4,9 @@ import 'package:formula_bancaria_app/screens/aluno/dicas_fundador.dart';
 import 'package:formula_bancaria_app/screens/aluno/ebooks_apostilas.dart';
 import 'package:formula_bancaria_app/screens/aluno/formula_expert.dart';
 import 'package:formula_bancaria_app/screens/aluno/loja_virtual.dart';
-import 'package:formula_bancaria_app/screens/aluno/menu.dart';
 import 'package:formula_bancaria_app/screens/aluno/mude_vida.dart';
 import 'package:formula_bancaria_app/screens/aluno/simulado/simulado_ativo.page.dart';
 import 'package:formula_bancaria_app/screens/aluno/simulado/simulado_concluido.dart';
-import 'package:formula_bancaria_app/screens/modulo/formulario.dart';
-import 'package:formula_bancaria_app/screens/modulo/lista.dart';
-import 'package:formula_bancaria_app/screens/questao/formulario.dart';
-import 'package:formula_bancaria_app/screens/questao/lista.dart';
-import 'package:formula_bancaria_app/screens/simulado/formulario.dart';
-import 'package:formula_bancaria_app/screens/simulado/lista.dart';
 import 'package:formula_bancaria_app/screens/usuario/cadastro_sucesso.dart';
 import 'package:formula_bancaria_app/screens/usuario/cadastro_usuario.dart';
 import 'package:formula_bancaria_app/screens/usuario/esqueceu_senha.dart';
@@ -92,7 +85,7 @@ class FormulaBancariaAPP extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => FormularioLogin(),
-          SimuladoAtivoPage.routeName: (context) => SimuladoAtivoPage(),
+          //SimuladoAtivoPage.routeName: (context) => SimuladoAtivoPage(),
           SimuladoConcluido.routeName: (context) => SimuladoConcluido(),
           Dashboard.routeName: (context) => Dashboard(),
           EsqueceuSenha.routeName: (context) => EsqueceuSenha(),

@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 
 // TODO estudar melhor abordagem para criar Header
 class Header {
-  AppBar get() {
+  AppBar get({Widget leading}) {
     return AppBar(
       backgroundColor: Color(0xFF2A2F52),
-      leading: Container(),
+      leading: leading == null ? Container() : leading,
       title: Container(
+        alignment: Alignment.center,
         child: Image.asset(
           'assets/images/logo/logo-horizontal-branca.png',
           height: 40,

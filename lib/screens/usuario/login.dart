@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:formula_bancaria_app/components/logo.dart';
 import 'package:formula_bancaria_app/models/usuario.dart';
+import 'package:formula_bancaria_app/models/usuario_logado.dart';
 import 'package:formula_bancaria_app/screens/usuario/cadastro_usuario.dart';
 import 'package:formula_bancaria_app/screens/usuario/esqueceu_senha.dart';
 import 'package:formula_bancaria_app/services/api.dart';

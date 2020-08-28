@@ -64,18 +64,37 @@ class AlertaFullScreen extends StatelessWidget {
     // different page that already accounts for this padding.
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Color(0xFF2A2F52),
           title: Text("Comentário"),
         ),
         body: SafeArea(
           child: Container(
-            padding: EdgeInsets.all(20),
-            child: Text(
-              this._mensagem,
-              style: TextStyle(
-                fontSize: 22,
-              ),
-            ),
-          ),
+              padding: EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  Center(
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      margin: EdgeInsets.only(bottom: 25),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Color(0xFF2A2F52),
+                      ),
+                      child: Icon(
+                        Icons.comment,
+                        color: Colors.white,
+                        size: 40,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    this._mensagem,
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
+              )),
         ));
   }
 }

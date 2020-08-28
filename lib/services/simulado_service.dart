@@ -17,10 +17,11 @@ class SimuladoService extends BaseService {
         headers: {HttpHeaders.authorizationHeader: 'Bearer ' + token});
 
     print(response.statusCode);
-    print(response.body);
+    print(utf8.decode(response.bodyBytes));
 
     if (response.statusCode == 200) {
-      return SimuladoGerado.fromJson(json.decode(response.body));
+      return SimuladoGerado.fromJson(
+          json.decode(utf8.decode(response.bodyBytes)));
     } else {
       throw Exception('Erro ao gerar simulado');
     }
