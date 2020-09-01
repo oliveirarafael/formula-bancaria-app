@@ -3,6 +3,7 @@ import 'package:formula_bancaria_app/screens/aluno/aulas_particulares.dart';
 import 'package:formula_bancaria_app/screens/aluno/dicas_fundador.dart';
 import 'package:formula_bancaria_app/screens/aluno/formula_expert.dart';
 import 'package:formula_bancaria_app/screens/aluno/loja_virtual.dart';
+import 'package:formula_bancaria_app/screens/dashboard/dashboard.dart';
 
 import '../screens/aluno/estatisticas.dart';
 
@@ -26,6 +27,7 @@ class Footer extends StatelessWidget {
           ),
           IconButton(
             icon: Image.asset("assets/icons/circulo-formula.png"),
+            onPressed: () => Navigator.pushNamed(context, Dashboard.routeName),
           ),
           IconButton(
             icon: Image.asset("assets/icons/cart.png"),

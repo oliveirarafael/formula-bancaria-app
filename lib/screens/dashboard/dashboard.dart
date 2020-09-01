@@ -32,25 +32,7 @@ class Dashboard extends StatelessWidget {
           ),
           child: Container(
             padding: EdgeInsets.all(8),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Icon(
-                  Icons.book,
-                  size: 50,
-                  color: Colors.white,
-                ),
-                Text(
-                  "CPA 10",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            color: Colors.blue[100],
+            child: Image.asset("assets/icons/cpa-10.png"),
           ),
         ),
         GestureDetector(
@@ -62,25 +44,7 @@ class Dashboard extends StatelessWidget {
           ),
           child: Container(
             padding: EdgeInsets.all(8),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Icon(
-                  Icons.book,
-                  size: 50,
-                  color: Colors.white,
-                ),
-                Text(
-                  "CPA 20",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            color: Colors.blue[200],
+            child: Image.asset("assets/icons/cpa-20.png"),
           ),
         ),
         GestureDetector(
@@ -92,25 +56,7 @@ class Dashboard extends StatelessWidget {
           ),
           child: Container(
             padding: EdgeInsets.all(8),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Icon(
-                  Icons.book,
-                  size: 50,
-                  color: Colors.white,
-                ),
-                Text(
-                  "CEA",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            color: Colors.blue[300],
+            child: Image.asset("assets/icons/cea.png"),
           ),
         ),
         GestureDetector(
@@ -122,25 +68,7 @@ class Dashboard extends StatelessWidget {
           ),
           child: Container(
             padding: EdgeInsets.all(8),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Icon(
-                  Icons.book,
-                  size: 50,
-                  color: Colors.white,
-                ),
-                Text(
-                  "AAI",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            color: Colors.blue[400],
+            child: Image.asset("assets/icons/aai.png"),
           ),
         ),
       ],

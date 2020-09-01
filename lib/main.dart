@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:formula_bancaria_app/screens/aluno/aulas_particulares.dart';
+import 'package:formula_bancaria_app/screens/aluno/cursos_presenciais.dart';
 import 'package:formula_bancaria_app/screens/aluno/dicas_fundador.dart';
 import 'package:formula_bancaria_app/screens/aluno/ebooks_apostilas.dart';
 import 'package:formula_bancaria_app/screens/aluno/formula_expert.dart';
@@ -99,6 +100,7 @@ class FormulaBancariaAPP extends StatelessWidget {
           LojaVirtual.routeName: (context) => LojaVirtual(),
           MudeVida.routeName: (context) => MudeVida(),
           Estatistica.routeName: (context) => Estatistica(),
+          CursosPresenciais.routeName: (context) => CursosPresenciais(),
         },
         //theme: basicTheme,
         debugShowCheckedModeBanner: false);

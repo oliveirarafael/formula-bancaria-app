@@ -1,11 +1,10 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:formula_bancaria_app/components/cabecalho.dart';
 import 'package:formula_bancaria_app/components/centered_circular_progress.dart';
 import 'package:formula_bancaria_app/components/centered_message.dart';
-import 'package:formula_bancaria_app/components/rodape.dart';
 import 'package:formula_bancaria_app/controllers/estatistica.controller.dart';
 import 'package:formula_bancaria_app/models/simulado_respondido_estatistica.dart';
+import 'package:formula_bancaria_app/screens/dashboard/dashboard.dart';
 import 'package:intl/intl.dart';
 
 import '../../components/footer.dart';
@@ -86,7 +85,13 @@ class _EstatisticaState extends State<Estatistica> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Header().get(),
+      appBar: Header().get(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () =>
+              Navigator.popAndPushNamed(context, Dashboard.routeName),
+        ),
+      ),
       body: SafeArea(
         child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 1.0),

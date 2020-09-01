@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:formula_bancaria_app/components/footer.dart';
 import 'package:formula_bancaria_app/components/header.dart';
+import 'package:formula_bancaria_app/screens/dashboard/dashboard.dart';
 
 class DicasFundador extends StatelessWidget {
   static const routeName = '/alunos/dicas-fundador';
@@ -8,7 +9,13 @@ class DicasFundador extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Header().get(),
+      appBar: Header().get(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () =>
+              Navigator.popAndPushNamed(context, Dashboard.routeName),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

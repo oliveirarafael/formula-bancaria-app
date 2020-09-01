@@ -3,6 +3,7 @@ import 'package:formula_bancaria_app/components/circle_image.dart';
 import 'package:formula_bancaria_app/components/circle_link.dart';
 import 'package:formula_bancaria_app/components/footer.dart';
 import 'package:formula_bancaria_app/components/header.dart';
+import 'package:formula_bancaria_app/screens/aluno/loja_virtual.dart';
 
 class EbooksApostilas extends StatelessWidget {
   static const routeName = '/alunos/ebooks';
@@ -10,7 +11,13 @@ class EbooksApostilas extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Header().get(),
+      appBar: Header().get(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () =>
+              Navigator.popAndPushNamed(context, LojaVirtual.routeName),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

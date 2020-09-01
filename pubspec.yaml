@@ -87,6 +87,13 @@ flutter:
      - assets/icons/reset-password-icon.png
      - assets/icons/add-user.png
      - assets/icons/circulo-formula.png
+     - assets/icons/cpa-10.png
+     - assets/icons/cpa-20.png
+     - assets/icons/cea.png
+     - assets/icons/aai.png
+     - assets/icons/cfp.png
+     - assets/icons/circulo-formula.png
+     - assets/icons/estudar-questoes.png
 
      - assets/fonts/CenturyGothic.ttf
      - assets/fonts/FranklinGothicBook.ttf

@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:formula_bancaria_app/components/circle_image_link.dart';
 import 'package:formula_bancaria_app/components/footer.dart';
 import 'package:formula_bancaria_app/components/header.dart';
-import 'package:formula_bancaria_app/screens/aluno/aulas_particulares.dart';
+import 'package:formula_bancaria_app/screens/aluno/cursos_presenciais.dart';
 import 'package:formula_bancaria_app/screens/aluno/ebooks_apostilas.dart';
 import 'package:formula_bancaria_app/screens/aluno/mude_vida.dart';
+import 'package:formula_bancaria_app/screens/dashboard/dashboard.dart';
 // import 'package:formula_bancaria_app/components/circle_image.dart';
 
 class LojaVirtual extends StatelessWidget {
@@ -13,7 +14,13 @@ class LojaVirtual extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Header().get(),
+      appBar: Header().get(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () =>
+              Navigator.popAndPushNamed(context, Dashboard.routeName),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -43,9 +50,9 @@ class LojaVirtual extends StatelessWidget {
                             CircleImageLink(
                                 assetImage: "assets/images/pessoa.png",
                                 height: 55.0,
-                                link: ""),
+                                link: CursosPresenciais.routeName),
                             Text(
-                              "Cursos\npresenciais",
+                              "Cursos\nPresenciais",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 20),
@@ -60,7 +67,7 @@ class LojaVirtual extends StatelessWidget {
                                 height: 55.0,
                                 link: ""),
                             Text(
-                              "Cursos\nonline",
+                              "Cursos\nOnline",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 20),
