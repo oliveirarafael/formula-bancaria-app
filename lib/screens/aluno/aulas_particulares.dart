@@ -1,6 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:formula_bancaria_app/components/footer.dart';
+import 'package:formula_bancaria_app/components/header.dart';
+import 'package:formula_bancaria_app/screens/dashboard/dashboard.dart';
 
 class AulasParticulares extends StatefulWidget {
   static const routeName = '/alunos/aulas-particulares';
@@ -57,8 +60,12 @@ class _AulasParticularesState extends State<AulasParticulares> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Aulas Particulares"),
+      appBar: Header().get(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () =>
+              Navigator.popAndPushNamed(context, Dashboard.routeName),
+        ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -187,6 +194,7 @@ class _AulasParticularesState extends State<AulasParticulares> {
               ])),
         ),
       ),
+      bottomNavigationBar: Footer(),
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:formula_bancaria_app/components/circle_image_link.dart';
 import 'package:formula_bancaria_app/components/footer.dart';
 import 'package:formula_bancaria_app/components/header.dart';
+import 'package:formula_bancaria_app/screens/aluno/cursos_online.dart';
 import 'package:formula_bancaria_app/screens/aluno/cursos_presenciais.dart';
 import 'package:formula_bancaria_app/screens/aluno/ebooks_apostilas.dart';
 import 'package:formula_bancaria_app/screens/aluno/mude_vida.dart';
@@ -65,7 +66,7 @@ class LojaVirtual extends StatelessWidget {
                             CircleImageLink(
                                 assetImage: "assets/images/capelo.png",
                                 height: 55.0,
-                                link: ""),
+                                link: CursosOnline.routeName),
                             Text(
                               "Cursos\nOnline",
                               textAlign: TextAlign.center,

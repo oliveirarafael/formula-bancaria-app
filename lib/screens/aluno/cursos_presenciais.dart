@@ -4,8 +4,16 @@ import 'package:formula_bancaria_app/components/footer.dart';
 import 'package:formula_bancaria_app/components/header.dart';
 import 'package:formula_bancaria_app/screens/aluno/loja_virtual.dart';
 
-class CursosPresenciais extends StatelessWidget {
+class CursosPresenciais extends StatefulWidget {
   static const routeName = '/alunos/cursos-presenciais';
+
+  @override
+  _CursosPresenciaisState createState() => _CursosPresenciaisState();
+}
+
+class _CursosPresenciaisState extends State<CursosPresenciais> {
+  List<String> _cursos = ['Selecione', 'CPA 10', 'CPA 20', 'CEA', 'AAI', 'CFP'];
+  String _cursoSelecionado = '';
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +68,21 @@ class CursosPresenciais extends StatelessWidget {
               ),
             ),
           ),
+          DropdownButton<String>(
+            items: _cursos.map((String dropDownStringItem) {
+              return DropdownMenuItem<String>(
+                value: dropDownStringItem,
+                child: Text(dropDownStringItem),
+              );
+            }).toList(),
+            onChanged: (String novoItemSelecionado) {
+              _dropDownItemSelected(novoItemSelecionado);
+              setState(() {
+                this._cursoSelecionado = novoItemSelecionado;
+              });
+            },
+            value: _cursoSelecionado,
+          ),
           Padding(
             padding: EdgeInsets.only(left: 10, right: 10),
             child: Text(
@@ -104,5 +127,11 @@ class CursosPresenciais extends StatelessWidget {
       ),
       bottomNavigationBar: Footer(),
     );
+  }
+
+  void _dropDownItemSelected(String novoItem) {
+    setState(() {
+      this._cursoSelecionado = novoItem;
+    });
   }
 }

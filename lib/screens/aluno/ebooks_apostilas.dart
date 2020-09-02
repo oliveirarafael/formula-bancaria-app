@@ -45,33 +45,48 @@ class EbooksApostilas extends StatelessWidget {
                       ),
                       SizedBox(height: 20.0),
                       Center(
-                        child: Row(children: <Widget>[
-                          CircleLink(
-                            buttonText: "CPA 10",
-                            height: 35.0,
-                            link: "",
-                          ),
-                          CircleLink(
-                            buttonText: "CPA 20",
-                            height: 35.0,
-                            link: "",
-                          ),
-                          CircleLink(
-                            buttonText: "CEA",
-                            height: 35.0,
-                            link: "",
-                          ),
-                        ]),
+                        child: Row(
+                          children: <Widget>[
+                            CircleLink(
+                              buttonText: "CPA 10",
+                              height: 35.0,
+                              link: "",
+                            ),
+                            CircleLink(
+                              buttonText: "CPA 20",
+                              height: 35.0,
+                              link: "",
+                            ),
+                            CircleLink(
+                              buttonText: "CEA",
+                              height: 35.0,
+                              link: "",
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(height: 20.0),
                       Center(
-                          child: Row(children: <Widget>[
-                        CircleLink(
-                            buttonText: "CPA 10", height: 35.0, link: ""),
-                        CircleLink(
-                            buttonText: "CPA 20", height: 35.0, link: ""),
-                        CircleLink(buttonText: "CEA", height: 35.0, link: "")
-                      ])),
+                        child: Row(
+                          children: <Widget>[
+                            CircleLink(
+                              buttonText: "AAI",
+                              height: 35.0,
+                              link: "",
+                            ),
+                            CircleLink(
+                              buttonText: "PQO",
+                              height: 35.0,
+                              link: "",
+                            ),
+                            CircleLink(
+                              buttonText: "CFP®",
+                              height: 35.0,
+                              link: "",
+                            ),
+                          ],
+                        ),
+                      ),
                       SizedBox(height: 40.0),
                       Center(
                           child: Row(

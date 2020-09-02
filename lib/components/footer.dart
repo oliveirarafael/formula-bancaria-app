@@ -23,7 +23,7 @@ class Footer extends StatelessWidget {
           IconButton(
             icon: Image.asset("assets/icons/user.png"),
             onPressed: () =>
-                Navigator.pushNamed(context, FormulaExpert.routeName),
+                Navigator.pushNamed(context, AulasParticulares.routeName),
           ),
           IconButton(
             icon: Image.asset("assets/icons/circulo-formula.png"),
