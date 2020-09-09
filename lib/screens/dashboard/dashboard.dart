@@ -71,6 +71,25 @@ class Dashboard extends StatelessWidget {
             child: Image.asset("assets/icons/aai.png"),
           ),
         ),
+        GestureDetector(
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SimuladoAtivoPage(simuladoId: 5),
+            ),
+          ),
+          child: Container(
+            padding: EdgeInsets.all(8),
+            child: Image.asset("assets/icons/cfp.png"),
+          ),
+        ),
+        GestureDetector(
+          onTap: () => print("Estudar questões"),
+          child: Container(
+            padding: EdgeInsets.all(8),
+            child: Image.asset("assets/icons/estudar-questoes.png"),
+          ),
+        ),
       ],
     );
   }

@@ -18,6 +18,7 @@ class SimuladoService extends BaseService {
 
     print(response.statusCode);
     print(utf8.decode(response.bodyBytes));
+    print(response.body);
 
     if (response.statusCode == 200) {
       return SimuladoGerado.fromJson(
