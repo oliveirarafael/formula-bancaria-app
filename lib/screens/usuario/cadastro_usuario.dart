@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:formula_bancaria_app/components/alerta/alerta.dart';
+import 'package:formula_bancaria_app/components/header.dart';
 import 'package:formula_bancaria_app/models/usuario.dart';
 import 'package:formula_bancaria_app/screens/usuario/cadastro_sucesso.dart';
 import 'package:formula_bancaria_app/services/api.dart';
@@ -17,8 +18,12 @@ class CadastroUsuario extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Cadastre-se"),
+      appBar: Header().get(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.popAndPushNamed(context, "/"),
+        ),
+        actions: Container(),
       ),
       body: Container(
         color: Colors.white,
@@ -157,7 +162,7 @@ class CadastroUsuario extends StatelessWidget {
                   height: 60.0,
                   width: double.infinity,
                   child: RaisedButton(
-                    color: Colors.blue[300],
+                    color: Color(0xFF2A2F52),
                     onPressed: () {
                       var currentState = this._cadastroFormKey.currentState;
                       if (currentState.validate()) {

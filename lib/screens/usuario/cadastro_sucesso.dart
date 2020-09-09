@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:formula_bancaria_app/screens/usuario/login.dart';
+import 'package:formula_bancaria_app/components/header.dart';
 
 class CadastroSucesso extends StatelessWidget {
   static const routeName = '/usuario/cadastro/sucesso';
@@ -10,12 +10,12 @@ class CadastroSucesso extends StatelessWidget {
     this._argumentos = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Cadastrado com sucesso"),
+      appBar: Header().get(
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pushNamed(context, "/"),
+          onPressed: () => Navigator.popAndPushNamed(context, "/"),
         ),
+        actions: Container(),
       ),
       body: Container(
         color: Colors.white,
